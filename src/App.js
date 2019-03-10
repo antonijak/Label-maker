@@ -13,17 +13,9 @@ class App extends Component {
     if (name === 'parts') {
       let newArr = [];
       for (let i = 0; i < value; i++) {
-        newArr.push({});
+        newArr.push({ i });
       }
       this.setState({ parts: newArr });
-    } else if (name.startsWith('ingredients')) {
-      let index = name.slice(-1);
-      this.setState({
-        parts: [
-          ...this.state.parts,
-          (this.state.parts.index = { ingredients: value })
-        ]
-      });
     }
   };
   render() {
@@ -57,7 +49,11 @@ class App extends Component {
           </select>
           {parts &&
             parts.map((item, i) => (
-              <IngredientsSelector parts={parts} number={i} />
+              <IngredientsSelector
+                parts={parts}
+                number={i}
+                handleChange={this.handleChange}
+              />
             ))}
         </form>
       </div>
