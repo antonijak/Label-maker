@@ -1,33 +1,59 @@
 import React, { Component } from 'react';
+import Ingredient from './Ingredient';
 
 class IngredientsSelector extends Component {
   state = {
     title: '',
     search: '',
     defaultIngredients: ['chocolate', 'cocoa powder', 'sugar'],
-    filteredIngredients: ['chocolate', 'cocoa powder', 'sugar']
+    filteredIngredients: ['chocolate', 'cocoa powder', 'sugar'],
+    addedIngredients: []
   };
+
   handleChange = e => {
     const value = e.target.value;
     const name = e.target.name;
 
-    this.setState({ [name]: value });
     if (name === 'search') {
-      this.filterIngredients();
+      const filtered = this.state.defaultIngredients.filter(item =>
+        item.startsWith(value)
+      );
+      this.setState({ filteredIngredients: filtered });
     }
+    this.setState({ [name]: value });
   };
 
-  filterIngredients = () => {
-    const filtered = this.state.defaultIngredients.filter(item =>
-      item.includes(this.state.search)
+  addIngredient = e => {
+    e.preventDefault();
+    const ingredient = e.target.value;
+    const reducedFilteredIngredients = this.state.filteredIngredients.filter(
+      item => item !== ingredient
     );
-    this.setState({ filteredIngredients: filtered });
+    this.setState({
+      addedIngredients: [...this.state.addedIngredients, ingredient],
+      filteredIngredients: reducedFilteredIngredients
+    });
   };
+
+  removeIngredient = e => {
+    e.preventDefault();
+    const ingredient = e.target.value;
+    const reducedAddedIngredients = this.state.addedIngredients.filter(
+      item => item !== ingredient
+    );
+    this.setState({
+      addedIngredients: reducedAddedIngredients,
+      filteredIngredients: [...this.state.filteredIngredients, ingredient]
+    });
+  };
+
   render() {
     let { parts, number, handleChange } = this.props;
-    let { title, defaultIngredients, filteredIngredients, search } = this.state;
+    let { title, filteredIngredients, addedIngredients } = this.state;
     return (
-      <div style={{ border: '1px solid black' }}>
+      <div
+        style={{ border: '1px solid black', padding: '1rem', margin: '2rem' }}
+      >
         <label htmlFor="title">
           Title
           <input
@@ -39,14 +65,32 @@ class IngredientsSelector extends Component {
         </label>
         <h3>Ingredients:</h3>
         <input
-          value={search}
           name="search"
           onChange={this.handleChange}
           placeholder="Search"
         />
         <div>
-          {filteredIngredients.map(item => (
-            <span>{item}</span>
+          {filteredIngredients.length > 0 ? (
+            filteredIngredients.map(item => (
+              <Ingredient text={item} action={this.addIngredient} />
+            ))
+          ) : (
+            <span>No results</span>
+          )}
+        </div>
+        <div
+          style={{
+            border: '1px solid lightgray',
+            padding: '1rem',
+            margin: '2rem'
+          }}
+        >
+          {addedIngredients.map(item => (
+            <Ingredient
+              removable={true}
+              text={item}
+              action={this.removeIngredient}
+            />
           ))}
         </div>
       </div>
