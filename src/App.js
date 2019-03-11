@@ -5,7 +5,8 @@ import './App.scss';
 class App extends Component {
   state = {
     parts: [1],
-    title: ''
+    title: '',
+    ingredients: {}
   };
   handleChange = e => {
     const name = e.target.name;
@@ -17,6 +18,13 @@ class App extends Component {
       }
       this.setState({ parts: newArr });
     }
+  };
+
+  addToLabel = (e, number, items) => {
+    e.preventDefault();
+    this.setState({
+      ingredients: { ...this.state.ingredients, [number]: items }
+    });
   };
   render() {
     let { parts, title } = this.state;
@@ -53,6 +61,7 @@ class App extends Component {
                 parts={parts}
                 number={i}
                 handleChange={this.handleChange}
+                addToLabel={this.addToLabel}
               />
             ))}
         </form>

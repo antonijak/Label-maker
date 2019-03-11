@@ -5,7 +5,20 @@ class IngredientsSelector extends Component {
   state = {
     title: '',
     search: '',
-    defaultIngredients: ['chocolate', 'cocoa powder', 'sugar'],
+    defaultIngredients: [
+      'cocoa butter',
+      'cocoa powder',
+      'sugar',
+      'cocoa liquor',
+      'palm oil',
+      'invert sugar',
+      'milk',
+      'cream',
+      'butter',
+      'peanuts',
+      'strawberry',
+      'cranberry'
+    ],
     filteredIngredients: [],
     addedIngredients: []
   };
@@ -51,7 +64,7 @@ class IngredientsSelector extends Component {
   };
 
   render() {
-    let { parts, number, handleChange } = this.props;
+    let { parts, number, addToLabel } = this.props;
     let { title, filteredIngredients, addedIngredients } = this.state;
     return (
       <div
@@ -96,6 +109,9 @@ class IngredientsSelector extends Component {
             />
           ))}
         </div>
+        <button onClick={e => addToLabel(e, number, addedIngredients)}>
+          Finish
+        </button>
       </div>
     );
   }
