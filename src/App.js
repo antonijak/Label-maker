@@ -4,7 +4,7 @@ import './App.scss';
 
 class App extends Component {
   state = {
-    parts: [],
+    parts: [1],
     title: ''
   };
   handleChange = e => {
@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     let { parts, title } = this.state;
     return (
-      <div className="App">
+      <div className="App" style={{ width: '80%', margin: '0 auto' }}>
         <h1>Label Maker</h1>
         <form>
           <label htmlFor="label-title">

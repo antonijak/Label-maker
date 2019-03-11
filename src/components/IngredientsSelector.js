@@ -6,8 +6,11 @@ class IngredientsSelector extends Component {
     title: '',
     search: '',
     defaultIngredients: ['chocolate', 'cocoa powder', 'sugar'],
-    filteredIngredients: ['chocolate', 'cocoa powder', 'sugar'],
+    filteredIngredients: [],
     addedIngredients: []
+  };
+  componentDidMount = () => {
+    this.setState({ filteredIngredients: this.state.defaultIngredients });
   };
 
   handleChange = e => {
@@ -15,7 +18,7 @@ class IngredientsSelector extends Component {
     const name = e.target.name;
 
     if (name === 'search') {
-      const filtered = this.state.defaultIngredients.filter(item =>
+      const filtered = this.state.filteredIngredients.filter(item =>
         item.startsWith(value)
       );
       this.setState({ filteredIngredients: filtered });
