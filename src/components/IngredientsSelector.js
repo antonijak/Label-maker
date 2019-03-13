@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import Ingredient from './Ingredient';
+import SortableList from './SortableList';
+import Sortable from './Sortable';
+import { arrayMove } from 'react-sortable-hoc';
+import SortableComponent from './Sortable';
 
 class IngredientsSelector extends Component {
   state = {
@@ -24,6 +28,16 @@ class IngredientsSelector extends Component {
   };
   componentDidMount = () => {
     this.setState({ filteredIngredients: this.state.defaultIngredients });
+  };
+
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ addedIngredients }) => ({
+      addedIngredients: arrayMove(
+        this.state.addedIngredients,
+        oldIndex,
+        newIndex
+      )
+    }));
   };
 
   handleChange = e => {
@@ -66,6 +80,7 @@ class IngredientsSelector extends Component {
   render() {
     let { parts, number, addToLabel } = this.props;
     let { title, filteredIngredients, addedIngredients } = this.state;
+
     return (
       <div
         style={{ border: '1px solid black', padding: '1rem', margin: '2rem' }}
@@ -94,7 +109,7 @@ class IngredientsSelector extends Component {
             <span>No results</span>
           )}
         </div>
-        <div
+        {/* <ul
           style={{
             border: '1px solid lightgray',
             padding: '1rem',
@@ -103,12 +118,18 @@ class IngredientsSelector extends Component {
         >
           {addedIngredients.map(item => (
             <Ingredient
-              removable={true}
+              removable={true}  
               text={item}
               action={this.removeIngredient}
             />
           ))}
-        </div>
+        </ul> */}
+        <SortableList
+          items={addedIngredients}
+          removeIngredient={this.removeIngredient}
+          onSortEnd={this.onSortEnd}
+        />
+        <SortableComponent items={this.state.addedIngredients} />
         <button onClick={e => addToLabel(e, number, addedIngredients)}>
           Finish
         </button>
