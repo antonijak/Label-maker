@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Ingredient from './Ingredient';
-import SortableList from './SortableList';
-import Sortable from './Sortable';
 import { arrayMove } from 'react-sortable-hoc';
-import SortableComponent from './Sortable';
+import SortableComponent from './SortableComponent';
 
 class IngredientsSelector extends Component {
   state = {
@@ -65,9 +63,8 @@ class IngredientsSelector extends Component {
     });
   };
 
-  removeIngredient = e => {
+  removeIngredient = (e, ingredient) => {
     e.preventDefault();
-    const ingredient = e.target.value;
     const reducedAddedIngredients = this.state.addedIngredients.filter(
       item => item !== ingredient
     );
@@ -77,8 +74,14 @@ class IngredientsSelector extends Component {
     });
   };
 
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ addedIngredients }) => ({
+      addedIngredients: arrayMove(addedIngredients, oldIndex, newIndex)
+    }));
+  };
+
   render() {
-    let { parts, number, addToLabel } = this.props;
+    let { number, addToLabel } = this.props;
     let { title, filteredIngredients, addedIngredients } = this.state;
 
     return (
@@ -102,34 +105,23 @@ class IngredientsSelector extends Component {
         />
         <div>
           {filteredIngredients.length > 0 ? (
-            filteredIngredients.map(item => (
-              <Ingredient text={item} action={this.addIngredient} />
+            filteredIngredients.map((item, i) => (
+              <Ingredient
+                key={'item' + i}
+                text={item}
+                action={this.addIngredient}
+              />
             ))
           ) : (
             <span>No results</span>
           )}
         </div>
-        {/* <ul
-          style={{
-            border: '1px solid lightgray',
-            padding: '1rem',
-            margin: '2rem'
-          }}
-        >
-          {addedIngredients.map(item => (
-            <Ingredient
-              removable={true}  
-              text={item}
-              action={this.removeIngredient}
-            />
-          ))}
-        </ul> */}
-        <SortableList
-          items={addedIngredients}
+
+        <SortableComponent
+          items={this.state.addedIngredients}
           removeIngredient={this.removeIngredient}
           onSortEnd={this.onSortEnd}
         />
-        <SortableComponent items={this.state.addedIngredients} />
         <button onClick={e => addToLabel(e, number, addedIngredients)}>
           Finish
         </button>

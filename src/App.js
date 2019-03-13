@@ -58,6 +58,7 @@ class App extends Component {
           {parts &&
             parts.map((item, i) => (
               <IngredientsSelector
+                key={'item' + i}
                 parts={parts}
                 number={i}
                 handleChange={this.handleChange}
