@@ -8,13 +8,14 @@ import {
 
 const SortableItem = SortableElement(({ value, deletex }) => (
   <li>
+    {value}
     <button
       onClick={e => {
         e.preventDefault();
         deletex(value);
       }}
     >
-      {value}
+      x
     </button>
   </li>
 ));
