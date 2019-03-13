@@ -29,9 +29,9 @@ class App extends Component {
   render() {
     let { parts, title } = this.state;
     return (
-      <div className="App" style={{ width: '80%', margin: '0 auto' }}>
+      <div className="App">
         <h1>Label Maker</h1>
-        <form>
+        <form className="label">
           <label htmlFor="label-title">
             Title
             <input
@@ -55,16 +55,18 @@ class App extends Component {
             <option>3</option>
             <option>4</option>
           </select>
-          {parts &&
-            parts.map((item, i) => (
-              <IngredientsSelector
-                key={'item' + i}
-                parts={parts}
-                number={i}
-                handleChange={this.handleChange}
-                addToLabel={this.addToLabel}
-              />
-            ))}
+          <div className="label-parts">
+            {parts &&
+              parts.map((item, i) => (
+                <IngredientsSelector
+                  key={'item' + i}
+                  parts={parts}
+                  number={i}
+                  handleChange={this.handleChange}
+                  addToLabel={this.addToLabel}
+                />
+              ))}
+          </div>
         </form>
       </div>
     );

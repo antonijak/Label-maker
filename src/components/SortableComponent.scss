@@ -1,0 +1,12 @@
+.ingredients-selector__added {
+  width: 45%;
+  border: 1px dotted black;
+  padding: 1rem;
+  list-style-type: none;
+  margin: 0;
+
+  &__ingredient {
+    margin: 0.5rem 0;
+    width: 100%;
+  }
+}

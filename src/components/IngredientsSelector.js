@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Ingredient from './Ingredient';
 import { arrayMove } from 'react-sortable-hoc';
 import SortableComponent from './SortableComponent';
+import './IngredientsSelector.scss';
 
 class IngredientsSelector extends Component {
   state = {
@@ -19,7 +20,14 @@ class IngredientsSelector extends Component {
       'butter',
       'peanuts',
       'strawberry',
-      'cranberry'
+      'cranberry',
+      'apple',
+      'banana',
+      'wallnuts',
+      'hazelnuts',
+      'almonds',
+      'honey',
+      'soy-lecithin'
     ],
     filteredIngredients: [],
     addedIngredients: []
@@ -85,9 +93,7 @@ class IngredientsSelector extends Component {
     let { title, filteredIngredients, addedIngredients } = this.state;
 
     return (
-      <div
-        style={{ border: '1px solid black', padding: '1rem', margin: '2rem' }}
-      >
+      <div className="ingredients-selector">
         <label htmlFor="title">
           Title
           <input
@@ -97,31 +103,35 @@ class IngredientsSelector extends Component {
             onChange={this.handleChange}
           />
         </label>
-        <h3>Ingredients:</h3>
-        <input
-          name="search"
-          onChange={this.handleChange}
-          placeholder="Search"
-        />
-        <div>
-          {filteredIngredients.length > 0 ? (
-            filteredIngredients.map((item, i) => (
-              <Ingredient
-                key={'item' + i}
-                text={item}
-                action={this.addIngredient}
-              />
-            ))
-          ) : (
-            <span>No results</span>
-          )}
-        </div>
+        <div className="ingredients-selector__picker">
+          <h3 className="ingredients-selector__picker__title">Ingredients:</h3>
+          <input
+            name="search"
+            onChange={this.handleChange}
+            placeholder="Search"
+            className="ingredients-selector__picker__search"
+          />
 
-        <SortableComponent
-          items={this.state.addedIngredients}
-          removeIngredient={this.removeIngredient}
-          onSortEnd={this.onSortEnd}
-        />
+          <div className="ingredients-selector__picker__filtered">
+            {filteredIngredients.length > 0 ? (
+              filteredIngredients.map((item, i) => (
+                <Ingredient
+                  key={'item' + i}
+                  text={item}
+                  action={this.addIngredient}
+                />
+              ))
+            ) : (
+              <span>No results</span>
+            )}
+          </div>
+
+          <SortableComponent
+            items={this.state.addedIngredients}
+            removeIngredient={this.removeIngredient}
+            onSortEnd={this.onSortEnd}
+          />
+        </div>
         <button onClick={e => addToLabel(e, number, addedIngredients)}>
           Finish
         </button>

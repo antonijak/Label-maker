@@ -1,0 +1,30 @@
+.ingredients-selector {
+  &__picker {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+    border: 1px solid black;
+    width: 95%;
+    max-width: 27rem;
+
+    &__title {
+      width: 100%;
+    }
+
+    &__search {
+      width: 90%;
+      margin: 0 5%;
+    }
+
+    &__filtered {
+      width: 45%;
+      border: 1px dotted black;
+      margin-right: 9%;
+      padding: 1rem;
+
+      li {
+        list-style-type: none;
+      }
+    }
+  }
+}

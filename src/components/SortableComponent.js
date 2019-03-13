@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import './SortableComponent.scss';
 
 const SortableItem = SortableElement(({ value, removeIngredient }) => (
-  <li>
-    {value}
+  <li className="added-ingredients__ingredient">
     <button
       onClick={e => {
         removeIngredient(e, value);
@@ -11,12 +11,13 @@ const SortableItem = SortableElement(({ value, removeIngredient }) => (
     >
       x
     </button>
+    {value}
   </li>
 ));
 
 const SortableList = SortableContainer(({ items, removeIngredient }) => {
   return (
-    <ul>
+    <ul className="ingredients-selector__added">
       {items.map((value, index) => (
         <SortableItem
           key={`item-${index}`}
