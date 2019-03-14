@@ -1,21 +1,43 @@
-* {
-  box-sizing: border-box;
-}
+@import 'index.scss';
 
 .App {
-  width: 90%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
+  width: 95%;
 
-.label {
-}
+  .main-title {
+    padding: 1rem;
+  }
 
-.label-parts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  background: lightblue;
+  .label {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    &__heading {
+      width: 36rem;
+      display: flex;
+      flex-wrap: wrap;
+
+      &__title {
+        &__input {
+          width: 15rem;
+        }
+      }
+
+      &__description {
+        &__input {
+          width: 30rem;
+        }
+      }
+
+      &__select {
+        select {
+          width: fit-content;
+        }
+      }
+    }
+  }
 }

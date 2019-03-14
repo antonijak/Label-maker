@@ -1,12 +1,37 @@
-.ingredients-selector__added {
-  width: 45%;
+@import '../index.scss';
+
+.label__ingredients__picker__added {
   border: 1px dotted black;
-  padding: 1rem;
+  padding: 0.25rem;
   list-style-type: none;
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
 
   &__ingredient {
-    margin: 0.5rem 0;
-    width: 100%;
+    background: $lightgray;
+    margin: 0.25rem;
+    min-width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.1rem 0.1rem 0.1rem 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+
+    button {
+      border: none;
+      font-size: 1rem;
+      line-height: 0.5rem;
+      background: transparent;
+      height: fit-content;
+      outline: none;
+
+      &:hover {
+        color: red;
+      }
+    }
   }
 }

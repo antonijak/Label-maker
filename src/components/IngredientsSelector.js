@@ -27,7 +27,29 @@ class IngredientsSelector extends Component {
       'hazelnuts',
       'almonds',
       'honey',
-      'soy-lecithin'
+      'soy-lecithin',
+      'brasilian nut',
+      'cashew',
+      'rasins',
+      'peach',
+      'apricot',
+      'black-currant',
+      'red-currant',
+      'blueberry',
+      'blackberry',
+      'raspberry',
+      'elderberry',
+      'pineapple',
+      'caramel',
+      'crockant',
+      'nougat',
+      'brandy',
+      'whiskey',
+      'cherry liquer',
+      'peach liquer',
+      'E100',
+      'E200',
+      'E300'
     ],
     filteredIngredients: [],
     addedIngredients: []
@@ -93,26 +115,42 @@ class IngredientsSelector extends Component {
     let { title, filteredIngredients, addedIngredients } = this.state;
 
     return (
-      <div className="ingredients-selector">
-        <label htmlFor="title">
-          Title
+      <div className="label__ingredients">
+        <label
+          htmlFor="title"
+          className="label__ingredients__title styled-label"
+        >
+          Ingredient title
           <input
             value={title}
             name="title"
             id="title"
             onChange={this.handleChange}
+            className="styled-input"
           />
         </label>
-        <div className="ingredients-selector__picker">
-          <h3 className="ingredients-selector__picker__title">Ingredients:</h3>
-          <input
-            name="search"
-            onChange={this.handleChange}
-            placeholder="Search"
-            className="ingredients-selector__picker__search"
-          />
 
-          <div className="ingredients-selector__picker__filtered">
+        <div className="label__ingredients__search ">
+          <label htmlFor="title">
+            <input
+              name="search"
+              onChange={this.handleChange}
+              placeholder="Search"
+              className="styled-input"
+            />
+          </label>
+          <label htmlFor="title" className="label__ingredients__search ">
+            <input
+              name="search"
+              onChange={this.handleChange}
+              placeholder="Search"
+              className="styled-input"
+            />
+          </label>
+        </div>
+
+        <div className="label__ingredients__picker">
+          <div className="label__ingredients__picker__filtered">
             {filteredIngredients.length > 0 ? (
               filteredIngredients.map((item, i) => (
                 <Ingredient

@@ -1,29 +1,54 @@
-.ingredients-selector {
+@import '../index.scss';
+
+.label__ingredients {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid black;
+  border-radius: 3px;
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+
+  &__search {
+    width: 100%;
+  }
+
   &__picker {
     display: flex;
     flex-wrap: wrap;
-    padding: 1rem;
-    border: 1px solid black;
-    width: 95%;
-    max-width: 27rem;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1rem 0;
 
     &__title {
       width: 100%;
     }
 
-    &__search {
-      width: 90%;
-      margin: 0 5%;
-    }
-
     &__filtered {
-      width: 45%;
-      border: 1px dotted black;
-      margin-right: 9%;
-      padding: 1rem;
+      background: $lightgray;
+      border-radius: 3px;
+      padding: 0.25rem;
+      width: 100%;
+      margin-bottom: 1rem;
 
-      li {
+      span {
         list-style-type: none;
+        margin: 0.25rem;
+
+        button {
+          margin: 0.25rem 0;
+          padding: 0.25rem;
+          font-size: 0.8rem;
+          border-radius: 5px;
+          color: rgb(74, 74, 74);
+          outline: none;
+
+          &:hover {
+            color: black;
+            background: rgb(244, 244, 244);
+          }
+        }
       }
     }
   }

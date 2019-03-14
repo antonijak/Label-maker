@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Ingredient = ({ text, action, removable }) => (
-  <li draggable="true">
+  <span draggable="true">
     {removable ? (
       <span>
         {text}
@@ -14,7 +14,7 @@ const Ingredient = ({ text, action, removable }) => (
         {text}
       </button>
     )}
-  </li>
+  </span>
 );
 
 export default Ingredient;
