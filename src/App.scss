@@ -3,11 +3,11 @@
 .App {
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   width: 90%;
 
-  .label {
-    width: 100%;
+  .form {
+    width: 60%;
     padding: 1rem;
     display: flex;
     flex-direction: column;

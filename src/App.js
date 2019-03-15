@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import IngredientsSelector from './components/IngredientsSelector.js';
 
 import './App.scss';
+import LabelPreview from './components/LabelPreview.js';
 
 class App extends Component {
   state = {
     parts: [1],
     title: '',
+    description: '',
     ingredients: {}
   };
+
   handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
@@ -23,7 +26,7 @@ class App extends Component {
     }
   };
 
-  addToLabel = (e, number, items) => {
+  addToform = (e, number, items) => {
     e.preventDefault();
     this.setState({
       ingredients: { ...this.state.ingredients, [number]: items }
@@ -42,33 +45,35 @@ class App extends Component {
   };
 
   render() {
-    let { parts, title } = this.state;
+    let { parts, title, description } = this.state;
     return (
       <div className="App">
-        <form className="label">
-          <div className="label__heading">
-            <h1 className="label__heading__h1">Label Maker</h1>
+        <form className="form">
+          <div className="form__heading">
+            <h1 className="form__heading__h1">form Maker</h1>
 
             <input
               name="title"
               type="text"
-              id="label-title"
+              id="form-title"
               value={title}
               onChange={this.handleChange}
-              className="label__heading__title"
-              placeholder="Label title"
+              className="form__heading__title"
+              placeholder="form title"
             />
 
             <input
               name="description"
               type="text"
               id="description"
-              className="label__heading__description"
-              placeholder="Label description"
+              className="form__heading__description"
+              placeholder="form description"
+              value={description}
+              onChange={this.handleChange}
             />
           </div>
 
-          <div className="label__parts">
+          <div className="form__parts">
             {parts &&
               parts.map((item, i) => (
                 <IngredientsSelector
@@ -76,13 +81,14 @@ class App extends Component {
                   parts={parts}
                   number={i}
                   handleChange={this.handleChange}
-                  addToLabel={this.addToLabel}
+                  addToform={this.addToform}
                   addParts={this.addParts}
                   parts={parts}
                 />
               ))}
           </div>
         </form>
+        <LabelPreview title={title} description={description} />
       </div>
     );
   }
