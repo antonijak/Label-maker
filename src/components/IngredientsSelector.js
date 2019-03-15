@@ -62,7 +62,9 @@ class IngredientsSelector extends Component {
     ],
     filteredIngredients: [],
     addedIngredients: [],
-    add: false
+    mostUsedIngredients: ['cocoa powder', 'cocoa butter', 'sugar'],
+    add: false,
+    search: ''
   };
   componentDidMount = () => {
     this.setState({ filteredIngredients: this.state.defaultIngredients });
@@ -78,21 +80,25 @@ class IngredientsSelector extends Component {
     }));
   };
 
-  searchIngredients = e => {
-    const value = e.target.value;
-    const filtered = this.state.defaultIngredients
-      .filter(item => item.startsWith(value))
-      .filter(item => !this.state.addedIngredients.includes(item));
-    this.setState({ filteredIngredients: filtered });
-  };
-
   handleChange = e => {
     const value = e.target.value;
     const name = e.target.name;
     e.preventDefault();
 
-    if (name === 'adding') {
-      this.setState({ add: true });
+    if (name === 'search') {
+      const filtered =
+        value === ''
+          ? this.state.mostUsedIngredients.filter(
+              item => !this.state.addedIngredients.includes(item)
+            )
+          : this.state.defaultIngredients
+              .filter(item => item.startsWith(value))
+              .filter(item => !this.state.addedIngredients.includes(item));
+      this.setState({
+        search: value,
+        add: true,
+        filteredIngredients: filtered
+      });
     }
     this.setState({ [name]: value });
   };
@@ -146,50 +152,19 @@ class IngredientsSelector extends Component {
           />
         </label>
 
-        {/* <div className="label__ingredients__search">
+        <div className="label__ingredients__picker">
           <label htmlFor="search">
             <input
               name="search"
               onChange={this.handleChange}
+              onFocus={this.handleChange}
               placeholder="Search"
               className="styled-input"
               id="search"
+              value={this.state.search}
+              autocomplete="off"
             />
           </label>
-          <label
-            htmlFor="add-custom"
-            className="styled-label "
-            id="add-custom-label"
-          >
-            <p>Add custom</p>
-            <input
-              name="add-custom"
-              onChange={this.handleChange}
-              className="styled-input"
-              id="add-custom"
-            />
-          </label>
-        </div> */}
-
-        <div className="label__ingredients__picker">
-          {/* <ul className="label__ingredients__picker__filtered">
-            {filteredIngredients.length > 0 ? (
-              filteredIngredients.map((item, i) => (
-                <Ingredient
-                  key={'item' + i}
-                  text={item}
-                  action={this.addIngredient}
-                />
-              ))
-            ) : (
-              <span>No results</span>
-            )}
-          </ul> */}
-
-          <button name="adding" onClick={this.handleChange}>
-            Add Ingredient
-          </button>
-
           {this.state.add && (
             <AddIngredient
               filteredIngredients={this.state.filteredIngredients}
