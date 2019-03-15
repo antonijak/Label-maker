@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Ingredient = ({ text, action, removable }) => (
-  <span draggable="true">
+  <span>
     {removable ? (
       <span>
         {text}

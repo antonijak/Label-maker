@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Ingredient from './Ingredient';
 import { arrayMove } from 'react-sortable-hoc';
 import SortableComponent from './SortableComponent';
+import AddIngredient from './AddIngredient';
 import './IngredientsSelector.scss';
 
 class IngredientsSelector extends Component {
@@ -49,10 +50,19 @@ class IngredientsSelector extends Component {
       'peach liquer',
       'E100',
       'E200',
-      'E300'
+      'E300',
+      'E400',
+      'E500',
+      'acidity-regulator: citric acid',
+      'whey',
+      'sunflower oil',
+      'melases',
+      'pistachios',
+      'eggwhite'
     ],
     filteredIngredients: [],
-    addedIngredients: []
+    addedIngredients: [],
+    add: false
   };
   componentDidMount = () => {
     this.setState({ filteredIngredients: this.state.defaultIngredients });
@@ -68,15 +78,21 @@ class IngredientsSelector extends Component {
     }));
   };
 
+  searchIngredients = e => {
+    const value = e.target.value;
+    const filtered = this.state.defaultIngredients
+      .filter(item => item.startsWith(value))
+      .filter(item => !this.state.addedIngredients.includes(item));
+    this.setState({ filteredIngredients: filtered });
+  };
+
   handleChange = e => {
     const value = e.target.value;
     const name = e.target.name;
+    e.preventDefault();
 
-    if (name === 'search') {
-      const filtered = this.state.filteredIngredients.filter(item =>
-        item.startsWith(value)
-      );
-      this.setState({ filteredIngredients: filtered });
+    if (name === 'adding') {
+      this.setState({ add: true });
     }
     this.setState({ [name]: value });
   };
@@ -112,7 +128,7 @@ class IngredientsSelector extends Component {
 
   render() {
     let { number, addToLabel } = this.props;
-    let { title, filteredIngredients, addedIngredients } = this.state;
+    let { title, filteredIngredients, addedIngredients, add } = this.state;
 
     return (
       <div className="label__ingredients">
@@ -120,7 +136,7 @@ class IngredientsSelector extends Component {
           htmlFor="title"
           className="label__ingredients__title styled-label"
         >
-          Ingredient title
+          <p>Ingredient title</p>
           <input
             value={title}
             name="title"
@@ -130,27 +146,33 @@ class IngredientsSelector extends Component {
           />
         </label>
 
-        <div className="label__ingredients__search ">
-          <label htmlFor="title">
+        {/* <div className="label__ingredients__search">
+          <label htmlFor="search">
             <input
               name="search"
               onChange={this.handleChange}
               placeholder="Search"
               className="styled-input"
+              id="search"
             />
           </label>
-          <label htmlFor="title" className="label__ingredients__search ">
+          <label
+            htmlFor="add-custom"
+            className="styled-label "
+            id="add-custom-label"
+          >
+            <p>Add custom</p>
             <input
-              name="search"
+              name="add-custom"
               onChange={this.handleChange}
-              placeholder="Search"
               className="styled-input"
+              id="add-custom"
             />
           </label>
-        </div>
+        </div> */}
 
         <div className="label__ingredients__picker">
-          <div className="label__ingredients__picker__filtered">
+          {/* <ul className="label__ingredients__picker__filtered">
             {filteredIngredients.length > 0 ? (
               filteredIngredients.map((item, i) => (
                 <Ingredient
@@ -162,7 +184,19 @@ class IngredientsSelector extends Component {
             ) : (
               <span>No results</span>
             )}
-          </div>
+          </ul> */}
+
+          <button name="adding" onClick={this.handleChange}>
+            Add Ingredient
+          </button>
+
+          {this.state.add && (
+            <AddIngredient
+              filteredIngredients={this.state.filteredIngredients}
+              addIngredient={this.addIngredient}
+              searchIngredients={this.searchIngredients}
+            />
+          )}
 
           <SortableComponent
             items={this.state.addedIngredients}
@@ -170,7 +204,10 @@ class IngredientsSelector extends Component {
             onSortEnd={this.onSortEnd}
           />
         </div>
-        <button onClick={e => addToLabel(e, number, addedIngredients)}>
+        <button
+          name="add"
+          onClick={e => addToLabel(e, number, addedIngredients)}
+        >
           Finish
         </button>
       </div>

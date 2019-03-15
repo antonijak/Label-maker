@@ -18,6 +18,8 @@ class App extends Component {
         newArr.push({ i });
       }
       this.setState({ parts: newArr });
+    } else {
+      this.setState({ [name]: value });
     }
   };
 

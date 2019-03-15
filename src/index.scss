@@ -5,28 +5,33 @@
   margin: 0;
 }
 
-$lightgray: rgb(235, 235, 235);
+$font-family-secondary: 'Merriweather', serif;
+
+$lightgray: rgb(225, 225, 225);
+$purple: rgb(187, 35, 211);
+$yellow: rgb(255, 255, 67);
 
 .styled-label {
-  color: gray;
   width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: baseline;
   margin-bottom: 1rem;
+
+  p {
+    margin-right: 1rem;
+  }
 }
 
 .styled-input {
-  height: 3rem;
+  height: 2.5rem;
   border: none;
   background: $lightgray;
-  border-radius: 3px;
+  border-radius: 50px;
   font-size: 1rem;
-  padding: 0.5rem;
+  padding: 1rem;
   margin-top: 0.5rem;
   outline: none;
 
   &:focus {
-    border-bottom: 2px solid black;
   }
 }

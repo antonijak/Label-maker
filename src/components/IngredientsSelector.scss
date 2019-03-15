@@ -4,14 +4,20 @@
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid black;
-  border-radius: 3px;
+  border: 3px solid rgb(19, 19, 19);
+  border-radius: 25px;
   width: 100%;
-  padding: 1rem;
+  padding: 2rem;
   margin: 1rem 0;
 
   &__search {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #add-custom-label {
+    width: fit-content;
   }
 
   &__picker {
@@ -26,9 +32,9 @@
     }
 
     &__filtered {
-      background: $lightgray;
-      border-radius: 3px;
-      padding: 0.25rem;
+      background: white;
+      border-radius: 10px;
+      padding: 0.5rem;
       width: 100%;
       margin-bottom: 1rem;
 
@@ -38,11 +44,13 @@
 
         button {
           margin: 0.25rem 0;
-          padding: 0.25rem;
+          padding: 0.25rem 0.5rem;
           font-size: 0.8rem;
-          border-radius: 5px;
+          border-radius: 50px;
           color: rgb(74, 74, 74);
           outline: none;
+          border: none;
+          // background: $lightgray;
 
           &:hover {
             color: black;
