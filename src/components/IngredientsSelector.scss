@@ -48,18 +48,43 @@
     &__filtered {
       width: 100%;
       background: white;
-      padding: 1rem;
+      padding: 01rem;
       box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       border-top: 1px solid gray;
       max-height: 20rem;
-      overflow: scroll;
+      overflow-y: scroll;
+
+      /* width */
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: $scroll-track;
+        border: none;
+        box-shadow: none;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: $scroll-thumb;
+        border-radius: 5px;
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: $lightgray;
+      }
 
       &__item {
         list-style-type: none;
         height: 3rem;
         line-height: 3rem;
+        font-family: $font-family-secondary;
+        width: fit-content;
       }
     }
   }
