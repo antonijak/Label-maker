@@ -36,45 +36,35 @@ class App extends Component {
         <h1 className="main-title">Label Maker</h1>
         <form className="label">
           <div className="label__heading">
-            <label
-              htmlFor="label-title"
-              className="label__heading__title styled-label"
+            <input
+              name="title"
+              type="text"
+              id="label-title"
+              value={title}
+              onChange={this.handleChange}
+              className="styled-input"
+              placeholder="Label title"
+            />
+
+            <input
+              name="description"
+              type="text"
+              id="description"
+              className="styled-input"
+              placeholder="Label description"
+            />
+
+            <select
+              name="parts"
+              value={parts.length}
+              onChange={e => this.handleChange(e)}
+              placeholder="Parts"
             >
-              <p>Title</p>
-              <input
-                name="title"
-                type="text"
-                id="label-title"
-                value={title}
-                onChange={this.handleChange}
-                className="label__heading__title__input styled-input"
-              />
-            </label>
-            <label
-              htmlFor="description"
-              className="label__heading__description styled-label"
-            >
-              <p>Description</p>
-              <input
-                name="description"
-                type="text"
-                id="description"
-                className="label__heading__description__input styled-input"
-              />
-            </label>
-            <label className="label__heading__select styled-label">
-              <p>Parts</p>
-              <select
-                name="parts"
-                value={parts.length}
-                onChange={e => this.handleChange(e)}
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
-            </label>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
           </div>
           <div className="label__parts">
             {parts &&

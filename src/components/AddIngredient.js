@@ -1,16 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Ingredient from './Ingredient';
-import './IngredientsSelector.scss';
-import AddCustom from './AddCustom';
+import './AddIngredient.scss';
 
-const AddIngredient = ({ filteredIngredients, addIngredient }) => (
+const AddIngredient = ({
+  filteredIngredients,
+  addIngredient,
+  searchIngredients
+}) => (
   <ul className="label__ingredients__picker__filtered">
     {filteredIngredients.length > 0 ? (
       filteredIngredients.map((item, i) => (
-        <Ingredient key={'item' + i} text={item} action={addIngredient} />
+        <Ingredient
+          key={'item' + i}
+          text={item}
+          addIngredient={addIngredient}
+        />
       ))
     ) : (
-      <AddCustom />
+      <input
+        name="add-custom"
+        onChange={searchIngredients}
+        className="styled-input add-custom"
+        id="add-custom"
+        placeholder="Add custom ingredient"
+      />
     )}
   </ul>
 );

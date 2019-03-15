@@ -67,7 +67,7 @@ class IngredientsSelector extends Component {
     search: ''
   };
   componentDidMount = () => {
-    this.setState({ filteredIngredients: this.state.defaultIngredients });
+    this.setState({ filteredIngredients: this.state.mostUsedIngredients });
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
@@ -103,9 +103,9 @@ class IngredientsSelector extends Component {
     this.setState({ [name]: value });
   };
 
-  addIngredient = e => {
-    e.preventDefault();
-    const ingredient = e.target.value;
+  addIngredient = ingredient => {
+    // e.preventDefault();
+    // const ingredient = e.target.value;
     const reducedFilteredIngredients = this.state.filteredIngredients.filter(
       item => item !== ingredient
     );
@@ -134,38 +134,31 @@ class IngredientsSelector extends Component {
 
   render() {
     let { number, addToLabel } = this.props;
-    let { title, filteredIngredients, addedIngredients, add } = this.state;
+    let { title, addedIngredients, add } = this.state;
 
     return (
       <div className="label__ingredients">
-        <label
-          htmlFor="title"
-          className="label__ingredients__title styled-label"
-        >
-          <p>Ingredient title</p>
-          <input
-            value={title}
-            name="title"
-            id="title"
-            onChange={this.handleChange}
-            className="styled-input"
-          />
-        </label>
+        <input
+          value={title}
+          name="title"
+          id="title"
+          onChange={this.handleChange}
+          className="styled-input"
+          placeholder="Ingredient title"
+        />
 
         <div className="label__ingredients__picker">
-          <label htmlFor="search">
-            <input
-              name="search"
-              onChange={this.handleChange}
-              onFocus={this.handleChange}
-              placeholder="Search"
-              className="styled-input"
-              id="search"
-              value={this.state.search}
-              autocomplete="off"
-            />
-          </label>
-          {this.state.add && (
+          <input
+            name="search"
+            onChange={this.handleChange}
+            onFocus={this.handleChange}
+            placeholder="Search"
+            className="label__ingredients__picker__search"
+            id="search"
+            value={this.state.search}
+            autoComplete="off"
+          />
+          {add && (
             <AddIngredient
               filteredIngredients={this.state.filteredIngredients}
               addIngredient={this.addIngredient}

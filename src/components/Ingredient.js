@@ -1,20 +1,13 @@
 import React from 'react';
 
-const Ingredient = ({ text, action, removable }) => (
-  <span>
-    {removable ? (
-      <span>
-        {text}
-        <button onClick={action} value={text}>
-          x
-        </button>
-      </span>
-    ) : (
-      <button onClick={action} value={text}>
-        {text}
-      </button>
-    )}
-  </span>
+const Ingredient = ({ text, addIngredient }) => (
+  <li
+    onClick={() => addIngredient(text)}
+    value={text}
+    className="label__ingredients__picker__filtered__item"
+  >
+    {text}
+  </li>
 );
 
 export default Ingredient;
