@@ -9,7 +9,7 @@ class App extends Component {
     parts: [1],
     title: '',
     description: '',
-    ingredients: { 0: {} }
+    ingredients: [{}]
   };
 
   handleChange = e => {
@@ -30,11 +30,11 @@ class App extends Component {
     e.preventDefault();
     console.log('hello');
 
+    const arr = [...this.state.ingredients];
+    arr[number] = { addedIngredients };
+
     this.setState({
-      ingredients: {
-        ...this.state.ingredients,
-        [number]: { addedIngredients }
-      }
+      ingredients: [...arr]
     });
   };
 
