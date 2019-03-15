@@ -17,7 +17,7 @@ const SortableItem = SortableElement(({ value, removeIngredient, axis }) => (
   </li>
 ));
 
-const SortableList = SortableContainer(({ items, removeIngredient, axis }) => {
+const SortableList = SortableContainer(({ items, removeIngredient }) => {
   return (
     <div className="label__ingredients__picker__added">
       <h5 className="label__ingredients__picker__added__title">

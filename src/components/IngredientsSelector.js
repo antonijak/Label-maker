@@ -61,7 +61,7 @@ class IngredientsSelector extends Component {
       'eggwhite'
     ],
     filteredIngredients: [],
-    addedIngredients: [],
+    addedIngredients: ['cocoa butter', 'cocoa powder'],
     mostUsedIngredients: ['cocoa powder', 'cocoa butter', 'sugar'],
     add: false,
     search: ''
@@ -78,6 +78,10 @@ class IngredientsSelector extends Component {
         newIndex
       )
     }));
+  };
+
+  hideAdd = () => {
+    this.setState({ add: false, search: '' });
   };
 
   handleChange = e => {
@@ -104,14 +108,14 @@ class IngredientsSelector extends Component {
   };
 
   addIngredient = ingredient => {
-    // e.preventDefault();
-    // const ingredient = e.target.value;
     const reducedFilteredIngredients = this.state.filteredIngredients.filter(
       item => item !== ingredient
     );
     this.setState({
       addedIngredients: [...this.state.addedIngredients, ingredient],
-      filteredIngredients: reducedFilteredIngredients
+      filteredIngredients: reducedFilteredIngredients,
+      add: false,
+      search: ''
     });
   };
 
@@ -133,27 +137,27 @@ class IngredientsSelector extends Component {
   };
 
   render() {
-    let { number, addToLabel } = this.props;
+    let { number, addToLabel, addParts, parts } = this.props;
     let { title, addedIngredients, add } = this.state;
 
     return (
-      <div className="label__ingredients">
+      <div className="ingredients-selector" onClick={this.hideAdd}>
         <input
           value={title}
           name="title"
           id="title"
           onChange={this.handleChange}
-          className="styled-input"
+          className="ingredients-selector__title"
           placeholder="Ingredient title"
         />
 
-        <div className="label__ingredients__picker">
+        <div className="ingredients-selector__picker">
           <input
             name="search"
             onChange={this.handleChange}
             onFocus={this.handleChange}
             placeholder="Search"
-            className="label__ingredients__picker__search"
+            className="ingredients-selector__picker__search"
             id="search"
             value={this.state.search}
             autoComplete="off"
@@ -163,6 +167,7 @@ class IngredientsSelector extends Component {
               filteredIngredients={this.state.filteredIngredients}
               addIngredient={this.addIngredient}
               searchIngredients={this.searchIngredients}
+              hideAdd={this.hideAdd}
             />
           )}
 
@@ -172,12 +177,27 @@ class IngredientsSelector extends Component {
             onSortEnd={this.onSortEnd}
           />
         </div>
+        {/* 
         <button
           name="add"
           onClick={e => addToLabel(e, number, addedIngredients)}
         >
           Finish
-        </button>
+        </button> */}
+        <div className="ingredients-selector__button">
+          <span className="ingredients-selector__button__add">
+            <button onClick={addParts} value="add">
+              +
+            </button>
+          </span>
+          {parts.length > 1 && (
+            <span className="ingredients-selector__button__remove">
+              <button onClick={addParts} value="remove">
+                -
+              </button>
+            </span>
+          )}
+        </div>
       </div>
     );
   }

@@ -29,20 +29,33 @@ class App extends Component {
       ingredients: { ...this.state.ingredients, [number]: items }
     });
   };
+
+  addParts = e => {
+    e.preventDefault();
+    const addOrRemove = e.target.value;
+    const parts = [...this.state.parts];
+    parts.length > 1 && parts.pop();
+
+    addOrRemove === 'add'
+      ? this.setState({ parts: [...this.state.parts, 1] })
+      : this.setState({ parts: parts });
+  };
+
   render() {
     let { parts, title } = this.state;
     return (
       <div className="App">
-        <h1 className="main-title">Label Maker</h1>
         <form className="label">
           <div className="label__heading">
+            <h1 className="label__heading__h1">Label Maker</h1>
+
             <input
               name="title"
               type="text"
               id="label-title"
               value={title}
               onChange={this.handleChange}
-              className="styled-input"
+              className="label__heading__title"
               placeholder="Label title"
             />
 
@@ -50,22 +63,11 @@ class App extends Component {
               name="description"
               type="text"
               id="description"
-              className="styled-input"
+              className="label__heading__description"
               placeholder="Label description"
             />
-
-            <select
-              name="parts"
-              value={parts.length}
-              onChange={e => this.handleChange(e)}
-              placeholder="Parts"
-            >
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
           </div>
+
           <div className="label__parts">
             {parts &&
               parts.map((item, i) => (
@@ -75,6 +77,8 @@ class App extends Component {
                   number={i}
                   handleChange={this.handleChange}
                   addToLabel={this.addToLabel}
+                  addParts={this.addParts}
+                  parts={parts}
                 />
               ))}
           </div>

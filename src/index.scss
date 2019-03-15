@@ -20,20 +20,9 @@ $secondary-title: #808082;
 $scroll-thumb: #a5a5b1;
 $scroll-track: #efefef;
 
-.styled-label {
-  width: 100%;
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 1rem;
-
-  p {
-    margin-right: 1rem;
-  }
-}
-
 input {
   height: 3rem;
-  width: 100%;
+  width: 80%;
   border: none;
   outline: none;
   background-color: white;
@@ -41,6 +30,7 @@ input {
   padding: 1rem;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
   border-radius: 4px;
+  margin: 0 auto;
   margin-bottom: 1rem;
 
   &::placeholder {
