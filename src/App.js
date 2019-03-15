@@ -9,7 +9,7 @@ class App extends Component {
     parts: [1],
     title: '',
     description: '',
-    ingredients: {}
+    ingredients: { 0: {} }
   };
 
   handleChange = e => {
@@ -26,10 +26,15 @@ class App extends Component {
     }
   };
 
-  addToform = (e, number, items) => {
+  showOnLabelPreview = (e, number, addedIngredients) => {
     e.preventDefault();
+    console.log('hello');
+
     this.setState({
-      ingredients: { ...this.state.ingredients, [number]: items }
+      ingredients: {
+        ...this.state.ingredients,
+        [number]: { addedIngredients }
+      }
     });
   };
 
@@ -45,12 +50,14 @@ class App extends Component {
   };
 
   render() {
-    let { parts, title, description } = this.state;
+    console.log('ingredients', this.state.ingredients);
+
+    let { parts, title, description, ingredients } = this.state;
     return (
       <div className="App">
         <form className="form">
           <div className="form__heading">
-            <h1 className="form__heading__h1">form Maker</h1>
+            <h1 className="form__heading__h1">Label Maker</h1>
 
             <input
               name="title"
@@ -84,11 +91,17 @@ class App extends Component {
                   addToform={this.addToform}
                   addParts={this.addParts}
                   parts={parts}
+                  addedIngredients={this.state.ingredients.addedIngredients}
+                  showOnLabelPreview={this.showOnLabelPreview}
                 />
               ))}
           </div>
         </form>
-        <LabelPreview title={title} description={description} />
+        <LabelPreview
+          title={title}
+          description={description}
+          ingredients={ingredients}
+        />
       </div>
     );
   }

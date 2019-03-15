@@ -137,7 +137,13 @@ class IngredientsSelector extends Component {
   };
 
   render() {
-    let { number, addToLabel, addParts, parts } = this.props;
+    let {
+      number,
+      addToLabel,
+      addParts,
+      parts,
+      showOnLabelPreview
+    } = this.props;
     let { title, addedIngredients, add } = this.state;
 
     return (
@@ -177,13 +183,15 @@ class IngredientsSelector extends Component {
             onSortEnd={this.onSortEnd}
           />
         </div>
-        {/* 
+
         <button
           name="add"
-          onClick={e => addToLabel(e, number, addedIngredients)}
+          onClick={e =>
+            this.props.showOnLabelPreview(e, number, addedIngredients)
+          }
         >
           Finish
-        </button> */}
+        </button>
         <div className="ingredients-selector__button">
           <span className="ingredients-selector__button__add">
             <button onClick={addParts} value="add">
