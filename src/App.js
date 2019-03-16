@@ -20,7 +20,7 @@ class App extends Component {
   };
 
   showOnLabelPreview = (e, id, title, addedIngredients) => {
-    e.preventDefault();
+    e && e.preventDefault();
     this.setState({
       ingredients: [...this.state.ingredients].map(item =>
         item.id === id ? { id, title, addedIngredients } : item
@@ -78,7 +78,7 @@ class App extends Component {
           <div className="form__parts">
             {ingredients.map((item, i) => (
               <IngredientsSelector
-                key={'item' + i}
+                key={item.id}
                 ingredients={this.state.ingredients}
                 number={i}
                 id={item.id}

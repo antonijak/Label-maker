@@ -71,6 +71,14 @@ class IngredientsSelector extends Component {
       title: this.props.title,
       addedIngredients: this.props.addedIngredients
     });
+    console.log('did mount');
+
+    this.props.showOnLabelPreview(
+      null,
+      this.props.id,
+      this.state.title,
+      this.state.addedIngredients
+    );
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
@@ -106,6 +114,13 @@ class IngredientsSelector extends Component {
         add: true,
         filteredIngredients: filtered
       });
+    } else if (name === 'title') {
+      this.props.showOnLabelPreview(
+        e,
+        this.props.id,
+        [value],
+        this.state.addedIngredients
+      );
     }
     this.setState({ [name]: value });
   };
