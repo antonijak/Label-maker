@@ -1,58 +1,53 @@
 import React, { Component } from 'react';
 import IngredientsSelector from './components/IngredientsSelector.js';
+import uuid from 'uuid/v4';
 
 import './App.scss';
 import LabelPreview from './components/LabelPreview.js';
 
 class App extends Component {
   state = {
-    parts: [1],
     title: '',
     description: '',
-    ingredients: [{}]
+    ingredients: [{ id: '01', title: '', addedIngredients: [] }],
+    mostUsedIngredients: ['cocoa powder', 'cocoa butter', 'sugar']
   };
 
   handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
-    if (name === 'parts') {
-      let newArr = [];
-      for (let i = 0; i < value; i++) {
-        newArr.push({ i });
-      }
-      this.setState({ parts: newArr });
-    } else {
-      this.setState({ [name]: value });
-    }
+    this.setState({ [name]: value });
   };
 
-  showOnLabelPreview = (e, number, addedIngredients) => {
+  showOnLabelPreview = (e, id, title, addedIngredients) => {
     e.preventDefault();
-    console.log('hello');
-
-    const arr = [...this.state.ingredients];
-    arr[number] = { addedIngredients };
-
     this.setState({
-      ingredients: [...arr]
+      ingredients: [...this.state.ingredients].map(item =>
+        item.id === id ? { id, title, addedIngredients } : item
+      )
     });
   };
 
-  addParts = e => {
+  handleParts = (e, id, value) => {
     e.preventDefault();
-    const addOrRemove = e.target.value;
-    const parts = [...this.state.parts];
-    parts.length > 1 && parts.pop();
-
-    addOrRemove === 'add'
-      ? this.setState({ parts: [...this.state.parts, 1] })
-      : this.setState({ parts: parts });
+    value === 'add'
+      ? this.setState({
+          ingredients: [
+            ...this.state.ingredients,
+            { id: uuid(), title: '', addedIngredients: [] }
+          ]
+        })
+      : this.setState({
+          ingredients: [...this.state.ingredients].filter(
+            item => item.id !== id
+          )
+        });
   };
 
   render() {
     console.log('ingredients', this.state.ingredients);
 
-    let { parts, title, description, ingredients } = this.state;
+    let { title, description, ingredients } = this.state;
     return (
       <div className="App">
         <form className="form">
@@ -81,26 +76,30 @@ class App extends Component {
           </div>
 
           <div className="form__parts">
-            {parts &&
-              parts.map((item, i) => (
-                <IngredientsSelector
-                  key={'item' + i}
-                  parts={parts}
-                  number={i}
-                  handleChange={this.handleChange}
-                  addToform={this.addToform}
-                  addParts={this.addParts}
-                  parts={parts}
-                  addedIngredients={this.state.ingredients.addedIngredients}
-                  showOnLabelPreview={this.showOnLabelPreview}
-                />
-              ))}
+            {ingredients.map((item, i) => (
+              <IngredientsSelector
+                key={'item' + i}
+                ingredients={this.state.ingredients}
+                number={i}
+                id={item.id}
+                handleChange={this.handleChange}
+                addToform={this.addToform}
+                handleParts={this.handleParts}
+                addedIngredients={
+                  item.addedIngredients.length === 0
+                    ? this.state.mostUsedIngredients
+                    : item.addedIngredients
+                }
+                showOnLabelPreview={this.showOnLabelPreview}
+                title={item.title}
+              />
+            ))}
           </div>
         </form>
         <LabelPreview
-          title={title}
-          description={description}
-          ingredients={ingredients}
+          title={this.state.title}
+          description={this.state.description}
+          ingredients={this.state.ingredients}
         />
       </div>
     );

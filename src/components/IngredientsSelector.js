@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Ingredient from './Ingredient';
 import { arrayMove } from 'react-sortable-hoc';
 import SortableComponent from './SortableComponent';
 import AddIngredient from './AddIngredient';
@@ -66,8 +65,12 @@ class IngredientsSelector extends Component {
     add: false,
     search: ''
   };
+
   componentDidMount = () => {
-    this.setState({ filteredIngredients: this.state.mostUsedIngredients });
+    this.setState({
+      title: this.props.title,
+      addedIngredients: this.props.addedIngredients
+    });
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
@@ -140,14 +143,17 @@ class IngredientsSelector extends Component {
     let {
       number,
       addToLabel,
-      addParts,
-      parts,
-      showOnLabelPreview
+      handleParts,
+      showOnLabelPreview,
+      id,
+      ingredients,
+      key
     } = this.props;
     let { title, addedIngredients, add } = this.state;
 
     return (
       <div className="ingredients-selector" onClick={this.hideAdd}>
+        <h1>{key}</h1>
         <input
           value={title}
           name="title"
@@ -187,22 +193,23 @@ class IngredientsSelector extends Component {
         <button
           name="add"
           onClick={e =>
-            this.props.showOnLabelPreview(e, number, addedIngredients)
+            this.props.showOnLabelPreview(
+              e,
+              id,
+              this.state.title,
+              this.state.addedIngredients
+            )
           }
         >
           Finish
         </button>
         <div className="ingredients-selector__button">
           <span className="ingredients-selector__button__add">
-            <button onClick={addParts} value="add">
-              +
-            </button>
+            <button onClick={e => handleParts(e, id, 'add')}>+</button>
           </span>
-          {parts.length > 1 && (
+          {ingredients.length > 1 && (
             <span className="ingredients-selector__button__remove">
-              <button onClick={addParts} value="remove">
-                -
-              </button>
+              <button onClick={e => handleParts(e, id, 'remove')}>-</button>
             </span>
           )}
         </div>
