@@ -60,8 +60,7 @@ class IngredientsSelector extends Component {
       'eggwhite'
     ],
     filteredIngredients: [],
-    addedIngredients: ['cocoa butter', 'cocoa powder'],
-    mostUsedIngredients: ['cocoa powder', 'cocoa butter', 'sugar'],
+    addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar'],
     add: false,
     search: ''
   };
@@ -103,9 +102,7 @@ class IngredientsSelector extends Component {
     if (name === 'search') {
       const filtered =
         value === ''
-          ? this.state.mostUsedIngredients.filter(
-              item => !this.state.addedIngredients.includes(item)
-            )
+          ? []
           : this.state.defaultIngredients
               .filter(item => item.startsWith(value))
               .filter(item => !this.state.addedIngredients.includes(item));
@@ -135,6 +132,11 @@ class IngredientsSelector extends Component {
       add: false,
       search: ''
     });
+
+    this.props.showOnLabelPreview(null, this.props.id, this.state.title, [
+      ...this.state.addedIngredients,
+      ingredient
+    ]);
   };
 
   removeIngredient = (e, ingredient) => {
@@ -146,6 +148,13 @@ class IngredientsSelector extends Component {
       addedIngredients: reducedAddedIngredients,
       filteredIngredients: [...this.state.filteredIngredients, ingredient]
     });
+
+    this.props.showOnLabelPreview(
+      e,
+      this.props.id,
+      this.state.title,
+      reducedAddedIngredients
+    );
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {

@@ -5,12 +5,15 @@ const LabelPreview = ({ title, description, ingredients }) => {
   return (
     <div className="label-preview">
       <h2>{title}</h2>
-      <h4>{description}</h4>
+      <h3>{description}</h3>
       {ingredients.map(part => (
         <div>
-          <h4>{part.title}</h4>
-          {part.addedIngredients &&
-            part.addedIngredients.map(item => <span>{item}</span>)}
+          <p>
+            <h4 style={{ display: 'inline' }}>
+              {part.title && part.title + ': '}
+            </h4>
+            {part.addedIngredients && part.addedIngredients.join(', ')}
+          </p>
         </div>
       ))}
     </div>
