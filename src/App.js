@@ -59,7 +59,7 @@ class App extends Component {
               value={title}
               onChange={this.handleChange}
               className="form__heading__title"
-              placeholder="form title"
+              placeholder="Main title"
             />
 
             <input
@@ -67,7 +67,7 @@ class App extends Component {
               type="text"
               id="description"
               className="form__heading__description"
-              placeholder="form description"
+              placeholder="Main description"
               value={description}
               onChange={this.handleChange}
             />
