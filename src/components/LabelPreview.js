@@ -12,7 +12,7 @@ const LabelPreview = ({ title, description, ingredients }) => {
             <h4 style={{ display: 'inline' }}>
               {part.title && part.title + ': '}
             </h4>
-            {part.addedIngredients && part.addedIngredients.join(', ')}
+            {part.addedIngredients && part.addedIngredients.join(', ') + '.'}
           </p>
         </div>
       ))}

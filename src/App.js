@@ -91,7 +91,7 @@ class App extends Component {
                     : item.addedIngredients
                 }
                 showOnLabelPreview={this.showOnLabelPreview}
-                title={item.title}
+                title={item.title || 'Ingredients'}
               />
             ))}
           </div>

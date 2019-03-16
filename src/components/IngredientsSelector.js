@@ -70,13 +70,12 @@ class IngredientsSelector extends Component {
       title: this.props.title,
       addedIngredients: this.props.addedIngredients
     });
-    console.log('did mount');
 
     this.props.showOnLabelPreview(
       null,
       this.props.id,
-      this.state.title,
-      this.state.addedIngredients
+      this.props.title,
+      this.props.addedIngredients
     );
   };
 
