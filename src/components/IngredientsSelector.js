@@ -163,22 +163,12 @@ class IngredientsSelector extends Component {
   };
 
   render() {
-    let {
-      number,
-      addToLabel,
-      handleParts,
-      showOnLabelPreview,
-      id,
-      ingredients,
-      key
-    } = this.props;
-    let { title, addedIngredients, add } = this.state;
+    let { handleParts, id, ingredients } = this.props;
 
     return (
       <div className="ingredients-selector" onClick={this.hideAdd}>
-        <h1>{key}</h1>
         <input
-          value={title}
+          value={this.state.title}
           name="title"
           id="title"
           onChange={this.handleChange}
@@ -197,7 +187,7 @@ class IngredientsSelector extends Component {
             value={this.state.search}
             autoComplete="off"
           />
-          {add && (
+          {this.state.add && (
             <AddIngredient
               filteredIngredients={this.state.filteredIngredients}
               addIngredient={this.addIngredient}
@@ -213,19 +203,6 @@ class IngredientsSelector extends Component {
           />
         </div>
 
-        <button
-          name="add"
-          onClick={e =>
-            this.props.showOnLabelPreview(
-              e,
-              id,
-              this.state.title,
-              this.state.addedIngredients
-            )
-          }
-        >
-          Finish
-        </button>
         <div className="ingredients-selector__button">
           <span className="ingredients-selector__button__add">
             <button onClick={e => handleParts(e, id, 'add')}>+</button>

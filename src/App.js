@@ -45,8 +45,6 @@ class App extends Component {
   };
 
   render() {
-    console.log('ingredients', this.state.ingredients);
-
     let { title, description, ingredients } = this.state;
     return (
       <div className="App">
