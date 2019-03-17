@@ -98,7 +98,6 @@ class IngredientsSelector extends Component {
     const value = e.target.value;
     const name = e.target.name;
     e.preventDefault();
-
     if (name === 'search') {
       const filtered = this.state.defaultIngredients
         .filter(item => item.startsWith(value))
@@ -195,6 +194,12 @@ class IngredientsSelector extends Component {
               onChange={this.handleChange}
               onFocus={() => {
                 this.setState({ add: true });
+              }}
+              onKeyDown={e => {
+                if (e.which === 13) {
+                  e.preventDefault();
+                  this.setState({ add: false, search: '' });
+                }
               }}
               placeholder="Search"
               className="ingredients-selector__picker__cont__search"
