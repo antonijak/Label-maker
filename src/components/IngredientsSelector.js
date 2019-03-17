@@ -59,10 +59,11 @@ class IngredientsSelector extends Component {
       'pistachios',
       'eggwhite'
     ],
-    filteredIngredients: [],
+    filteredIngredients: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
     addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar'],
     add: false,
-    search: ''
+    search: '',
+    mostUsedIngredients: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins']
   };
 
   componentDidMount = () => {
@@ -99,12 +100,9 @@ class IngredientsSelector extends Component {
     e.preventDefault();
 
     if (name === 'search') {
-      const filtered =
-        value === ''
-          ? []
-          : this.state.defaultIngredients
-              .filter(item => item.startsWith(value))
-              .filter(item => !this.state.addedIngredients.includes(item));
+      const filtered = this.state.defaultIngredients
+        .filter(item => item.startsWith(value))
+        .filter(item => !this.state.addedIngredients.includes(item));
       this.setState({
         search: value,
         add: true,
@@ -157,6 +155,12 @@ class IngredientsSelector extends Component {
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
+    this.props.showOnLabelPreview(
+      null,
+      this.props.id,
+      this.state.title,
+      arrayMove(this.state.addedIngredients, oldIndex, newIndex)
+    );
     this.setState(({ addedIngredients }) => ({
       addedIngredients: arrayMove(addedIngredients, oldIndex, newIndex)
     }));
@@ -166,7 +170,7 @@ class IngredientsSelector extends Component {
     let { handleParts, id, ingredients } = this.props;
 
     return (
-      <div className="ingredients-selector" onClick={this.hideAdd}>
+      <div className="ingredients-selector">
         <input
           value={this.state.title}
           name="title"
@@ -175,27 +179,38 @@ class IngredientsSelector extends Component {
           className="ingredients-selector__title"
           placeholder="Ingredient title"
         />
-
         <div className="ingredients-selector__picker">
-          <input
-            name="search"
-            onChange={this.handleChange}
-            onFocus={this.handleChange}
-            placeholder="Search"
-            className="ingredients-selector__picker__search"
-            id="search"
-            value={this.state.search}
-            autoComplete="off"
-          />
-          {this.state.add && (
-            <AddIngredient
-              filteredIngredients={this.state.filteredIngredients}
-              addIngredient={this.addIngredient}
-              searchIngredients={this.searchIngredients}
-              hideAdd={this.hideAdd}
+          <div
+            className="ingredients-selector__picker__cont"
+            onBlur={() =>
+              this.setState({
+                add: false,
+                search: '',
+                filteredIngredients: [...this.state.mostUsedIngredients]
+              })
+            }
+          >
+            <input
+              name="search"
+              onChange={this.handleChange}
+              onFocus={() => {
+                this.setState({ add: true });
+              }}
+              placeholder="Search"
+              className="ingredients-selector__picker__cont__search"
+              id="search"
+              value={this.state.search}
+              autoComplete="off"
             />
-          )}
 
+            {this.state.add && (
+              <AddIngredient
+                filteredIngredients={this.state.filteredIngredients}
+                addIngredient={this.addIngredient}
+                searchIngredients={this.searchIngredients}
+              />
+            )}
+          </div>
           <SortableComponent
             items={this.state.addedIngredients}
             removeIngredient={this.removeIngredient}

@@ -5,10 +5,9 @@ import './AddIngredient.scss';
 const AddIngredient = ({
   filteredIngredients,
   addIngredient,
-  searchIngredients,
-  hideAdd
+  searchIngredients
 }) => (
-  <ul className="label__ingredients__picker__filtered" onBlur={hideAdd}>
+  <ul className="label__ingredients__picker__filtered">
     {filteredIngredients.length > 0 ? (
       filteredIngredients.map((item, i) => (
         <Ingredient
