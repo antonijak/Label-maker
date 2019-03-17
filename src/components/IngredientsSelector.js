@@ -119,14 +119,17 @@ class IngredientsSelector extends Component {
   };
 
   addIngredient = ingredient => {
-    const reducedFilteredIngredients = this.state.filteredIngredients.filter(
-      item => item !== ingredient
-    );
+    const reducedFilteredIngredients = [
+      ...this.state.filteredIngredients
+    ].filter(item => item !== ingredient);
     this.setState({
       addedIngredients: [...this.state.addedIngredients, ingredient],
       filteredIngredients: reducedFilteredIngredients,
       add: false,
-      search: ''
+      search: '',
+      mostUsedIngredients: [...this.state.mostUsedIngredients].filter(
+        item => ![...this.state.addedIngredients, ingredient].includes(item)
+      )
     });
 
     this.props.showOnLabelPreview(null, this.props.id, this.state.title, [
