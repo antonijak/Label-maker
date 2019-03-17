@@ -1,0 +1,49 @@
+@import '../index.scss';
+
+.ingredient {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  min-width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: $ingredient;
+  animation: fade 0.5s linear both;
+
+  p {
+    margin-right: 0.6rem;
+  }
+
+  &__remove {
+    border: none;
+    font-size: 1rem;
+    line-height: 0.5rem;
+    background: transparent;
+    height: fit-content;
+    outline: none;
+    background: url('../assets/x.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 0.9rem;
+    height: 0.9rem;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+@keyframes fade {
+  0% {
+    background: #909091;
+  }
+  50% {
+    background: #90909196;
+  }
+  100% {
+    background: $ingredient;
+  }
+}

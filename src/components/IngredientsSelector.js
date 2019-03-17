@@ -63,13 +63,15 @@ class IngredientsSelector extends Component {
     addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar'],
     add: false,
     search: '',
-    mostUsedIngredients: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins']
+    initialMostUsed: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
+    mostUsedIngredients: []
   };
 
   componentDidMount = () => {
     this.setState({
       title: this.props.title,
-      addedIngredients: this.props.addedIngredients
+      addedIngredients: this.props.addedIngredients,
+      mostUsedIngredients: this.state.initialMostUsed
     });
 
     this.props.showOnLabelPreview(
@@ -145,7 +147,10 @@ class IngredientsSelector extends Component {
     );
     this.setState({
       addedIngredients: reducedAddedIngredients,
-      filteredIngredients: [...this.state.filteredIngredients, ingredient]
+      filteredIngredients: [...this.state.filteredIngredients, ingredient],
+      mostUsedIngredients: this.state.initialMostUsed.filter(
+        item => !reducedAddedIngredients.includes(item)
+      )
     });
 
     this.props.showOnLabelPreview(

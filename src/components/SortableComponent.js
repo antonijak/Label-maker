@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import './SortableComponent.scss';
+import Added from './Added';
 
 const SortableItem = SortableElement(({ value, removeIngredient, axis }) => (
-  <li
-    className="label__ingredients__picker__added__list__ingredient"
-    axis={axis}
-  >
-    <p>{value}</p>
-    <button
-      onClick={e => {
-        removeIngredient(e, value);
-      }}
-      className="label__ingredients__picker__added__list__ingredient__remove"
-    />
-  </li>
+  <Added value={value} removeIngredient={removeIngredient} axis={axis} />
 ));
 
 const SortableList = SortableContainer(({ items, removeIngredient }) => {
