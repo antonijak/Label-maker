@@ -17,13 +17,7 @@ const AddIngredient = ({
         />
       ))
     ) : (
-      <input
-        name="add-custom"
-        onChange={searchIngredients}
-        className="styled-input add-custom"
-        id="add-custom"
-        placeholder="Add custom ingredient"
-      />
+      <li className="label__ingredients__picker__filtered__item">No results</li>
     )}
   </ul>
 );
