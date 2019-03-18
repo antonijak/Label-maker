@@ -64,7 +64,8 @@ class IngredientsSelector extends Component {
     add: false,
     search: '',
     initialMostUsed: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
-    mostUsedIngredients: []
+    mostUsedIngredients: [],
+    custom: ''
   };
 
   componentDidMount = () => {
@@ -90,10 +91,6 @@ class IngredientsSelector extends Component {
         newIndex
       )
     }));
-  };
-
-  hideAdd = () => {
-    this.setState({ add: false, search: '' });
   };
 
   handleChange = e => {
@@ -173,6 +170,12 @@ class IngredientsSelector extends Component {
     }));
   };
 
+  searchIngredients = e => {
+    const value = e.target.value;
+    e.stopPropagation();
+    this.setState({ add: true, custom: value });
+  };
+
   render() {
     let { handleParts, id, ingredients } = this.props;
 
@@ -189,13 +192,15 @@ class IngredientsSelector extends Component {
         <div className="ingredients-selector__picker">
           <div
             className="ingredients-selector__picker__cont"
-            onBlur={() =>
+            onBlur={e => {
+              console.log('blur');
+              e.stopPropagation();
               this.setState({
                 add: false,
                 search: '',
                 filteredIngredients: [...this.state.mostUsedIngredients]
-              })
-            }
+              });
+            }}
           >
             <input
               name="search"
@@ -206,6 +211,8 @@ class IngredientsSelector extends Component {
               onKeyDown={e => {
                 if (e.which === 13) {
                   e.preventDefault();
+                  console.log('key down');
+
                   this.setState({ add: false, search: '' });
                 }
               }}
@@ -221,6 +228,7 @@ class IngredientsSelector extends Component {
                 filteredIngredients={this.state.filteredIngredients}
                 addIngredient={this.addIngredient}
                 searchIngredients={this.searchIngredients}
+                custom={this.state.custom}
               />
             )}
           </div>

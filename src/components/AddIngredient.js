@@ -5,7 +5,8 @@ import './AddIngredient.scss';
 const AddIngredient = ({
   filteredIngredients,
   addIngredient,
-  searchIngredients
+  searchIngredients,
+  custom
 }) => (
   <ul className="label__ingredients__picker__filtered">
     {filteredIngredients.length > 0 ? (
@@ -19,10 +20,12 @@ const AddIngredient = ({
     ) : (
       <input
         name="add-custom"
-        onChange={searchIngredients}
+        onMouseDown={e => console.log(e.target.name)}
+        onChange={() => {}}
         className="styled-input add-custom"
         id="add-custom"
         placeholder="Add custom ingredient"
+        value={custom}
       />
     )}
   </ul>
