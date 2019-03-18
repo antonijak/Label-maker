@@ -1,4 +1,4 @@
-# Label maker *Alpha
+# Label maker *Pre-alpha
 
 ### Tool for making food product labels. 
 
