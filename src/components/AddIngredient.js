@@ -5,7 +5,8 @@ import './AddIngredient.scss';
 const AddIngredient = ({
   filteredIngredients,
   addIngredient,
-  searchIngredients
+  searchIngredients,
+  custom
 }) => (
   <ul className="label__ingredients__picker__filtered">
     {filteredIngredients.length > 0 ? (
