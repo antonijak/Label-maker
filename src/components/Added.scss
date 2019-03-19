@@ -12,6 +12,7 @@
   font-size: 0.9rem;
   background: $ingredient;
   animation: fade 1s linear both;
+  cursor: pointer;
 
   p {
     margin-right: 0.6rem;
@@ -29,9 +30,12 @@
     background-position: center;
     width: 0.9rem;
     height: 0.9rem;
+    cursor: pointer;
 
     &:hover {
-      color: red;
+      background: url('../assets/x-hover.svg');
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
 }
