@@ -16,6 +16,9 @@
 
   p {
     margin-right: 0.6rem;
+    &:hover {
+      color: black;
+    }
   }
 
   &__remove {
@@ -42,10 +45,10 @@
 
 @keyframes fade {
   0% {
-    background: #909091;
+    background: #bdbdbd;
   }
   50% {
-    background: #90909196;
+    background: #dddddd96;
   }
   100% {
     background: $ingredient;
