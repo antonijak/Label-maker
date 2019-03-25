@@ -63,8 +63,7 @@ class IngredientsSelector extends Component {
     addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar'],
     add: false,
     initialMostUsed: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
-    mostUsedIngredients: [],
-    custom: ''
+    mostUsedIngredients: []
   };
 
   componentDidMount = () => {
@@ -97,16 +96,17 @@ class IngredientsSelector extends Component {
     const name = e.target.name;
     e.preventDefault();
     if (name === 'search') {
-      const filtered = this.state.defaultIngredients
+      const filtered = value ? this.state.defaultIngredients
         .filter(item => item.startsWith(value))
-        .filter(item => !this.state.addedIngredients.includes(item));
+        .filter(item => !this.state.addedIngredients.includes(item)) :
+        this.state.mostUsedIngredients
 
-      let custom = filtered.length > 0 ? this.state.custom : value;
+      let search = filtered.length > 0 ? this.state.search : value;
       this.setState({
         search: value,
         add: true,
         filteredIngredients: filtered,
-        custom
+        search
       });
     } else if (name === 'title') {
       this.props.showOnLabelPreview(
@@ -195,7 +195,7 @@ class IngredientsSelector extends Component {
   searchIngredients = e => {
     const value = e.target.value;
     e.stopPropagation();
-    this.setState({ add: true, custom: value });
+    this.setState({ add: true, search: value });
   };
 
   render() {
@@ -221,7 +221,7 @@ class IngredientsSelector extends Component {
               if (
                 this.state.filteredIngredients.length > 0 ||
                 this.state.addedIngredients.some(
-                  item => item === this.state.custom
+                  item => item === this.state.search
                 )
               ) {
                 this.setState({
@@ -258,7 +258,7 @@ class IngredientsSelector extends Component {
                 filteredIngredients={this.state.filteredIngredients}
                 addIngredient={this.addIngredient}
                 searchIngredients={this.searchIngredients}
-                custom={this.state.custom}
+                search={this.state.search}
                 handleChange={this.handleChange}
                 closeDropdown={this.closeDropdown}
                 addedIngredients={this.state.addedIngredients}
