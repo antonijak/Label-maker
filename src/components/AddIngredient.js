@@ -29,7 +29,9 @@ const AddIngredient = ({
         onChange={handleChange}
       >
         {addedIngredients.some(item => item === custom) ? (
-          'No result'
+          <span className="label__ingredients__picker__filtered__item__non-addable">
+            Ingredient already on your label
+          </span>
         ) : (
           <div className="label__ingredients__picker__filtered__item__addable">
             <button

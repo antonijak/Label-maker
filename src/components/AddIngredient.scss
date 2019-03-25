@@ -48,6 +48,11 @@
       background: rgba(247, 247, 247, 0.568);
     }
 
+    &__non-addable {
+      font-size: 0.8rem;
+      color: $remove;
+    }
+
     &__addable {
       width: 100%;
       display: flex;
