@@ -62,7 +62,6 @@ class IngredientsSelector extends Component {
     filteredIngredients: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
     addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar'],
     add: false,
-    search: '',
     initialMostUsed: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
     mostUsedIngredients: [],
     custom: ''
@@ -101,10 +100,13 @@ class IngredientsSelector extends Component {
       const filtered = this.state.defaultIngredients
         .filter(item => item.startsWith(value))
         .filter(item => !this.state.addedIngredients.includes(item));
+
+      let custom = filtered.length > 0 ? this.state.custom : value;
       this.setState({
         search: value,
         add: true,
-        filteredIngredients: filtered
+        filteredIngredients: filtered,
+        custom
       });
     } else if (name === 'title') {
       this.props.showOnLabelPreview(
@@ -121,9 +123,15 @@ class IngredientsSelector extends Component {
     const reducedFilteredIngredients = [
       ...this.state.filteredIngredients
     ].filter(item => item !== ingredient);
+
+    let filteredIngredients =
+      reducedFilteredIngredients > 0
+        ? reducedFilteredIngredients
+        : this.state.mostUsedIngredients;
+
     this.setState({
       addedIngredients: [...this.state.addedIngredients, ingredient],
-      filteredIngredients: reducedFilteredIngredients,
+      filteredIngredients,
       add: false,
       search: '',
       mostUsedIngredients: [...this.state.mostUsedIngredients].filter(
@@ -142,9 +150,15 @@ class IngredientsSelector extends Component {
     const reducedAddedIngredients = this.state.addedIngredients.filter(
       item => item !== ingredient
     );
+    let exists = this.state.defaultIngredients.some(
+      item => ingredient === item
+    );
+    let filteredIngredients = exists
+      ? [...this.state.filteredIngredients, ingredient]
+      : this.state.filteredIngredients;
     this.setState({
       addedIngredients: reducedAddedIngredients,
-      filteredIngredients: [...this.state.filteredIngredients, ingredient],
+      filteredIngredients,
       mostUsedIngredients: this.state.initialMostUsed.filter(
         item => !reducedAddedIngredients.includes(item)
       )
@@ -168,6 +182,14 @@ class IngredientsSelector extends Component {
     this.setState(({ addedIngredients }) => ({
       addedIngredients: arrayMove(addedIngredients, oldIndex, newIndex)
     }));
+  };
+
+  closeDropdown = () => {
+    this.setState({
+      add: false,
+      search: '',
+      filteredIngredients: this.state.mostUsedIngredients
+    });
   };
 
   searchIngredients = e => {
@@ -194,12 +216,20 @@ class IngredientsSelector extends Component {
             className="ingredients-selector__picker__cont"
             onBlur={e => {
               console.log('blur');
-              e.stopPropagation();
-              this.setState({
-                add: false,
-                search: '',
-                filteredIngredients: [...this.state.mostUsedIngredients]
-              });
+
+              console.log('curent', e.currentTarget, 'target', e.target.name);
+              if (
+                this.state.filteredIngredients.length > 0 ||
+                this.state.addedIngredients.some(
+                  item => item === this.state.custom
+                )
+              ) {
+                this.setState({
+                  add: false,
+                  search: '',
+                  filteredIngredients: [...this.state.mostUsedIngredients]
+                });
+              }
             }}
           >
             <input
@@ -229,6 +259,9 @@ class IngredientsSelector extends Component {
                 addIngredient={this.addIngredient}
                 searchIngredients={this.searchIngredients}
                 custom={this.state.custom}
+                handleChange={this.handleChange}
+                closeDropdown={this.closeDropdown}
+                addedIngredients={this.state.addedIngredients}
               />
             )}
           </div>

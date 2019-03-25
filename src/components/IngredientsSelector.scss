@@ -81,11 +81,11 @@
     }
 
     &__add {
-      background: rgb(86, 162, 86);
+      background: $add;
     }
 
     &__remove {
-      background: rgb(199, 119, 119);
+      background: $remove;
     }
   }
 }

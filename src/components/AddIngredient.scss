@@ -43,10 +43,39 @@
     list-style-type: none;
     font-family: $font-family-secondary;
     padding: 1rem;
-    cursor: pointer;
 
     &:hover {
       background: rgba(247, 247, 247, 0.568);
+    }
+
+    &__addable {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      &__add {
+        border: none;
+        color: $add;
+        cursor: pointer;
+        outline: none;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+
+        &:hover {
+          color: $add-hover;
+        }
+      }
+
+      &__remove {
+        border: none;
+        outline: none;
+        background: url('../assets/x.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 0.9rem;
+        height: 0.9rem;
+        cursor: pointer;
+      }
     }
   }
 }
