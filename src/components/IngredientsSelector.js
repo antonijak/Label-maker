@@ -103,10 +103,9 @@ class IngredientsSelector extends Component {
 
       let search = filtered.length > 0 ? this.state.search : value;
       this.setState({
-        search: value,
+        search,
         add: true,
         filteredIngredients: filtered,
-        search
       });
     } else if (name === 'title') {
       this.props.showOnLabelPreview(

@@ -8,11 +8,12 @@ const LabelPreview = ({ title, description, ingredients }) => {
       <h3>{description}</h3>
       {ingredients.map((part, i) => (
         <div key={'item' + i} className="label-preview__part">
-          <h4 className="label-preview__part__title">
-            {part.title !== ' ' && part.title + ': '}
-          </h4>
-          <p>
-            {part.addedIngredients && part.addedIngredients.join(', ') + '.'}
+          <h4 className="label-preview__part__title">{part.title}</h4>
+          <p className="label-preview__part__text">
+            <span className="label-preview__part__text__ingredients">
+              Ingredients:
+            </span>
+            {part.addedIngredients && ` ${part.addedIngredients.join(', ')}.`}
           </p>
         </div>
       ))}

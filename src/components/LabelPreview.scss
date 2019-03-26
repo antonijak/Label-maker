@@ -10,8 +10,13 @@
 
   &__part {
     margin-top: 0.5rem;
+
     &__title {
-      display: inline;
+    }
+    &__text {
+      &__ingredients {
+        font-weight: bold;
+      }
     }
   }
 }
