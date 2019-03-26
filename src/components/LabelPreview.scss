@@ -11,10 +11,12 @@
   &__part {
     margin-top: 0.5rem;
 
-    &__title {
-    }
     &__text {
       &__ingredients {
+        font-weight: bold;
+      }
+
+      &__alergen {
         font-weight: bold;
       }
     }

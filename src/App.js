@@ -10,7 +10,8 @@ class App extends Component {
     title: '',
     description: '',
     ingredients: [{ id: '01', title: '', addedIngredients: [] }],
-    mostUsedIngredients: ['cocoa powder', 'cocoa butter', 'sugar']
+    mostUsedIngredients: ['cocoa powder', 'cocoa butter', 'sugar'],
+    alergens: ['egg', 'milk', 'peanut']
   };
 
   handleChange = e => {
@@ -95,6 +96,7 @@ class App extends Component {
           </div>
         </form>
         <LabelPreview
+          alergens={this.state.alergens}
           title={this.state.title}
           description={this.state.description}
           ingredients={this.state.ingredients}

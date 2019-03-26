@@ -1,7 +1,7 @@
 import React from 'react';
 import './LabelPreview.scss';
 
-const LabelPreview = ({ title, description, ingredients }) => {
+const LabelPreview = ({ title, description, ingredients, alergens }) => {
   return (
     <div className="label-preview">
       <h2>{title}</h2>
@@ -13,7 +13,20 @@ const LabelPreview = ({ title, description, ingredients }) => {
             <span className="label-preview__part__text__ingredients">
               Ingredients:
             </span>
-            {part.addedIngredients && ` ${part.addedIngredients.join(', ')}.`}
+            {part.addedIngredients &&
+              part.addedIngredients.map((ingredient, i) => (
+                <span
+                  className={
+                    alergens.includes(ingredient)
+                      ? 'label-preview__part__text__alergen'
+                      : 'label-preview__part__text__normal'
+                  }
+                >
+                  {`${i === 0 ? ' ' : ''}${ingredient}${
+                    i === part.addedIngredients.length - 1 ? '.' : ', '
+                  }`}
+                </span>
+              ))}
           </p>
         </div>
       ))}

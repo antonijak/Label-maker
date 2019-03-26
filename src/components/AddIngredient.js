@@ -1,5 +1,6 @@
 import React from 'react';
 import Ingredient from './Ingredient';
+import AddCustom from './AddCustom';
 import './AddIngredient.scss';
 
 const AddIngredient = ({
@@ -17,14 +18,25 @@ const AddIngredient = ({
   return (
     <ul className={clsName}>
       {filteredIngredients.length > 0 ? (
-        filteredIngredients.map((item, i) => (
-          <Ingredient
-            key={'item' + i}
-            text={item}
-            addIngredient={addIngredient}
-            name="ingredient"
-          />
-        ))
+        <div>
+          {filteredIngredients.map((item, i) => (
+            <Ingredient
+              key={'item' + i}
+              text={item}
+              addIngredient={addIngredient}
+              name="ingredient"
+            />
+          ))}
+          {search && (
+            <AddCustom
+              addIngredient={addIngredient}
+              search={search}
+              closeDropdown={closeDropdown}
+              addedIngredients={addedIngredients}
+              clsName="many"
+            />
+          )}
+        </div>
       ) : (
         <li
           className="label__ingredients__picker__filtered__item"
@@ -33,24 +45,13 @@ const AddIngredient = ({
           value={search}
           onChange={handleChange}
         >
-          {addedIngredients.some(item => item === search) ? (
-            <span className="label__ingredients__picker__filtered__item__non-addable">
-              Ingredient already on your label
-            </span>
-          ) : (
-            <div className="label__ingredients__picker__filtered__item__addable">
-              <button
-                onClick={() => addIngredient(search)}
-                className="label__ingredients__picker__filtered__item__addable__add"
-              >
-                Add missing ingredient
-              </button>
-              <button
-                className="label__ingredients__picker__filtered__item__addable__remove"
-                onClick={closeDropdown}
-              />
-            </div>
-          )}
+          <AddCustom
+            addIngredient={addIngredient}
+            search={search}
+            closeDropdown={closeDropdown}
+            addedIngredients={addedIngredients}
+            clsName="one"
+          />
         </li>
       )}
     </ul>

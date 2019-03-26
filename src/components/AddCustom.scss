@@ -1,0 +1,64 @@
+@import '../index.scss';
+
+.custom {
+  &__non-addable {
+    font-size: 0.8rem;
+    color: $remove;
+  }
+
+  &__addable {
+    width: 100%;
+    position: relative;
+
+    &__add {
+      width: calc(100% + 2rem);
+      height: 100%;
+      text-align: left;
+      border: none;
+      color: $add;
+      cursor: pointer;
+      outline: none;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      padding: 1rem;
+      margin: -1rem;
+
+      &:hover {
+        background-color: $lightgray;
+      }
+    }
+
+    &__remove {
+      position: absolute;
+      right: 0.5rem;
+      top: 0.8rem;
+      border: none;
+      outline: none;
+      background: url('../assets/x.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100%;
+      width: 1.3rem;
+      margin: -1rem;
+      padding: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background: url('../assets/x-hover.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgb(233, 233, 233);
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.many .custom__addable__add {
+  margin: 0;
+  padding: 1rem;
+}
+
+.many .custom__addable__remove {
+  display: none;
+}
