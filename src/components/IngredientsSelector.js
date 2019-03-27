@@ -96,16 +96,17 @@ class IngredientsSelector extends Component {
     const name = e.target.name;
     e.preventDefault();
     if (name === 'search') {
-      const filtered = value ? this.state.defaultIngredients
-        .filter(item => item.startsWith(value))
-        .filter(item => !this.state.addedIngredients.includes(item)) :
-        this.state.mostUsedIngredients
+      const filtered = value
+        ? this.state.defaultIngredients
+            .filter(item => item.startsWith(value))
+            .filter(item => !this.state.addedIngredients.includes(item))
+        : this.state.mostUsedIngredients;
 
       let search = filtered.length > 0 ? this.state.search : value;
       this.setState({
         search,
         add: true,
-        filteredIngredients: filtered,
+        filteredIngredients: filtered
       });
     } else if (name === 'title') {
       this.props.showOnLabelPreview(
@@ -203,6 +204,7 @@ class IngredientsSelector extends Component {
     return (
       <div className="ingredients-selector">
         <input
+          type="text"
           value={this.state.title}
           name="title"
           id="title"
@@ -232,6 +234,7 @@ class IngredientsSelector extends Component {
             }}
           >
             <input
+              type="text"
               name="search"
               onChange={this.handleChange}
               onFocus={() => {

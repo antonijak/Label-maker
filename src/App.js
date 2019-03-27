@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import IngredientsSelector from './components/IngredientsSelector.js';
+import Allergens from './components/Allergens.js';
 import uuid from 'uuid/v4';
 
 import './App.scss';
@@ -10,14 +11,24 @@ class App extends Component {
     title: '',
     description: '',
     ingredients: [{ id: '01', title: '', addedIngredients: [] }],
-    mostUsedIngredients: ['cocoa powder', 'cocoa butter', 'sugar'],
-    alergens: ['egg', 'milk', 'peanut']
+    mostUsedIngredients: [
+      'cocoa powder',
+      'cocoa butter',
+      'milk powder',
+      'sugar'
+    ],
+    alergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
+    checkbox: false
   };
 
   handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
-    this.setState({ [name]: value });
+    if (name === 'checkbox') {
+      this.setState({ checkbox: !this.state.checkbox });
+    } else {
+      this.setState({ [name]: value });
+    }
   };
 
   showOnLabelPreview = (e, id, title, addedIngredients) => {
@@ -94,6 +105,10 @@ class App extends Component {
               />
             ))}
           </div>
+          <Allergens
+            checkbox={this.state.checkbox}
+            handleChange={this.handleChange}
+          />
         </form>
         <LabelPreview
           alergens={this.state.alergens}
