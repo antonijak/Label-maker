@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IngredientsSelector from './components/IngredientsSelector.js';
-import Allergens from './components/Allergens.js';
+import AllergensContainer from './components/AllergensContainer.js';
 import uuid from 'uuid/v4';
 
 import './App.scss';
@@ -100,7 +100,7 @@ class App extends Component {
               />
             ))}
           </div>
-          <Allergens />
+          <AllergensContainer />
         </form>
         <LabelPreview
           alergens={this.state.alergens}

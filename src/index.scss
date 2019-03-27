@@ -51,36 +51,42 @@ input {
 }
 .checkbox {
   margin-top: 1rem;
-  width: auto;
   text-align: right;
   position: relative;
   color: black;
   font-weight: lighter;
-  letter-spacing: 1px;
+
+  span {
+    font-family: $font-family-secondary;
+  }
 
   &__button {
     position: relative;
+    width: 1rem;
+    margin-right: 2rem;
     visibility: hidden;
-    margin-right: 1rem;
-    width: auto;
-    height: auto;
 
-    &:before {
-      border: 1px solid black;
+    &:hover::before {
+      background-color: #e2e2e2;
+    }
+
+    &::before {
+      background-color: white;
+      border-radius: 3px;
       position: absolute;
-      top: -2px;
-      left: -2px;
-      height: 0.7rem;
-      width: 0.7rem;
+      bottom: 0;
+      left: 9px;
+      height: 1.1rem;
+      width: 1.1rem;
       content: '';
       visibility: visible;
     }
 
-    &:after {
+    &::after {
       color: black;
       position: absolute;
-      top: -2.8px;
-      left: 0;
+      bottom: -1px;
+      left: 11px;
       content: '\2713';
       visibility: hidden;
     }
