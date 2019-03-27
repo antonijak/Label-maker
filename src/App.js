@@ -17,18 +17,13 @@ class App extends Component {
       'milk powder',
       'sugar'
     ],
-    alergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
-    checkbox: false
+    alergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts']
   };
 
   handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
-    if (name === 'checkbox') {
-      this.setState({ checkbox: !this.state.checkbox });
-    } else {
-      this.setState({ [name]: value });
-    }
+    this.setState({ [name]: value });
   };
 
   showOnLabelPreview = (e, id, title, addedIngredients) => {
@@ -105,10 +100,7 @@ class App extends Component {
               />
             ))}
           </div>
-          <Allergens
-            checkbox={this.state.checkbox}
-            handleChange={this.handleChange}
-          />
+          <Allergens />
         </form>
         <LabelPreview
           alergens={this.state.alergens}
