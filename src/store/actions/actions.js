@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export function handleChange(e) {
+export function handleChange(event) {
   return {
     type: actionTypes.HANDLE_CHANGE,
-    payload: e
+    payload: { event }
   };
 }
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import IngredientsSelector from './components/IngredientsSelector.js';
 import AllergensContainer from './components/AllergensContainer.js';
-import uuid from 'uuid/v4';
+import { connect } from 'react-redux';
+import * as actions from './store/actions/actions';
+// import uuid from 'uuid/v4';
 
 import './App.scss';
 import LabelPreview from './components/LabelPreview.js';
@@ -24,13 +26,13 @@ class App extends Component {
   // handleChange = e => {
   //   const name = e.target.name;
   //   const value = e.target.value;
-  //   this.setState({ [name]: value });
+  //   this.props.setState({ [name]: value });
   // };
 
   // showOnLabelPreview = (e, id, title, addedIngredients) => {
   //   e && e.preventDefault();
-  //   this.setState({
-  //     ingredients: [...this.state.ingredients].map(item =>
+  //   this.props.setState({
+  //     ingredients: [...this.props.ingredients].map(item =>
   //       item.id === id ? { id, title, addedIngredients } : item
   //     )
   //   });
@@ -39,21 +41,20 @@ class App extends Component {
   // handleParts = (e, id, value) => {
   //   e.preventDefault();
   //   value === 'add'
-  //     ? this.setState({
+  //     ? this.props.setState({
   //         ingredients: [
-  //           ...this.state.ingredients,
+  //           ...this.props.ingredients,
   //           { id: uuid(), title: '', addedIngredients: [] }
   //         ]
   //       })
-  //     : this.setState({
-  //         ingredients: [...this.state.ingredients].filter(
+  //     : this.props.setState({
+  //         ingredients: [...this.props.ingredients].filter(
   //           item => item.id !== id
   //         )
   //       });
   // };
 
   render() {
-    let { title, description, ingredients } = this.state;
     return (
       <div className="App">
         <form className="form">
@@ -64,8 +65,8 @@ class App extends Component {
               name="title"
               type="text"
               id="form-title"
-              value={title}
-              onChange={this.handleChange}
+              value={this.props.title}
+              onChange={this.props.handleChange}
               className="form__heading__title"
               placeholder="Main title"
             />
@@ -76,43 +77,66 @@ class App extends Component {
               id="description"
               className="form__heading__description"
               placeholder="Main description"
-              value={description}
-              onChange={this.handleChange}
+              value={this.props.description}
+              onChange={this.props.handleChange}
             />
           </div>
 
           <div className="form__parts">
-            {ingredients.map((item, i) => (
-              <IngredientsSelector
-                key={item.id}
-                ingredients={this.state.ingredients}
-                number={i}
-                id={item.id}
-                handleChange={this.handleChange}
-                addToform={this.addToform}
-                handleParts={this.handleParts}
-                addedIngredients={
-                  item.addedIngredients.length === 0
-                    ? this.state.mostUsedIngredients
-                    : item.addedIngredients
-                }
-                showOnLabelPreview={this.showOnLabelPreview}
-                title={item.title}
-              />
-            ))}
+            {this.props.ingredients &&
+              this.props.ingredients.map((item, i) => (
+                <IngredientsSelector
+                  key={item.id}
+                  ingredients={this.props.ingredients}
+                  number={i}
+                  id={item.id}
+                  handleChange={this.props.handleChange}
+                  handleParts={this.props.handleParts}
+                  addedIngredients={
+                    item.addedIngredients.length === 0
+                      ? this.props.mostUsedIngredients
+                      : item.addedIngredients
+                  }
+                  showOnLabelPreview={this.props.showOnLabelPreview}
+                  title={item.title}
+                />
+              ))}
           </div>
           <AllergensContainer />
         </form>
         <LabelPreview
-          allAllergens={this.state.allAllergens}
-          title={this.state.title}
-          description={this.state.description}
-          ingredients={this.state.ingredients}
-          mayContain={this.state.mayContain}
+          allAllergens={this.props.allAllergens}
+          title={this.props.title}
+          description={this.props.description}
+          ingredients={this.props.ingredients}
+          mayContain={this.props.mayContain}
         />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    title: state.title,
+    description: state.description,
+    ingredients: state.ingredients,
+    mostUsedIngredients: state.mostUsedIngredients,
+    allAllergens: state.allAllergens,
+    mayContain: state.mayContain
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleChange: e => dispatch(actions.handleChange(e)),
+    handleParts: (e, id, value) => dispatch(actions.handleParts(e, id, value)),
+    showOnLabelPreview: (e, id, title, addedIngredients) =>
+      dispatch(actions.showOnLabelPreview(e, id, title, addedIngredients))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
