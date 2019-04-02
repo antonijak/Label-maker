@@ -17,7 +17,8 @@ class App extends Component {
       'milk powder',
       'sugar'
     ],
-    alergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts']
+    allAllergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
+    mayContain: ['nuts', 'milk', 'eggs']
   };
 
   handleChange = e => {
@@ -103,10 +104,11 @@ class App extends Component {
           <AllergensContainer />
         </form>
         <LabelPreview
-          alergens={this.state.alergens}
+          allAllergens={this.state.allAllergens}
           title={this.state.title}
           description={this.state.description}
           ingredients={this.state.ingredients}
+          mayContain={this.state.mayContain}
         />
       </div>
     );
