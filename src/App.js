@@ -7,50 +7,50 @@ import './App.scss';
 import LabelPreview from './components/LabelPreview.js';
 
 class App extends Component {
-  state = {
-    title: '',
-    description: '',
-    ingredients: [{ id: '01', title: '', addedIngredients: [] }],
-    mostUsedIngredients: [
-      'cocoa powder',
-      'cocoa butter',
-      'milk powder',
-      'sugar'
-    ],
-    allAllergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
-    mayContain: ['nuts', 'milk', 'eggs']
-  };
+  // state = {
+  //   title: '',
+  //   description: '',
+  //   ingredients: [{ id: '01', title: '', addedIngredients: [] }],
+  //   mostUsedIngredients: [
+  //     'cocoa powder',
+  //     'cocoa butter',
+  //     'milk powder',
+  //     'sugar'
+  //   ],
+  //   allAllergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
+  //   mayContain: ['nuts', 'milk', 'eggs']
+  // };
 
-  handleChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
-  };
+  // handleChange = e => {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+  //   this.setState({ [name]: value });
+  // };
 
-  showOnLabelPreview = (e, id, title, addedIngredients) => {
-    e && e.preventDefault();
-    this.setState({
-      ingredients: [...this.state.ingredients].map(item =>
-        item.id === id ? { id, title, addedIngredients } : item
-      )
-    });
-  };
+  // showOnLabelPreview = (e, id, title, addedIngredients) => {
+  //   e && e.preventDefault();
+  //   this.setState({
+  //     ingredients: [...this.state.ingredients].map(item =>
+  //       item.id === id ? { id, title, addedIngredients } : item
+  //     )
+  //   });
+  // };
 
-  handleParts = (e, id, value) => {
-    e.preventDefault();
-    value === 'add'
-      ? this.setState({
-          ingredients: [
-            ...this.state.ingredients,
-            { id: uuid(), title: '', addedIngredients: [] }
-          ]
-        })
-      : this.setState({
-          ingredients: [...this.state.ingredients].filter(
-            item => item.id !== id
-          )
-        });
-  };
+  // handleParts = (e, id, value) => {
+  //   e.preventDefault();
+  //   value === 'add'
+  //     ? this.setState({
+  //         ingredients: [
+  //           ...this.state.ingredients,
+  //           { id: uuid(), title: '', addedIngredients: [] }
+  //         ]
+  //       })
+  //     : this.setState({
+  //         ingredients: [...this.state.ingredients].filter(
+  //           item => item.id !== id
+  //         )
+  //       });
+  // };
 
   render() {
     let { title, description, ingredients } = this.state;
