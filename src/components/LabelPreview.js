@@ -26,6 +26,7 @@ const LabelPreview = ({
             {part.addedIngredients &&
               part.addedIngredients.map((ingredient, i) => (
                 <span
+                  key={i + 1}
                   className={
                     allAllergens.includes(ingredient)
                       ? 'label-preview__part__text__alergen'

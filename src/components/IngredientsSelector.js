@@ -48,9 +48,8 @@ class IngredientsSelector extends Component {
             .filter(item => !this.state.part.addedIngredients.includes(item))
         : this.state.mostUsedIngredients;
 
-      let search = filtered.length > 0 ? this.state.search : value;
       this.setState({
-        search,
+        search: value,
         add: true,
         filteredIngredients: filtered
       });
@@ -61,8 +60,8 @@ class IngredientsSelector extends Component {
         [value],
         this.state.part.addedIngredients
       );
+      this.setState({ part: { ...this.state.part, title: value } });
     }
-    this.setState({ [name]: value });
   };
 
   addIngredient = ingredient => {
@@ -157,7 +156,7 @@ class IngredientsSelector extends Component {
       <div className="ingredients-selector">
         <input
           type="text"
-          value={this.state.title}
+          value={this.state.part.title}
           name="title"
           id="title"
           onChange={this.handleChange}
