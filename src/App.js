@@ -9,52 +9,8 @@ import './App.scss';
 import LabelPreview from './components/LabelPreview.js';
 
 class App extends Component {
-  // state = {
-  //   title: '',
-  //   description: '',
-  //   ingredients: [{ id: '01', title: '', addedIngredients: [] }],
-  //   mostUsedIngredients: [
-  //     'cocoa powder',
-  //     'cocoa butter',
-  //     'milk powder',
-  //     'sugar'
-  //   ],
-  //   allAllergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
-  //   mayContain: ['nuts', 'milk', 'eggs']
-  // };
-
-  // handleChange = e => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   this.props.setState({ [name]: value });
-  // };
-
-  // showOnLabelPreview = (e, id, title, addedIngredients) => {
-  //   e && e.preventDefault();
-  //   this.props.setState({
-  //     ingredients: [...this.props.ingredients].map(item =>
-  //       item.id === id ? { id, title, addedIngredients } : item
-  //     )
-  //   });
-  // };
-
-  // handleParts = (e, id, value) => {
-  //   e.preventDefault();
-  //   value === 'add'
-  //     ? this.props.setState({
-  //         ingredients: [
-  //           ...this.props.ingredients,
-  //           { id: uuid(), title: '', addedIngredients: [] }
-  //         ]
-  //       })
-  //     : this.props.setState({
-  //         ingredients: [...this.props.ingredients].filter(
-  //           item => item.id !== id
-  //         )
-  //       });
-  // };
-
   render() {
+    console.log(this.props.ingredients);
     return (
       <div className="App">
         <form className="form">
@@ -84,21 +40,14 @@ class App extends Component {
 
           <div className="form__parts">
             {this.props.ingredients &&
-              this.props.ingredients.map((item, i) => (
+              this.props.ingredients.map((part, i) => (
                 <IngredientsSelector
-                  key={item.id}
-                  ingredients={this.props.ingredients}
+                  key={part.id}
                   number={i}
-                  id={item.id}
                   handleChange={this.props.handleChange}
                   handleParts={this.props.handleParts}
-                  addedIngredients={
-                    item.addedIngredients.length === 0
-                      ? this.props.mostUsedIngredients
-                      : item.addedIngredients
-                  }
                   showOnLabelPreview={this.props.showOnLabelPreview}
-                  title={item.title}
+                  part={part}
                 />
               ))}
           </div>
@@ -131,8 +80,7 @@ const mapDispatchToProps = dispatch => {
   return {
     handleChange: e => dispatch(actions.handleChange(e)),
     handleParts: (e, id, value) => dispatch(actions.handleParts(e, id, value)),
-    showOnLabelPreview: (e, id, title, addedIngredients) =>
-      dispatch(actions.showOnLabelPreview(e, id, title, addedIngredients))
+    showOnLabelPreview: part => dispatch(actions.showOnLabelPreview(part))
   };
 };
 

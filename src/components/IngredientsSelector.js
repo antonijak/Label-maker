@@ -4,6 +4,8 @@ import SortableComponent from './SortableComponent';
 import AddIngredient from './AddIngredient';
 import './IngredientsSelector.scss';
 import * as data from '../data/data';
+import * as actions from '../store/actions/actions';
+import { connect } from 'react-redux';
 
 class IngredientsSelector extends Component {
   state = {
@@ -11,30 +13,22 @@ class IngredientsSelector extends Component {
     part: {
       id: '',
       title: '',
-      addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar']
+      addedIngredients: []
     },
     allIngredients: [],
     filteredIngredients: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
-    add: false,
-    mostUsedIngredients: []
+    mostUsedIngredients: [],
+    add: false
   };
 
   componentDidMount = () => {
     this.setState({
-      part: {
-        id: this.props.id,
-        title: this.props.title,
-        addedIngredients: this.props.addedIngredients
-      },
+      part: this.props.part,
       mostUsedIngredients: data.mostUsedIngredients,
       allIngredients: data.ingredients
     });
 
-    this.props.showOnLabelPreview(
-      this.props.id,
-      this.props.title,
-      this.props.addedIngredients
-    );
+    this.props.showOnLabelPreview(this.props.part);
   };
 
   handleChange = e => {
@@ -56,11 +50,7 @@ class IngredientsSelector extends Component {
       });
     } else if (name === 'title') {
       e.preventDefault();
-      this.props.showOnLabelPreview(
-        this.props.id,
-        [value],
-        this.state.part.addedIngredients
-      );
+      this.props.showOnLabelPreview({ ...this.state.part, title: value });
       this.setState({ part: { ...this.state.part, title: value } });
     }
   };
@@ -89,10 +79,10 @@ class IngredientsSelector extends Component {
       )
     });
 
-    this.props.showOnLabelPreview(this.props.id, this.state.part.title, [
-      ...this.state.part.addedIngredients,
-      ingredient
-    ]);
+    this.props.showOnLabelPreview({
+      ...this.state.part,
+      addedIngredients: [...this.state.part.addedIngredients, ingredient]
+    });
   };
 
   removeIngredient = (e, ingredient) => {
@@ -112,19 +102,21 @@ class IngredientsSelector extends Component {
       )
     });
 
-    this.props.showOnLabelPreview(
-      this.props.id,
-      this.state.title,
-      reducedAddedIngredients
-    );
+    this.props.showOnLabelPreview({
+      ...this.state.part,
+      addedIngredients: reducedAddedIngredients
+    });
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    this.props.showOnLabelPreview(
-      this.props.id,
-      this.state.title,
-      arrayMove(this.state.part.addedIngredients, oldIndex, newIndex)
-    );
+    this.props.showOnLabelPreview({
+      ...this.state.part,
+      addedIngredients: arrayMove(
+        this.state.part.addedIngredients,
+        oldIndex,
+        newIndex
+      )
+    });
     this.setState({
       addedIngredients: arrayMove(
         this.state.part.addedIngredients,
@@ -149,7 +141,8 @@ class IngredientsSelector extends Component {
   };
 
   render() {
-    let { handleParts, id, ingredients } = this.props;
+    const { handleParts, ingredients } = this.props;
+    const { id } = this.state.part;
 
     return (
       <div className="ingredients-selector">
@@ -248,5 +241,21 @@ class IngredientsSelector extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    ingredients: state.ingredients
+  };
+};
 
-export default IngredientsSelector;
+const mapDispatchToProps = dispatch => {
+  return {
+    handleChange: e => dispatch(actions.handleChange(e)),
+    handleParts: (e, id, value) => dispatch(actions.handleParts(e, id, value)),
+    showOnLabelPreview: part => dispatch(actions.showOnLabelPreview(part))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(IngredientsSelector);

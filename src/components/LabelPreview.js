@@ -8,7 +8,7 @@ const LabelPreview = ({
   allAllergens,
   mayContain
 }) => {
-  console.log(title, description, ingredients, allAllergens, mayContain);
+  console.log(ingredients);
   return (
     <div className="label-preview">
       <h2>{title && title.toUpperCase()}</h2>

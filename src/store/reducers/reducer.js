@@ -4,8 +4,13 @@ import uuid from 'uuid/v4';
 const initialState = {
   title: '',
   description: '',
-  ingredients: [{ id: '01', title: '', addedIngredients: [] }],
-  mostUsedIngredients: ['cocoa powder', 'cocoa butter', 'milk powder', 'sugar'],
+  ingredients: [
+    {
+      id: '01',
+      title: '',
+      addedIngredients: ['cocoa powder', 'cocoa butter', 'milk powder', 'sugar']
+    }
+  ],
   allAllergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
   mayContain: ['nuts', 'milk', 'eggs']
 };
@@ -26,7 +31,16 @@ const reducer = (state = initialState, action) => {
             ...state,
             ingredients: [
               ...state.ingredients,
-              { id: uuid(), title: '', addedIngredients: [] }
+              {
+                id: uuid(),
+                title: '',
+                addedIngredients: [
+                  'cocoa powder',
+                  'cocoa butter',
+                  'milk powder',
+                  'sugar'
+                ]
+              }
             ]
           }
         : {
@@ -35,12 +49,11 @@ const reducer = (state = initialState, action) => {
           };
 
     case actionTypes.SHOW_ON_LABEL_PREVIEW:
-      let { title, addedIngredients } = action.payload;
-      id = action.payload.id;
+      console.log('show');
       return {
         ...state,
         ingredients: [...state.ingredients].map(item =>
-          item.id === id ? { id, title, addedIngredients } : item
+          item.id === action.payload.id ? action.payload : item
         )
       };
 
