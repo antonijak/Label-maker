@@ -49,3 +49,10 @@ export const ingredients = [
   'pistachios',
   'eggwhite'
 ];
+
+export const mostUsedIngredients = [
+  'soy-lecithin',
+  'brasilian nut',
+  'cashew',
+  'rasins'
+];

@@ -9,28 +9,28 @@ class IngredientsSelector extends Component {
   state = {
     search: '',
     part: {
+      id: '',
       title: '',
       addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar']
     },
     allIngredients: [],
     filteredIngredients: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
     add: false,
-    initialMostUsed: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
     mostUsedIngredients: []
   };
 
   componentDidMount = () => {
     this.setState({
       part: {
+        id: this.props.id,
         title: this.props.title,
         addedIngredients: this.props.addedIngredients
       },
-      mostUsedIngredients: this.state.initialMostUsed,
+      mostUsedIngredients: data.mostUsedIngredients,
       allIngredients: data.ingredients
     });
 
     this.props.showOnLabelPreview(
-      null,
       this.props.id,
       this.props.title,
       this.props.addedIngredients
@@ -38,9 +38,10 @@ class IngredientsSelector extends Component {
   };
 
   handleChange = e => {
-    const value = e.target.value;
-    const name = e.target.name;
     e.preventDefault();
+
+    const { value, name } = e.target;
+
     if (name === 'search') {
       const filtered = value
         ? this.state.allIngredients
@@ -54,8 +55,8 @@ class IngredientsSelector extends Component {
         filteredIngredients: filtered
       });
     } else if (name === 'title') {
+      e.preventDefault();
       this.props.showOnLabelPreview(
-        e,
         this.props.id,
         [value],
         this.state.part.addedIngredients
@@ -88,7 +89,7 @@ class IngredientsSelector extends Component {
       )
     });
 
-    this.props.showOnLabelPreview(null, this.props.id, this.state.part.title, [
+    this.props.showOnLabelPreview(this.props.id, this.state.part.title, [
       ...this.state.part.addedIngredients,
       ingredient
     ]);
@@ -106,13 +107,12 @@ class IngredientsSelector extends Component {
     this.setState({
       part: { ...this.state.part, addedIngredients: reducedAddedIngredients },
       filteredIngredients,
-      mostUsedIngredients: this.state.initialMostUsed.filter(
+      mostUsedIngredients: data.mostUsedIngredients.filter(
         item => !reducedAddedIngredients.includes(item)
       )
     });
 
     this.props.showOnLabelPreview(
-      e,
       this.props.id,
       this.state.title,
       reducedAddedIngredients
@@ -121,7 +121,6 @@ class IngredientsSelector extends Component {
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     this.props.showOnLabelPreview(
-      null,
       this.props.id,
       this.state.title,
       arrayMove(this.state.part.addedIngredients, oldIndex, newIndex)

@@ -14,9 +14,9 @@ export function handleParts(e, id, value) {
   };
 }
 
-export function showOnLabelPreview(e, id, title, addedIngredients) {
+export function showOnLabelPreview(id, title, addedIngredients) {
   return {
     type: actionTypes.SHOW_ON_LABEL_PREVIEW,
-    payload: { e, id, title, addedIngredients }
+    payload: { id, title, addedIngredients }
   };
 }
