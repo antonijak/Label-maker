@@ -3,64 +3,17 @@ import { arrayMove } from 'react-sortable-hoc';
 import SortableComponent from './SortableComponent';
 import AddIngredient from './AddIngredient';
 import './IngredientsSelector.scss';
+import * as data from '../data/data';
 
 class IngredientsSelector extends Component {
   state = {
-    title: '',
     search: '',
-    defaultIngredients: [
-      'cocoa butter',
-      'cocoa powder',
-      'sugar',
-      'cocoa liquor',
-      'palm oil',
-      'invert sugar',
-      'milk',
-      'cream',
-      'butter',
-      'peanuts',
-      'strawberry',
-      'cranberry',
-      'apple',
-      'banana',
-      'wallnuts',
-      'hazelnuts',
-      'almonds',
-      'honey',
-      'soy-lecithin',
-      'brasilian nut',
-      'cashew',
-      'rasins',
-      'peach',
-      'apricot',
-      'black-currant',
-      'red-currant',
-      'blueberry',
-      'blackberry',
-      'raspberry',
-      'elderberry',
-      'pineapple',
-      'caramel',
-      'crockant',
-      'nougat',
-      'brandy',
-      'whiskey',
-      'cherry liquer',
-      'peach liquer',
-      'E100',
-      'E200',
-      'E300',
-      'E400',
-      'E500',
-      'acidity-regulator: citric acid',
-      'whey',
-      'sunflower oil',
-      'melases',
-      'pistachios',
-      'eggwhite'
-    ],
+    part: {
+      title: '',
+      addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar']
+    },
+    allIngredients: [],
     filteredIngredients: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
-    addedIngredients: ['cocoa butter', 'cocoa powder', 'sugar'],
     add: false,
     initialMostUsed: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
     mostUsedIngredients: []
@@ -68,9 +21,12 @@ class IngredientsSelector extends Component {
 
   componentDidMount = () => {
     this.setState({
-      title: this.props.title,
-      addedIngredients: this.props.addedIngredients,
-      mostUsedIngredients: this.state.initialMostUsed
+      part: {
+        title: this.props.title,
+        addedIngredients: this.props.addedIngredients
+      },
+      mostUsedIngredients: this.state.initialMostUsed,
+      allIngredients: data.ingredients
     });
 
     this.props.showOnLabelPreview(
@@ -81,25 +37,15 @@ class IngredientsSelector extends Component {
     );
   };
 
-  onSortEnd = ({ oldIndex, newIndex }) => {
-    this.setState(({ addedIngredients }) => ({
-      addedIngredients: arrayMove(
-        this.state.addedIngredients,
-        oldIndex,
-        newIndex
-      )
-    }));
-  };
-
   handleChange = e => {
     const value = e.target.value;
     const name = e.target.name;
     e.preventDefault();
     if (name === 'search') {
       const filtered = value
-        ? this.state.defaultIngredients
+        ? this.state.allIngredients
             .filter(item => item.startsWith(value))
-            .filter(item => !this.state.addedIngredients.includes(item))
+            .filter(item => !this.state.part.addedIngredients.includes(item))
         : this.state.mostUsedIngredients;
 
       let search = filtered.length > 0 ? this.state.search : value;
@@ -113,7 +59,7 @@ class IngredientsSelector extends Component {
         e,
         this.props.id,
         [value],
-        this.state.addedIngredients
+        this.state.part.addedIngredients
       );
     }
     this.setState({ [name]: value });
@@ -130,34 +76,36 @@ class IngredientsSelector extends Component {
         : this.state.mostUsedIngredients;
 
     this.setState({
-      addedIngredients: [...this.state.addedIngredients, ingredient],
+      part: {
+        ...this.state.part,
+        addedIngredients: [...this.state.part.addedIngredients, ingredient]
+      },
       filteredIngredients,
       add: false,
       search: '',
       mostUsedIngredients: [...this.state.mostUsedIngredients].filter(
-        item => ![...this.state.addedIngredients, ingredient].includes(item)
+        item =>
+          ![...this.state.part.addedIngredients, ingredient].includes(item)
       )
     });
 
-    this.props.showOnLabelPreview(null, this.props.id, this.state.title, [
-      ...this.state.addedIngredients,
+    this.props.showOnLabelPreview(null, this.props.id, this.state.part.title, [
+      ...this.state.part.addedIngredients,
       ingredient
     ]);
   };
 
   removeIngredient = (e, ingredient) => {
     e.preventDefault();
-    const reducedAddedIngredients = this.state.addedIngredients.filter(
+    const reducedAddedIngredients = this.state.part.addedIngredients.filter(
       item => item !== ingredient
     );
-    let exists = this.state.defaultIngredients.some(
-      item => ingredient === item
-    );
+    let exists = this.state.allIngredients.some(item => ingredient === item);
     let filteredIngredients = exists
       ? [...this.state.filteredIngredients, ingredient]
       : this.state.filteredIngredients;
     this.setState({
-      addedIngredients: reducedAddedIngredients,
+      part: { ...this.state.part, addedIngredients: reducedAddedIngredients },
       filteredIngredients,
       mostUsedIngredients: this.state.initialMostUsed.filter(
         item => !reducedAddedIngredients.includes(item)
@@ -177,11 +125,15 @@ class IngredientsSelector extends Component {
       null,
       this.props.id,
       this.state.title,
-      arrayMove(this.state.addedIngredients, oldIndex, newIndex)
+      arrayMove(this.state.part.addedIngredients, oldIndex, newIndex)
     );
-    this.setState(({ addedIngredients }) => ({
-      addedIngredients: arrayMove(addedIngredients, oldIndex, newIndex)
-    }));
+    this.setState({
+      addedIngredients: arrayMove(
+        this.state.part.addedIngredients,
+        oldIndex,
+        newIndex
+      )
+    });
   };
 
   closeDropdown = () => {
@@ -221,7 +173,7 @@ class IngredientsSelector extends Component {
               console.log('curent', e.currentTarget, 'target', e.target.name);
               if (
                 this.state.filteredIngredients.length > 0 ||
-                this.state.addedIngredients.some(
+                this.state.part.addedIngredients.some(
                   item => item === this.state.search
                 )
               ) {
@@ -263,12 +215,12 @@ class IngredientsSelector extends Component {
                 search={this.state.search}
                 handleChange={this.handleChange}
                 closeDropdown={this.closeDropdown}
-                addedIngredients={this.state.addedIngredients}
+                addedIngredients={this.state.part.addedIngredients}
               />
             )}
           </div>
           <SortableComponent
-            items={this.state.addedIngredients}
+            items={this.state.part.addedIngredients}
             removeIngredient={this.removeIngredient}
             onSortEnd={this.onSortEnd}
           />
