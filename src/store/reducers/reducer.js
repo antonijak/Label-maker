@@ -45,14 +45,13 @@ const reducer = (state = initialState, action) => {
           }
         : {
             ...state,
-            ingredients: [...state.ingredients].filter(item => item.id !== id)
+            ingredients: state.ingredients.filter(item => item.id !== id)
           };
 
     case actionTypes.SHOW_ON_LABEL_PREVIEW:
-      console.log('show');
       return {
         ...state,
-        ingredients: [...state.ingredients].map(item =>
+        ingredients: state.ingredients.map(item =>
           item.id === action.payload.id ? action.payload : item
         )
       };

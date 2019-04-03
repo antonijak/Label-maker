@@ -1,5 +1,7 @@
 import React from 'react';
 import './LabelPreview.scss';
+import { connect } from 'react-redux';
+import * as actions from '../store/actions/actions';
 
 const LabelPreview = ({
   title,
@@ -8,7 +10,6 @@ const LabelPreview = ({
   allAllergens,
   mayContain
 }) => {
-  console.log(ingredients);
   return (
     <div className="label-preview">
       <h2>{title && title.toUpperCase()}</h2>
@@ -59,4 +60,26 @@ const LabelPreview = ({
   );
 };
 
-export default LabelPreview;
+const mapStateToProps = state => {
+  return {
+    title: state.title,
+    description: state.description,
+    ingredients: state.ingredients,
+    mostUsedIngredients: state.mostUsedIngredients,
+    allAllergens: state.allAllergens,
+    mayContain: state.mayContain
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleChange: e => dispatch(actions.handleChange(e)),
+    handleParts: (e, id, value) => dispatch(actions.handleParts(e, id, value)),
+    showOnLabelPreview: part => dispatch(actions.showOnLabelPreview(part))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LabelPreview);

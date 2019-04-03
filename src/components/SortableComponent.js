@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import './SortableComponent.scss';
 import Added from './Added';

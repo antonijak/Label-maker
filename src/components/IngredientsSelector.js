@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { arrayMove } from 'react-sortable-hoc';
-import SortableComponent from './SortableComponent';
-import AddIngredient from './AddIngredient';
-import './IngredientsSelector.scss';
 import * as data from '../data/data';
 import * as actions from '../store/actions/actions';
-import { connect } from 'react-redux';
+
+import SortableComponent from './SortableComponent';
+import AddIngredient from './AddIngredient';
+
+import './IngredientsSelector.scss';
 
 class IngredientsSelector extends Component {
   state = {
@@ -16,7 +18,7 @@ class IngredientsSelector extends Component {
       addedIngredients: []
     },
     allIngredients: [],
-    filteredIngredients: ['soy-lecithin', 'brasilian nut', 'cashew', 'rasins'],
+    filteredIngredients: [],
     mostUsedIngredients: [],
     add: false
   };
@@ -24,58 +26,66 @@ class IngredientsSelector extends Component {
   componentDidMount = () => {
     this.setState({
       part: this.props.part,
-      mostUsedIngredients: data.mostUsedIngredients,
-      allIngredients: data.ingredients
+      mostUsedIngredients: this.avoidDuplicates(
+        data.mostUsedIngredients,
+        this.props.part.addedIngredients
+      ),
+      allIngredients: data.ingredients,
+      filteredIngredients: this.avoidDuplicates(
+        data.mostUsedIngredients,
+        this.props.part.addedIngredients
+      )
     });
-
     this.props.showOnLabelPreview(this.props.part);
+  };
+
+  avoidDuplicates = (arrayToFilter, arrayWithDuplictes) => {
+    return arrayToFilter.filter(item => !arrayWithDuplictes.includes(item));
+  };
+
+  search = e => {
+    e.preventDefault();
+    const { value } = e.target;
+
+    this.setState({
+      add: true,
+      search: value,
+      filteredIngredients: value
+        ? this.state.allIngredients.filter(
+            item =>
+              item.startsWith(value) &&
+              !this.state.part.addedIngredients.includes(item)
+          )
+        : this.state.mostUsedIngredients
+    });
   };
 
   handleChange = e => {
     e.preventDefault();
+    const { value } = e.target;
 
-    const { value, name } = e.target;
-
-    if (name === 'search') {
-      const filtered = value
-        ? this.state.allIngredients
-            .filter(item => item.startsWith(value))
-            .filter(item => !this.state.part.addedIngredients.includes(item))
-        : this.state.mostUsedIngredients;
-
-      this.setState({
-        search: value,
-        add: true,
-        filteredIngredients: filtered
-      });
-    } else if (name === 'title') {
-      e.preventDefault();
-      this.props.showOnLabelPreview({ ...this.state.part, title: value });
-      this.setState({ part: { ...this.state.part, title: value } });
-    }
+    this.props.showOnLabelPreview({ ...this.state.part, title: value });
+    this.setState({ part: { ...this.state.part, title: value } });
   };
 
   addIngredient = ingredient => {
-    const reducedFilteredIngredients = [
-      ...this.state.filteredIngredients
-    ].filter(item => item !== ingredient);
-
-    let filteredIngredients =
-      reducedFilteredIngredients > 0
-        ? reducedFilteredIngredients
-        : this.state.mostUsedIngredients;
+    const reducedFilteredIngredients = this.state.filteredIngredients.filter(
+      item => item !== ingredient
+    );
 
     this.setState({
       part: {
         ...this.state.part,
         addedIngredients: [...this.state.part.addedIngredients, ingredient]
       },
-      filteredIngredients,
+      filteredIngredients:
+        reducedFilteredIngredients > 0
+          ? reducedFilteredIngredients
+          : this.state.mostUsedIngredients,
       add: false,
       search: '',
-      mostUsedIngredients: [...this.state.mostUsedIngredients].filter(
-        item =>
-          ![...this.state.part.addedIngredients, ingredient].includes(item)
+      mostUsedIngredients: this.state.mostUsedIngredients.filter(
+        item => ingredient !== item
       )
     });
 
@@ -87,18 +97,22 @@ class IngredientsSelector extends Component {
 
   removeIngredient = (e, ingredient) => {
     e.preventDefault();
+
     const reducedAddedIngredients = this.state.part.addedIngredients.filter(
       item => item !== ingredient
     );
-    let exists = this.state.allIngredients.some(item => ingredient === item);
+
+    let exists = data.mostUsedIngredients.some(item => ingredient === item);
+
     let filteredIngredients = exists
       ? [...this.state.filteredIngredients, ingredient]
       : this.state.filteredIngredients;
     this.setState({
       part: { ...this.state.part, addedIngredients: reducedAddedIngredients },
       filteredIngredients,
-      mostUsedIngredients: data.mostUsedIngredients.filter(
-        item => !reducedAddedIngredients.includes(item)
+      mostUsedIngredients: this.avoidDuplicates(
+        data.mostUsedIngredients,
+        reducedAddedIngredients
       )
     });
 
@@ -118,11 +132,14 @@ class IngredientsSelector extends Component {
       )
     });
     this.setState({
-      addedIngredients: arrayMove(
-        this.state.part.addedIngredients,
-        oldIndex,
-        newIndex
-      )
+      part: {
+        ...this.state.part,
+        addedIngredients: arrayMove(
+          this.state.part.addedIngredients,
+          oldIndex,
+          newIndex
+        )
+      }
     });
   };
 
@@ -142,15 +159,13 @@ class IngredientsSelector extends Component {
 
   render() {
     const { handleParts, ingredients } = this.props;
-    const { id } = this.state.part;
+    const { id, title } = this.state.part;
 
     return (
       <div className="ingredients-selector">
         <input
           type="text"
-          value={this.state.part.title}
-          name="title"
-          id="title"
+          value={title}
           onChange={this.handleChange}
           className="ingredients-selector__title"
           placeholder="Ingredient title"
@@ -158,10 +173,7 @@ class IngredientsSelector extends Component {
         <div className="ingredients-selector__picker">
           <div
             className="ingredients-selector__picker__cont"
-            onBlur={e => {
-              console.log('blur');
-
-              console.log('curent', e.currentTarget, 'target', e.target.name);
+            onBlur={() => {
               if (
                 this.state.filteredIngredients.length > 0 ||
                 this.state.part.addedIngredients.some(
@@ -178,22 +190,18 @@ class IngredientsSelector extends Component {
           >
             <input
               type="text"
-              name="search"
-              onChange={this.handleChange}
+              onChange={this.search}
               onFocus={() => {
                 this.setState({ add: true });
               }}
               onKeyDown={e => {
                 if (e.which === 13) {
                   e.preventDefault();
-                  console.log('key down');
-
                   this.setState({ add: false, search: '' });
                 }
               }}
               placeholder="Search"
               className="ingredients-selector__picker__cont__search"
-              id="search"
               value={this.state.search}
               autoComplete="off"
             />
