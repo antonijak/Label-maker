@@ -12,7 +12,7 @@ const initialState = {
     }
   ],
   allAllergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
-  mayContain: ['nuts', 'milk', 'eggs']
+  traces: ['nuts', 'milk', 'eggs', 'peanuts', 'soy']
 };
 
 const reducer = (state = initialState, action) => {

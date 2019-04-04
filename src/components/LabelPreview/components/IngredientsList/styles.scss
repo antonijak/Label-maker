@@ -1,0 +1,13 @@
+.ingredients-list {
+  &__part {
+    margin-top: 0.5rem;
+
+    &__title {
+      margin-bottom: 0.2rem;
+    }
+
+    &__text {
+      margin-bottom: 1rem;
+    }
+  }
+}

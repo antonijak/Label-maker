@@ -3,57 +3,32 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/actions';
 
 import './styles.scss';
+import IngredientsList from './components/IngredientsList/index';
 
 const LabelPreview = ({
   title,
   description,
   ingredients,
   allAllergens,
-  mayContain
+  traces
 }) => {
   return (
     <div className="label-preview">
-      <h2>{title && title.toUpperCase()}</h2>
+      <h2>{title.toUpperCase()}</h2>
 
       <h3 className="label-preview__description">{description}</h3>
 
-      {ingredients.map((part, i) => (
-        <div key={'item' + i} className="label-preview__part">
-          <h4 className="label-preview__part__title">{part.title}</h4>
-
-          <p className="label-preview__part__text">
-            <span className="label-preview__part__text__ingredients">
-              Ingredients:
-            </span>
-
-            {part.addedIngredients &&
-              part.addedIngredients.map((ingredient, i) => (
-                <span
-                  key={i + 1}
-                  className={
-                    allAllergens.includes(ingredient)
-                      ? 'label-preview__part__text__alergen'
-                      : 'label-preview__part__text__normal'
-                  }
-                >
-                  {`${i === 0 ? ' ' : ''}${ingredient}${
-                    i === part.addedIngredients.length - 1 ? '.' : ', '
-                  }`}
-                </span>
-              ))}
-          </p>
-        </div>
-      ))}
+      <IngredientsList ingredients={ingredients} allAllergens={allAllergens} />
 
       <p className="label-preview__allergens">
-        May contain traces of{' '}
-        {mayContain.map((allergen, i) => {
-          if (i === mayContain.length - 1) {
-            return <span key={i + 1}>{`and ${allergen}.`}</span>;
-          } else if (i === mayContain.length - 2) {
-            return <span key={i + 1}>{`${allergen} `}</span>;
+        May contain traces of
+        {traces.map((allergen, i) => {
+          if (i === traces.length - 1) {
+            return `and ${allergen}.`;
+          } else if (i === traces.length - 2) {
+            return ` ${allergen} `;
           } else {
-            return <span key={i + 1}>{`${allergen}, `}</span>;
+            return ` ${allergen}, `;
           }
         })}
       </p>
@@ -68,7 +43,7 @@ const mapStateToProps = state => {
     ingredients: state.ingredients,
     mostUsedIngredients: state.mostUsedIngredients,
     allAllergens: state.allAllergens,
-    mayContain: state.mayContain
+    traces: state.traces
   };
 };
 

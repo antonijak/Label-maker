@@ -12,24 +12,6 @@
     font-weight: normal;
   }
 
-  &__part {
-    margin-top: 0.5rem;
-
-    &__title {
-      margin-bottom: 0.2rem;
-    }
-
-    &__text {
-      margin-bottom: 1rem;
-      &__ingredients {
-      }
-
-      &__alergen {
-        font-weight: bold;
-      }
-    }
-  }
-
   &__allergens {
     font-style: italic;
     font-weight: bold;

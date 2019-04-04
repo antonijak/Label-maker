@@ -3,7 +3,7 @@ import Ingredient from '../Ingredient/index.js';
 import AddCustom from '../AddCustom/index';
 import './styles.scss';
 
-const AddIngredient = ({
+const AddDropdown = ({
   filteredIngredients,
   addIngredient,
   search,
@@ -58,4 +58,4 @@ const AddIngredient = ({
   );
 };
 
-export default AddIngredient;
+export default AddDropdown;

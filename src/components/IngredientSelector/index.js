@@ -5,7 +5,7 @@ import * as data from '../../data/data';
 import * as actions from '../../store/actions/actions';
 
 import SortableComponent from './components/SortableComponent/index';
-import AddIngredient from './components/AddIngredient/index';
+import AddDropdown from './components/AddDropdown/index';
 
 import './styles.scss';
 
@@ -66,6 +66,19 @@ class IngredientsSelector extends Component {
 
     this.props.showOnLabelPreview({ ...this.state.part, title: value });
     this.setState({ part: { ...this.state.part, title: value } });
+  };
+
+  handleBlur = () => {
+    if (
+      this.state.filteredIngredients.length > 0 ||
+      this.state.part.addedIngredients.some(item => item === this.state.search)
+    ) {
+      this.setState({
+        add: false,
+        search: '',
+        filteredIngredients: [...this.state.mostUsedIngredients]
+      });
+    }
   };
 
   addIngredient = ingredient => {
@@ -173,20 +186,7 @@ class IngredientsSelector extends Component {
         <div className="ingredients-selector__picker">
           <div
             className="ingredients-selector__picker__cont"
-            onBlur={() => {
-              if (
-                this.state.filteredIngredients.length > 0 ||
-                this.state.part.addedIngredients.some(
-                  item => item === this.state.search
-                )
-              ) {
-                this.setState({
-                  add: false,
-                  search: '',
-                  filteredIngredients: [...this.state.mostUsedIngredients]
-                });
-              }
-            }}
+            onBlur={this.handleBlur}
           >
             <input
               type="text"
@@ -207,7 +207,7 @@ class IngredientsSelector extends Component {
             />
 
             {this.state.add && (
-              <AddIngredient
+              <AddDropdown
                 filteredIngredients={this.state.filteredIngredients}
                 addIngredient={this.addIngredient}
                 searchIngredients={this.searchIngredients}
