@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayMove } from 'react-sortable-hoc';
-import * as data from '../data/data';
-import * as actions from '../store/actions/actions';
+import * as data from '../../data/data';
+import * as actions from '../../store/actions/actions';
 
-import SortableComponent from './SortableComponent';
-import AddIngredient from './AddIngredient';
+import SortableComponent from './components/SortableComponent/index';
+import AddIngredient from './components/AddIngredient/index';
 
-import './IngredientsSelector.scss';
+import './styles.scss';
 
 class IngredientsSelector extends Component {
   state = {

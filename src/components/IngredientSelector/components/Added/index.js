@@ -1,5 +1,5 @@
 import React from 'react';
-import './Added.scss';
+import './styles.scss';
 
 const Added = ({ value, removeIngredient, axis }) => (
   <li className="ingredient" axis={axis} title="Click to drag">

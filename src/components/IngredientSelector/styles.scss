@@ -1,4 +1,4 @@
-@import '../index.scss';
+@import '../../index.scss';
 
 .ingredients-selector {
   box-sizing: border-box;
@@ -41,7 +41,7 @@
       &__search {
         padding-left: 2.3rem;
         width: 80%;
-        background-image: url('../assets/search.svg');
+        background-image: url('../../assets/search.svg');
         background-repeat: no-repeat;
         background-position: 1rem 49%;
         margin: 0 auto;

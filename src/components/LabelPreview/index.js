@@ -1,7 +1,8 @@
 import React from 'react';
-import './LabelPreview.scss';
 import { connect } from 'react-redux';
-import * as actions from '../store/actions/actions';
+import * as actions from '../../store/actions/actions';
+
+import './styles.scss';
 
 const LabelPreview = ({
   title,

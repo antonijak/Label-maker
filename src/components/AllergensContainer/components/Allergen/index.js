@@ -1,5 +1,5 @@
 import React from 'react';
-import './Allergen.scss';
+import './styles.scss';
 
 const Allergen = ({ name, label, value, handleChange }) => {
   return (

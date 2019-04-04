@@ -1,7 +1,7 @@
 import React from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import './SortableComponent.scss';
-import Added from './Added';
+import './styles.scss';
+import Added from '../Added/index';
 
 const SortableItem = SortableElement(({ value, removeIngredient, axis }) => (
   <Added value={value} removeIngredient={removeIngredient} axis={axis} />

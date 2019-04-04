@@ -1,7 +1,7 @@
 import React from 'react';
-import Ingredient from './Ingredient';
-import AddCustom from './AddCustom';
-import './AddIngredient.scss';
+import Ingredient from '../Ingredient/index.js';
+import AddCustom from '../AddCustom/index';
+import './styles.scss';
 
 const AddIngredient = ({
   filteredIngredients,

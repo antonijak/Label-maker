@@ -1,5 +1,5 @@
 import React from 'react';
-import './AddCustom.scss';
+import './styles.scss';
 
 const AddIngredient = ({
   addIngredient,

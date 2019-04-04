@@ -1,4 +1,4 @@
-@import '../index.scss';
+@import '../../../../index.scss';
 
 .custom {
   &__non-addable {
@@ -34,7 +34,7 @@
       top: 0.8rem;
       border: none;
       outline: none;
-      background: url('../assets/x.svg');
+      background: url('../../../../assets/x.svg');
       background-repeat: no-repeat;
       background-position: center;
       height: 100%;
@@ -44,7 +44,7 @@
       cursor: pointer;
 
       &:hover {
-        background: url('../assets/x-hover.svg');
+        background: url('../../../../assets/x-hover.svg');
         background-repeat: no-repeat;
         background-position: center;
         background-color: rgb(233, 233, 233);

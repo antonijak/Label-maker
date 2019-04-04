@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/actions';
 
-import IngredientsSelector from './components/IngredientsSelector.js';
-import AllergensContainer from './components/AllergensContainer.js';
-import LabelPreview from './components/LabelPreview.js';
+import IngredientsSelector from './components/IngredientSelector/index.js';
+import AllergensContainer from './components/AllergensContainer/index.js';
+import LabelPreview from './components/LabelPreview/index.js';
 
 import './App.scss';
 

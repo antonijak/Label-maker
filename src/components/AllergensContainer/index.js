@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './AllergensContainer.scss';
-import Allergen from './Allergen';
+import './styles.scss';
+import Allergen from './components/Allergen/index';
 
 class AllergensContainer extends Component {
   state = {

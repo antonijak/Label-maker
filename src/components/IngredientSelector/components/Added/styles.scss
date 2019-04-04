@@ -1,4 +1,4 @@
-@import '../index.scss';
+@import '../../../../index.scss';
 
 .ingredient {
   margin-right: 0.5rem;
@@ -28,7 +28,7 @@
     background: transparent;
     height: fit-content;
     outline: none;
-    background: url('../assets/x.svg');
+    background: url('../../../../assets/x.svg');
     background-repeat: no-repeat;
     background-position: center;
     width: 0.9rem;
@@ -36,7 +36,7 @@
     cursor: pointer;
 
     &:hover {
-      background: url('../assets/x-hover.svg');
+      background: url('../../../../assets/x-hover.svg');
       background-repeat: no-repeat;
       background-position: center;
     }
