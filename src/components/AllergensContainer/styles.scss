@@ -20,5 +20,10 @@
   &__content {
     width: 90%;
     margin: 0 auto;
+
+    &__specific {
+      background: white;
+      padding: 1rem;
+    }
   }
 }
