@@ -9,7 +9,7 @@ class AllergensContainer extends Component {
   };
 
   componentDidMount = () => {
-    this.setState({ allergens: DATA.allergens });
+    this.setState({ allergens: DATA.allergenTraces });
   };
 
   handleChange = e => {

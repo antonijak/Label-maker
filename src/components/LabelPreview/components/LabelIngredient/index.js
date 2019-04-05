@@ -2,10 +2,10 @@ import React from 'react';
 
 import './styles.scss';
 
-const LabelIngredient = ({ allAllergens, ingredient, last, index }) => (
+const LabelIngredient = ({ allergens, ingredient, last, index }) => (
   <span
     className={
-      allAllergens.includes(ingredient)
+      allergens.includes(ingredient)
         ? 'label-ingredient__allergen'
         : 'label-ingredient__normal'
     }

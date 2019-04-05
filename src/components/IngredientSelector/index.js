@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayMove } from 'react-sortable-hoc';
-import * as data from '../../data/data';
+import * as DATA from '../../data/data';
 import * as actions from '../../store/actions/actions';
 
 import SortableComponent from './components/SortableComponent/index';
@@ -27,12 +27,12 @@ class IngredientsSelector extends Component {
     this.setState({
       part: this.props.part,
       mostUsedIngredients: this.avoidDuplicates(
-        data.mostUsedIngredients,
+        DATA.mostUsedIngredients,
         this.props.part.addedIngredients
       ),
-      allIngredients: data.ingredients,
+      allIngredients: DATA.ingredients,
       filteredIngredients: this.avoidDuplicates(
-        data.mostUsedIngredients,
+        DATA.mostUsedIngredients,
         this.props.part.addedIngredients
       )
     });
@@ -115,7 +115,7 @@ class IngredientsSelector extends Component {
       item => item !== ingredient
     );
 
-    let exists = data.mostUsedIngredients.some(item => ingredient === item);
+    let exists = DATA.mostUsedIngredients.some(item => ingredient === item);
 
     let filteredIngredients = exists
       ? [...this.state.filteredIngredients, ingredient]
@@ -124,7 +124,7 @@ class IngredientsSelector extends Component {
       part: { ...this.state.part, addedIngredients: reducedAddedIngredients },
       filteredIngredients,
       mostUsedIngredients: this.avoidDuplicates(
-        data.mostUsedIngredients,
+        DATA.mostUsedIngredients,
         reducedAddedIngredients
       )
     });

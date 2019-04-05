@@ -58,6 +58,25 @@ export const mostUsedIngredients = [
 ];
 
 export const allergens = [
+  'milk',
+  'milk powder',
+  'skimmed milk powder',
+  'eggs',
+  'eggwhites',
+  'wallnuts',
+  'pecan nuts',
+  'hazelnuts',
+  'almonds',
+  'pine nuts',
+  'peanuts',
+  'pistachios',
+  'cashews',
+  'brasilian nuts',
+  'soy-lecithin',
+  'wheat flour'
+];
+
+export const allergenTraces = [
   {
     name: 'nuts',
     label: 'Nuts',

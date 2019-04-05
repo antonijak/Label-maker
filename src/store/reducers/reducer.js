@@ -11,7 +11,6 @@ const initialState = {
       addedIngredients: ['cocoa powder', 'cocoa butter', 'milk powder', 'sugar']
     }
   ],
-  allAllergens: ['eggs', 'milk', 'milk powder', 'peanuts', 'hazelnuts'],
   traces: ['nuts', 'milk', 'eggs', 'peanuts', 'soy']
 };
 

@@ -3,7 +3,7 @@ import React from 'react';
 import './styles.scss';
 import LabelIngredient from '../LabelIngredient/index';
 
-const IngredientsList = ({ ingredients, allAllergens }) => {
+const IngredientsList = ({ ingredients, allergens }) => {
   return (
     <div className="ingredients-list">
       {ingredients.map((part, i) => (
@@ -19,7 +19,7 @@ const IngredientsList = ({ ingredients, allAllergens }) => {
               part.addedIngredients.map((ingredient, i) => (
                 <LabelIngredient
                   key={i + 1}
-                  allAllergens={allAllergens}
+                  allergens={allergens}
                   ingredient={ingredient}
                   last={i === part.addedIngredients.length - 1}
                   index={i}

@@ -1,24 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/actions';
+import * as DATA from '../../data/data';
 
 import './styles.scss';
 import IngredientsList from './components/IngredientsList/index';
 
-const LabelPreview = ({
-  title,
-  description,
-  ingredients,
-  allAllergens,
-  traces
-}) => {
+const LabelPreview = ({ title, description, ingredients, traces }) => {
   return (
     <div className="label-preview">
       <h2>{title.toUpperCase()}</h2>
 
       <h3 className="label-preview__description">{description}</h3>
 
-      <IngredientsList ingredients={ingredients} allAllergens={allAllergens} />
+      <IngredientsList ingredients={ingredients} allergens={DATA.allergens} />
 
       <p className="label-preview__allergens">
         May contain traces of
@@ -42,7 +37,6 @@ const mapStateToProps = state => {
     description: state.description,
     ingredients: state.ingredients,
     mostUsedIngredients: state.mostUsedIngredients,
-    allAllergens: state.allAllergens,
     traces: state.traces
   };
 };
