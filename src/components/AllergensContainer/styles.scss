@@ -15,15 +15,34 @@
   &__title {
     width: 90%;
     margin: 0 auto;
+    margin-bottom: 1rem;
   }
 
   &__content {
     width: 90%;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &__general {
+      width: 30%;
+      padding: 1rem;
+    }
 
     &__specific {
-      background: white;
-      padding: 1rem;
+      padding: 0 2rem;
+
+      &:before {
+        height: 100%;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.06);
+        border: 1px solid black;
+      }
+
+      &__title {
+        margin-bottom: 1rem;
+        display: block;
+      }
     }
   }
 }

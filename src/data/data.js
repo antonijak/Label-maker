@@ -79,7 +79,7 @@ export const allergens = [
 export const allergenTraces = [
   {
     name: 'nuts',
-    label: 'Nuts',
+    label: 'Nuts*',
     value: false,
     group: [
       { name: 'wallnuts', label: 'Wallnuts', value: false },
@@ -98,7 +98,7 @@ export const allergenTraces = [
   { name: 'soy', label: 'Soy', value: false },
   {
     name: 'gluten',
-    label: 'Gluten',
+    label: 'Gluten*',
     value: false,
     group: [
       { name: 'barley', label: 'Barley', value: false },

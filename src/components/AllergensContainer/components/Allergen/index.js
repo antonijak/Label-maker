@@ -4,7 +4,6 @@ import './styles.scss';
 const Allergen = ({ name, label, value, handleChange }) => {
   return (
     <label htmlFor={name} className="allergen checkbox">
-      <span>{label}</span>
       <input
         type="checkbox"
         name={name}
@@ -17,6 +16,7 @@ const Allergen = ({ name, label, value, handleChange }) => {
         onChange={handleChange}
         value={value}
       />
+      <span>{label}</span>
     </label>
   );
 };
