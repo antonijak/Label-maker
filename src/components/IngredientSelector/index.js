@@ -114,12 +114,13 @@ class IngredientsSelector extends Component {
     const reducedAddedIngredients = this.state.part.addedIngredients.filter(
       item => item !== ingredient
     );
-
+    //check if removed ingredient is most used ingredietnt
     let exists = DATA.mostUsedIngredients.some(item => ingredient === item);
-
+    //if yes put it into filtered ingredients
     let filteredIngredients = exists
       ? [...this.state.filteredIngredients, ingredient]
       : this.state.filteredIngredients;
+
     this.setState({
       part: { ...this.state.part, addedIngredients: reducedAddedIngredients },
       filteredIngredients,
@@ -249,6 +250,7 @@ class IngredientsSelector extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     ingredients: state.ingredients

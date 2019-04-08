@@ -10,7 +10,15 @@ import './App.scss';
 
 class App extends Component {
   render() {
-    const { title, description, ingredients, handleChange } = this.props;
+    const {
+      title,
+      description,
+      ingredients,
+      weight,
+      date,
+      handleChange,
+      validate
+    } = this.props;
     return (
       <div className="App">
         <form className="form">
@@ -44,6 +52,25 @@ class App extends Component {
             ))}
           </div>
           <AllergensContainer />
+          <div className="form__package">
+            <input
+              name="weight"
+              type="text"
+              placeholder="Net. weight"
+              className="form__package__weight"
+              value={weight}
+              onChange={handleChange}
+              onBlur={validate}
+            />
+            <input
+              name="date"
+              type="date"
+              className="form__package__date"
+              value={date}
+              onChange={handleChange}
+              onBlur={validate}
+            />
+          </div>
         </form>
         <LabelPreview />
       </div>
@@ -55,13 +82,16 @@ const mapStateToProps = state => {
   return {
     title: state.title,
     description: state.description,
-    ingredients: state.ingredients
+    ingredients: state.ingredients,
+    weight: state.weight,
+    date: state.date
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleChange: e => dispatch(actions.handleChange(e))
+    handleChange: e => dispatch(actions.handleChange(e)),
+    validate: e => dispatch(actions.validate(e))
   };
 };
 

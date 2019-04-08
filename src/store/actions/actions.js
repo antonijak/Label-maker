@@ -34,3 +34,10 @@ export function removeAllergen(allergen) {
     payload: allergen
   };
 }
+
+export function validate(event) {
+  return {
+    type: actionTypes.VALIDATE,
+    payload: event
+  };
+}
