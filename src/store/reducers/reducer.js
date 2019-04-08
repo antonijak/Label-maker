@@ -11,14 +11,14 @@ const initialState = {
       addedIngredients: ['cocoa powder', 'cocoa butter', 'milk powder', 'sugar']
     }
   ],
-  traces: ['nuts', 'milk', 'eggs', 'peanuts', 'soy']
+  traces: []
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.HANDLE_CHANGE:
-      const name = action.payload.event.target.name;
-      let value = action.payload.event.target.value;
+      const name = action.payload.target.name;
+      let value = action.payload.target.value;
       return { ...state, [name]: value };
 
     case actionTypes.HANDLE_PARTS:
@@ -47,12 +47,24 @@ const reducer = (state = initialState, action) => {
             ingredients: state.ingredients.filter(item => item.id !== id)
           };
 
-    case actionTypes.SHOW_ON_LABEL_PREVIEW:
+    case actionTypes.SHOW_INGREDIENTS:
       return {
         ...state,
         ingredients: state.ingredients.map(item =>
           item.id === action.payload.id ? action.payload : item
         )
+      };
+
+    case actionTypes.SHOW_ALLERGEN:
+      return {
+        ...state,
+        traces: [...state.traces, action.payload]
+      };
+
+    case actionTypes.REMOVE_ALLERGEN:
+      return {
+        ...state,
+        traces: state.traces.filter(item => item !== action.payload)
       };
 
     default:

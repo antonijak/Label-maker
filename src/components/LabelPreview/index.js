@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/actions';
 import * as DATA from '../../data/data';
 
 import './styles.scss';
@@ -18,8 +17,10 @@ const LabelPreview = ({ title, description, ingredients, traces }) => {
       <p className="label-preview__allergens">
         May contain traces of
         {traces.map((allergen, i) => {
-          if (i === traces.length - 1) {
-            return `and ${allergen}.`;
+          if (i === traces.length - 1 && i === 0) {
+            return ` ${allergen}. `;
+          } else if (i === traces.length - 1 && i !== 0) {
+            return ` and ${allergen}.`;
           } else if (i === traces.length - 2) {
             return ` ${allergen} `;
           } else {
@@ -41,15 +42,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleChange: e => dispatch(actions.handleChange(e)),
-    handleParts: (e, id, value) => dispatch(actions.handleParts(e, id, value)),
-    showOnLabelPreview: part => dispatch(actions.showOnLabelPreview(part))
-  };
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  undefined
 )(LabelPreview);

@@ -36,7 +36,7 @@ class IngredientsSelector extends Component {
         this.props.part.addedIngredients
       )
     });
-    this.props.showOnLabelPreview(this.props.part);
+    this.props.showIngredients(this.props.part);
   };
 
   avoidDuplicates = (arrayToFilter, arrayWithDuplictes) => {
@@ -64,7 +64,7 @@ class IngredientsSelector extends Component {
     e.preventDefault();
     const { value } = e.target;
 
-    this.props.showOnLabelPreview({ ...this.state.part, title: value });
+    this.props.showIngredients({ ...this.state.part, title: value });
     this.setState({ part: { ...this.state.part, title: value } });
   };
 
@@ -102,7 +102,7 @@ class IngredientsSelector extends Component {
       )
     });
 
-    this.props.showOnLabelPreview({
+    this.props.showIngredients({
       ...this.state.part,
       addedIngredients: [...this.state.part.addedIngredients, ingredient]
     });
@@ -129,14 +129,14 @@ class IngredientsSelector extends Component {
       )
     });
 
-    this.props.showOnLabelPreview({
+    this.props.showIngredients({
       ...this.state.part,
       addedIngredients: reducedAddedIngredients
     });
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    this.props.showOnLabelPreview({
+    this.props.showIngredients({
       ...this.state.part,
       addedIngredients: arrayMove(
         this.state.part.addedIngredients,
@@ -259,7 +259,7 @@ const mapDispatchToProps = dispatch => {
   return {
     handleChange: e => dispatch(actions.handleChange(e)),
     handleParts: (e, id, value) => dispatch(actions.handleParts(e, id, value)),
-    showOnLabelPreview: part => dispatch(actions.showOnLabelPreview(part))
+    showIngredients: part => dispatch(actions.showIngredients(part))
   };
 };
 

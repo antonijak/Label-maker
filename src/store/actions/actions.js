@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes';
 export function handleChange(event) {
   return {
     type: actionTypes.HANDLE_CHANGE,
-    payload: { event }
+    payload: event
   };
 }
 
@@ -14,9 +14,23 @@ export function handleParts(e, id, value) {
   };
 }
 
-export function showOnLabelPreview(part) {
+export function showIngredients(part) {
   return {
-    type: actionTypes.SHOW_ON_LABEL_PREVIEW,
+    type: actionTypes.SHOW_INGREDIENTS,
     payload: part
+  };
+}
+
+export function showAllergen(allergen) {
+  return {
+    type: actionTypes.SHOW_ALLERGEN,
+    payload: allergen
+  };
+}
+
+export function removeAllergen(allergen) {
+  return {
+    type: actionTypes.REMOVE_ALLERGEN,
+    payload: allergen
   };
 }
