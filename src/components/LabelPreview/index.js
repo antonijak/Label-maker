@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import * as DATA from '../../data/data';
 
 import './styles.scss';
 import IngredientsList from './components/IngredientsList/index';
 
-const LabelPreview = ({ title, description, ingredients, traces }) => {
+const LabelPreview = ({
+  title,
+  description,
+  ingredients,
+  traces,
+  weight,
+  unit,
+  date
+}) => {
   return (
     <div className="label-preview">
       <h2>{title.toUpperCase()}</h2>
@@ -28,6 +37,19 @@ const LabelPreview = ({ title, description, ingredients, traces }) => {
           }
         })}
       </p>
+      <p className="label-preview__weight">
+        Net. weight:
+        <span className="label-preview__weight__text">
+          {weight}
+          {unit}
+        </span>
+      </p>
+      <p className="label-preview__date">
+        Best before:{' '}
+        <span className="label-preview__date__text">
+          {date && moment(date).format('DD.MM.YYYY')}
+        </span>
+      </p>
     </div>
   );
 };
@@ -38,7 +60,10 @@ const mapStateToProps = state => {
     description: state.description,
     ingredients: state.ingredients,
     mostUsedIngredients: state.mostUsedIngredients,
-    traces: state.traces
+    traces: state.traces,
+    weight: state.weight,
+    unit: state.unit,
+    date: state.date
   };
 };
 

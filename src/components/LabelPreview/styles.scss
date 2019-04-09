@@ -16,4 +16,18 @@
     font-style: italic;
     font-weight: bold;
   }
+
+  &__weight {
+    &__text {
+      font-weight: bold;
+      margin-left: 0.5rem;
+    }
+  }
+
+  &__date {
+    &__text {
+      font-weight: bold;
+      margin-left: 0.5rem;
+    }
+  }
 }

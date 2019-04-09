@@ -4,3 +4,4 @@ export const SHOW_ALLERGEN = 'SHOW_ALLERGEN';
 export const REMOVE_ALLERGEN = 'REMOVE_ALLERGEN';
 export const HANDLE_PARTS = 'HANDLE_PARTS';
 export const VALIDATE = 'VALIDATE';
+export const GET_UNIT = 'GET_UNIT';

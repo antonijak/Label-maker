@@ -14,8 +14,13 @@ const initialState = {
     }
   ],
   traces: [],
-  weigth: 0,
-  date: undefined
+  weight: '',
+  date: '',
+  unit: 'g',
+  validationErrors: {
+    weight: '',
+    date: ''
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -74,23 +79,64 @@ const reducer = (state = initialState, action) => {
     case actionTypes.VALIDATE:
       name = action.payload.target.name;
       value = action.payload.target.value;
-      const date = moment(new Date()).format('YYYY-MM-DD');
-      const pattern = /[0-9]*/;
 
-      if (name === 'date') {
-        return moment(value).isBefore(date)
-          ? { ...state, date }
-          : { ...state, date: value };
-      } else if (name === 'weight') {
-        //check if input is number
-        return validate({ weight: value }, { weight: { format: pattern } }) ===
-          undefined
-          ? { ...state, weight: value }
-          : { ...state, weight: 0 };
+      switch (name) {
+        case 'date':
+          const today = moment(new Date()).format('YYYY-MM-DD');
+          if (value && !moment(value).isBefore(today)) {
+            return {
+              ...state,
+              date: value,
+              validationErrors: { ...state.validationErrors, date: '' }
+            };
+          } else if (!value && !moment(value).isBefore(today)) {
+            return {
+              ...state,
+              date: value,
+              validationErrors: {
+                ...state.validationErrors,
+                date: 'This date is invalid!'
+              }
+            };
+          } else {
+            return {
+              ...state,
+              date: value,
+              validationErrors: {
+                ...state.validationErrors,
+                date: 'This date has already passed!'
+              }
+            };
+          }
+
+        case 'weight':
+          const pattern = /[0-9]*/;
+          //check if input is number
+          return validate(
+            { weight: value },
+            { weight: { format: pattern } }
+          ) === undefined
+            ? {
+                ...state,
+                weight: value,
+                validationErrors: { ...state.validationErrors, weight: '' }
+              }
+            : {
+                ...state,
+                weight: value,
+                validationErrors: {
+                  ...state.validationErrors,
+                  weight: 'Value must be a number!'
+                }
+              };
+
+        default:
+          return value;
       }
-      return {
-        ...state
-      };
+
+    case actionTypes.GET_UNIT:
+      value = action.payload.target.value;
+      return { ...state, unit: value };
 
     default:
       return state;

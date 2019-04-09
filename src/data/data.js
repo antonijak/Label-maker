@@ -73,7 +73,9 @@ export const allergens = [
   'cashews',
   'brasilian nuts',
   'soy-lecithin',
-  'wheat flour'
+  'wheat flour',
+  'cream',
+  'butter'
 ];
 
 export const allergenTraces = [

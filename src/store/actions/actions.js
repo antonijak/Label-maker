@@ -41,3 +41,10 @@ export function validate(event) {
     payload: event
   };
 }
+
+export function getUnit(event) {
+  return {
+    type: actionTypes.GET_UNIT,
+    payload: event
+  };
+}

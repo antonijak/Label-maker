@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/actions';
+import moment from 'moment';
 
 import IngredientsSelector from './components/IngredientSelector/index.js';
 import AllergensContainer from './components/AllergensContainer/index.js';
 import LabelPreview from './components/LabelPreview/index.js';
+import CustomDropdown from './components/CustomDropdown';
 
 import './App.scss';
+
+const today = moment(new Date()).format('YYYY-MM-DD');
 
 class App extends Component {
   render() {
@@ -16,6 +20,7 @@ class App extends Component {
       ingredients,
       weight,
       date,
+      validationErrors,
       handleChange,
       validate
     } = this.props;
@@ -53,23 +58,45 @@ class App extends Component {
           </div>
           <AllergensContainer />
           <div className="form__package">
-            <input
-              name="weight"
-              type="text"
-              placeholder="Net. weight"
-              className="form__package__weight"
-              value={weight}
-              onChange={handleChange}
-              onBlur={validate}
-            />
-            <input
-              name="date"
-              type="date"
-              className="form__package__date"
-              value={date}
-              onChange={handleChange}
-              onBlur={validate}
-            />
+            <div className="form__package__weight">
+              <small className="form__package__weight__message">
+                {validationErrors.weight}
+              </small>
+
+              <label className="form__package__weight__label">
+                <span>Net.weight:</span>
+                <input
+                  name="weight"
+                  type="text"
+                  id="weight"
+                  placeholder="100"
+                  className="form__package__weight__input"
+                  value={weight}
+                  onChange={handleChange}
+                  onBlur={validate}
+                  min="0"
+                />
+              </label>
+              <CustomDropdown />
+            </div>
+
+            <div className="form__package__date">
+              <small className="form__package__date__message">
+                {validationErrors.date}
+              </small>
+              <label className="form__package__date__label">
+                <span>Best before:</span>
+                <input
+                  name="date"
+                  type="date"
+                  className="form__package__date__input"
+                  value={date}
+                  onChange={handleChange}
+                  onBlur={validate}
+                  min={today}
+                />
+              </label>
+            </div>
           </div>
         </form>
         <LabelPreview />
@@ -84,7 +111,8 @@ const mapStateToProps = state => {
     description: state.description,
     ingredients: state.ingredients,
     weight: state.weight,
-    date: state.date
+    date: state.date,
+    validationErrors: state.validationErrors
   };
 };
 
