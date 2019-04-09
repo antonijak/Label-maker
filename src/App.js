@@ -68,7 +68,6 @@ class App extends Component {
                 <input
                   name="weight"
                   type="text"
-                  id="weight"
                   placeholder="100"
                   className="form__package__weight__input"
                   value={weight}
