@@ -75,7 +75,7 @@ class AllergensContainer extends Component {
 
   render() {
     return (
-      <div className="allergens">
+      <div className="allergens container">
         <h3 className="allergens__title">Select Allergens</h3>
         <div className="allergens__content">
           <div className="allergens__content__general">

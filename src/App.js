@@ -7,6 +7,7 @@ import IngredientsSelector from './components/IngredientSelector/index.js';
 import AllergensContainer from './components/AllergensContainer/index.js';
 import LabelPreview from './components/LabelPreview/index.js';
 import CustomDropdown from './components/CustomDropdown';
+import Producer from './components/Producer/index';
 
 import './App.scss';
 
@@ -45,7 +46,7 @@ class App extends Component {
               type="text"
               id="description"
               className="form__heading__description"
-              placeholder="Main description"
+              placeholder="Main description*"
               value={description}
               onChange={handleChange}
             />
@@ -97,6 +98,7 @@ class App extends Component {
               </label>
             </div>
           </div>
+          <Producer />
         </form>
         <LabelPreview />
       </div>

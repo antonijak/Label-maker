@@ -20,7 +20,11 @@ const initialState = {
   validationErrors: {
     weight: '',
     date: ''
-  }
+  },
+  producerName: '',
+  producerAddress: '',
+  producerCountry: '',
+  producerContact: ''
 };
 
 const reducer = (state = initialState, action) => {

@@ -182,8 +182,9 @@ class IngredientsSelector extends Component {
           value={title}
           onChange={this.handleChange}
           className="ingredients-selector__title"
-          placeholder="Ingredient title"
+          placeholder="Ingredient title*"
         />
+
         <div className="ingredients-selector__picker">
           <div
             className="ingredients-selector__picker__cont"
