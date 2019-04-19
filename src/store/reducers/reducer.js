@@ -155,7 +155,7 @@ const reducer = (state = initialState, action) => {
       value = action.payload.target.value;
       return { ...state, unit: value };
 
-    case actionTypes.SHOW_PRODUCERS:
+    case actionTypes.HIDE_PRODUCERS:
       action.payload.preventDefault();
       let producer = state.producersVisible
         ? {
@@ -165,7 +165,7 @@ const reducer = (state = initialState, action) => {
             producerContact: ''
           }
         : state.producer;
-      return { ...state, producersVisible: !state.producersVisible, producer };
+      return { ...state, producersVisible: false, producer };
 
     case actionTypes.ADD_EXISTING_PRODUCER:
       let { event } = action.payload;

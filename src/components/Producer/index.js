@@ -16,7 +16,7 @@ class Producer extends Component {
     const {
       producer,
       handleChange,
-      showProducers,
+      hideProducers,
       producersList,
       producersVisible,
       addExistingProducer,
@@ -44,7 +44,7 @@ class Producer extends Component {
                   {item.producerName}
                 </button>
               ))}
-              <button onClick={e => {}} className="producer__list__item">
+              <button onClick={hideProducers} className="producer__list__item">
                 Add new
               </button>
             </div>
@@ -103,7 +103,7 @@ const mapDispatchToProps = dispatch => {
   return {
     handleChange: e => dispatch(actions.handleChange(e)),
     validate: e => dispatch(actions.validate(e)),
-    showProducers: e => dispatch(actions.showProducers(e)),
+    hideProducers: e => dispatch(actions.hideProducers(e)),
     addExistingProducer: (e, producer) =>
       dispatch(actions.addExistingProducer(e, producer)),
     addProducer: e => dispatch(actions.addProducer(e))

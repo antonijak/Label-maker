@@ -49,9 +49,9 @@ export function getUnit(event) {
   };
 }
 
-export function showProducers(event) {
+export function hideProducers(event) {
   return {
-    type: actionTypes.SHOW_PRODUCERS,
+    type: actionTypes.HIDE_PRODUCERS,
     payload: event
   };
 }
