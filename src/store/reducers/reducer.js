@@ -175,10 +175,15 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.ADD_PRODUCER:
       action.payload.preventDefault();
+
+      const duplicate = state.producersList.some(
+        producer => producer.producerName === state.producer.producerName
+      );
       if (
         state.producer.producerName &&
         state.producer.producerAddress &&
-        state.producer.producerCountry
+        state.producer.producerCountry &&
+        !duplicate
       ) {
         return {
           ...state,
@@ -187,6 +192,19 @@ const reducer = (state = initialState, action) => {
           validationErrors: {
             ...state.validationErrors,
             producer: ''
+          }
+        };
+      } else if (
+        state.producer.producerName &&
+        state.producer.producerAddress &&
+        state.producer.producerCountry &&
+        duplicate
+      ) {
+        return {
+          ...state,
+          validationErrors: {
+            ...state.validationErrors,
+            producer: 'Producer already exist in the database'
           }
         };
       } else {
