@@ -48,3 +48,17 @@ export function getUnit(event) {
     payload: event
   };
 }
+
+export function showProducers(event) {
+  return {
+    type: actionTypes.SHOW_PRODUCERS,
+    payload: event
+  };
+}
+
+export function addExistingProducer(event, producer) {
+  return {
+    type: actionTypes.ADD_EXISTING_PRODUCER,
+    payload: { event, producer }
+  };
+}

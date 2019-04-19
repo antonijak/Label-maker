@@ -21,10 +21,69 @@ const initialState = {
     weight: '',
     date: ''
   },
-  producerName: '',
-  producerAddress: '',
-  producerCountry: '',
-  producerContact: ''
+  producer: {
+    producerName: '',
+    producerAddress: '',
+    producerCountry: '',
+    producerContact: ''
+  },
+  producersList: [
+    {
+      producerId: '01',
+      producerName: '1Coca Cola company',
+      producerAddress: 'Somewhere in the USA',
+      producerCountry: 'USA',
+      producerContact: 'www.cocacola.com',
+      logo: 'logo',
+      inUse: false
+    },
+    {
+      producerId: '02',
+      producerName: '2Best Sweets',
+      producerAddress: 'Somewhere in the USA',
+      producerCountry: 'USA',
+      producerContact: 'www.cocacola.com',
+      logo: 'logo',
+      inUse: false
+    },
+    {
+      producerId: '03',
+      producerName: 'Good chocolates',
+      producerAddress: 'Somewhere in the USA',
+      producerCountry: 'USA',
+      producerContact: 'www.cocacola.com',
+      logo: 'logo',
+      inUse: false
+    },
+    {
+      producerId: '04',
+      producerName: 'Yummmm',
+      producerAddress: 'Somewhere in the USA',
+      producerCountry: 'USA',
+      producerContact: 'www.cocacola.com',
+      logo: 'logo',
+      inUse: false
+    },
+    {
+      producerId: '05',
+      producerName: 'Fazer',
+      producerAddress: 'Somewhere in the USA',
+      producerCountry: 'USA',
+      producerContact: 'www.cocacola.com',
+      logo: 'logo',
+      inUse: false
+    },
+    {
+      producerId: '06',
+      producerName: 'Nestle',
+      producerAddress: 'Somewhere in the USA',
+      producerCountry: 'USA',
+      producerContact: 'www.cocacola.com',
+      logo: 'logo',
+      inUse: false
+    }
+  ],
+  producersVisible: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -32,6 +91,14 @@ const reducer = (state = initialState, action) => {
     case actionTypes.HANDLE_CHANGE:
       let name = action.payload.target.name;
       let value = action.payload.target.value;
+      if (
+        name === 'producerName' ||
+        name === 'producerAddress' ||
+        name === 'producerCountry' ||
+        name === 'producerContact'
+      ) {
+        return { ...state, producer: { ...state.producer, [name]: value } };
+      }
       return { ...state, [name]: value };
 
     case actionTypes.HANDLE_PARTS:
@@ -141,6 +208,24 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_UNIT:
       value = action.payload.target.value;
       return { ...state, unit: value };
+
+    case actionTypes.SHOW_PRODUCERS:
+      action.payload.preventDefault();
+      let producer = state.producersVisible
+        ? {
+            producerName: '',
+            producerAddress: '',
+            producerCountry: '',
+            producerContact: ''
+          }
+        : state.producer;
+      return { ...state, producersVisible: !state.producersVisible, producer };
+
+    case actionTypes.ADD_EXISTING_PRODUCER:
+      let { event } = action.payload;
+      producer = action.payload.producer;
+      event.preventDefault();
+      return { ...state, producer };
 
     default:
       return state;

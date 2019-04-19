@@ -5,3 +5,5 @@ export const REMOVE_ALLERGEN = 'REMOVE_ALLERGEN';
 export const HANDLE_PARTS = 'HANDLE_PARTS';
 export const VALIDATE = 'VALIDATE';
 export const GET_UNIT = 'GET_UNIT';
+export const SHOW_PRODUCERS = 'SHOW_PRODUCERS';
+export const ADD_EXISTING_PRODUCER = 'ADD_EXISTING_PRODUCER';

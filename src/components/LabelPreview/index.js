@@ -14,10 +14,8 @@ const LabelPreview = ({
   weight,
   unit,
   date,
-  producerName,
-  producerAddress,
-  producerCuntry,
-  producerContact
+  producer,
+  pickProducer
 }) => {
   return (
     <div className="label-preview">
@@ -54,11 +52,12 @@ const LabelPreview = ({
           {date && moment(date).format('DD.MM.YYYY')}
         </span>
       </p>
+      <p>Produced by:</p>
       <p className="label-preview__producer">
-        {producerName && `${producerName}. `}
-        {producerAddress && `${producerAddress}.`}
-        {producerCuntry && `${producerCuntry}. `}
-        {producerContact && ` ${producerContact}`}
+        {producer.producerName && `${producer.producerName}. `}
+        {producer.producerAddress && `${producer.producerAddress}.`}
+        {producer.producerCountry && `${producer.producerCountry}. `}
+        {producer.producerContact && ` ${producer.producerContact}`}
       </p>
     </div>
   );
@@ -74,10 +73,8 @@ const mapStateToProps = state => {
     weight: state.weight,
     unit: state.unit,
     date: state.date,
-    producerName: state.producerName,
-    producerAdress: state.producerAdress,
-    producerCuntry: state.producerCuntry,
-    producerContact: state.producerContact
+    producer: state.producer,
+    pickProducer: state.pickProducer
   };
 };
 
