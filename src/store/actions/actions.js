@@ -49,9 +49,9 @@ export function getUnit(event) {
   };
 }
 
-export function hideProducers(event) {
+export function toggleProducers(event) {
   return {
-    type: actionTypes.HIDE_PRODUCERS,
+    type: actionTypes.TOGGLE_PRODUCERS,
     payload: event
   };
 }

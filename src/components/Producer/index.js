@@ -16,7 +16,7 @@ class Producer extends Component {
     const {
       producer,
       handleChange,
-      hideProducers,
+      toggleProducers,
       producersList,
       producersVisible,
       addExistingProducer,
@@ -44,8 +44,11 @@ class Producer extends Component {
                   {item.producerName}
                 </button>
               ))}
-              <button onClick={hideProducers} className="producer__list__item">
-                Add new
+              <button
+                onClick={toggleProducers}
+                className="producer__list__item add"
+              >
+                + Add new
               </button>
             </div>
           ) : (
@@ -79,9 +82,22 @@ class Producer extends Component {
                 value={producer.producerContact}
                 placeholder="Contact*"
               />
-              <button className="producer__button save" onClick={addProducer}>
-                Save
-              </button>
+              <div className="producer__buttons">
+                <button
+                  className="producer__buttons__button save"
+                  onClick={addProducer}
+                >
+                  Save
+                </button>
+                {producersList.length > 0 && (
+                  <button
+                    className="producer__buttons__button use"
+                    onClick={toggleProducers}
+                  >
+                    Use from database
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -103,7 +119,7 @@ const mapDispatchToProps = dispatch => {
   return {
     handleChange: e => dispatch(actions.handleChange(e)),
     validate: e => dispatch(actions.validate(e)),
-    hideProducers: e => dispatch(actions.hideProducers(e)),
+    toggleProducers: e => dispatch(actions.toggleProducers(e)),
     addExistingProducer: (e, producer) =>
       dispatch(actions.addExistingProducer(e, producer)),
     addProducer: e => dispatch(actions.addProducer(e))
