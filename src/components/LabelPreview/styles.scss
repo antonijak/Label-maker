@@ -4,9 +4,10 @@
   width: 30%;
   position: fixed;
   right: 5%;
-  top: 2rem;
   padding: 2rem;
-  height: 90vh;
+  min-height: fit-content;
+  height: 95vh;
+  margin: 2.5vh 0;
 
   &__description {
     font-weight: normal;
@@ -31,5 +32,9 @@
       font-weight: bold;
       margin-left: 0.5rem;
     }
+  }
+
+  &__producer {
+    margin-top: 1rem;
   }
 }

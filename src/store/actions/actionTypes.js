@@ -7,3 +7,4 @@ export const VALIDATE = 'VALIDATE';
 export const GET_UNIT = 'GET_UNIT';
 export const SHOW_PRODUCERS = 'SHOW_PRODUCERS';
 export const ADD_EXISTING_PRODUCER = 'ADD_EXISTING_PRODUCER';
+export const ADD_PRODUCER = 'ADD_PRODUCER';

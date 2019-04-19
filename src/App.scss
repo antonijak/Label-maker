@@ -63,6 +63,10 @@
       padding: 2rem 10%;
       justify-content: space-between;
 
+      input {
+        margin-bottom: 0;
+      }
+
       &__weight {
         position: relative;
         &__message {

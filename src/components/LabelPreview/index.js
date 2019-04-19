@@ -52,12 +52,14 @@ const LabelPreview = ({
           {date && moment(date).format('DD.MM.YYYY')}
         </span>
       </p>
-      <p>Produced by:</p>
+
       <p className="label-preview__producer">
-        {producer.producerName && `${producer.producerName}. `}
-        {producer.producerAddress && `${producer.producerAddress}.`}
-        {producer.producerCountry && `${producer.producerCountry}. `}
-        {producer.producerContact && ` ${producer.producerContact}`}
+        <span>Produced by: </span>
+        {producer.producerName && `${producer.producerName}, `}
+        {producer.producerAddress && `${producer.producerAddress}, `}
+        {producer.producerCountry &&
+          `${producer.producerCountry}${producer.producerContact ? ', ' : '.'}`}
+        {producer.producerContact && ` ${producer.producerContact}.`}
       </p>
     </div>
   );

@@ -19,35 +19,38 @@ class Producer extends Component {
       showProducers,
       producersList,
       producersVisible,
-      addExistingProducer
+      addExistingProducer,
+      addProducer,
+      errorMessage
     } = this.props;
     return (
       <div className="producer container">
         <h3 className="producer__title">Producer information</h3>
-        <button className="producer__button" onClick={showProducers}>
-          {!producersVisible ? 'Load from database' : 'New producer'}
-        </button>
         <div>
-          {producersVisible ? (
+          {producersList.length && producersVisible > 0 ? (
             <div className="producer__list">
-              {producersList.map((company, i) => (
+              {producersList.map((item, i) => (
                 <button
                   key={i + 1}
                   onClick={e => {
-                    addExistingProducer(e, company);
+                    addExistingProducer(e, item);
                   }}
                   className={
-                    company.producerName === producer.producerName
+                    item.producerName === producer.producerName
                       ? 'producer__list__item active'
                       : 'producer__list__item'
                   }
                 >
-                  {company.producerName}
+                  {item.producerName}
                 </button>
               ))}
+              <button onClick={e => {}} className="producer__list__item">
+                Add new
+              </button>
             </div>
           ) : (
             <div>
+              <small>{errorMessage}</small>
               <input
                 name="producerName"
                 type="text"
@@ -76,12 +79,7 @@ class Producer extends Component {
                 value={producer.producerContact}
                 placeholder="Contact*"
               />
-              <button
-                className="producer__button"
-                onClick={e => {
-                  e.preventDefault();
-                }}
-              >
+              <button className="producer__button save" onClick={addProducer}>
                 Save
               </button>
             </div>
@@ -94,10 +92,10 @@ class Producer extends Component {
 
 const mapStateToProps = state => {
   return {
-    producerName: state.producerName,
     producersList: state.producersList,
     producer: state.producer,
-    producersVisible: state.producersVisible
+    producersVisible: state.producersVisible,
+    errorMessage: state.validationErrors.producer
   };
 };
 
@@ -107,7 +105,8 @@ const mapDispatchToProps = dispatch => {
     validate: e => dispatch(actions.validate(e)),
     showProducers: e => dispatch(actions.showProducers(e)),
     addExistingProducer: (e, producer) =>
-      dispatch(actions.addExistingProducer(e, producer))
+      dispatch(actions.addExistingProducer(e, producer)),
+    addProducer: e => dispatch(actions.addProducer(e))
   };
 };
 

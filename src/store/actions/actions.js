@@ -62,3 +62,10 @@ export function addExistingProducer(event, producer) {
     payload: { event, producer }
   };
 }
+
+export function addProducer(event) {
+  return {
+    type: actionTypes.ADD_PRODUCER,
+    payload: event
+  };
+}

@@ -19,7 +19,8 @@ const initialState = {
   unit: 'g',
   validationErrors: {
     weight: '',
-    date: ''
+    date: '',
+    producer: ''
   },
   producer: {
     producerName: '',
@@ -27,62 +28,7 @@ const initialState = {
     producerCountry: '',
     producerContact: ''
   },
-  producersList: [
-    {
-      producerId: '01',
-      producerName: '1Coca Cola company',
-      producerAddress: 'Somewhere in the USA',
-      producerCountry: 'USA',
-      producerContact: 'www.cocacola.com',
-      logo: 'logo',
-      inUse: false
-    },
-    {
-      producerId: '02',
-      producerName: '2Best Sweets',
-      producerAddress: 'Somewhere in the USA',
-      producerCountry: 'USA',
-      producerContact: 'www.cocacola.com',
-      logo: 'logo',
-      inUse: false
-    },
-    {
-      producerId: '03',
-      producerName: 'Good chocolates',
-      producerAddress: 'Somewhere in the USA',
-      producerCountry: 'USA',
-      producerContact: 'www.cocacola.com',
-      logo: 'logo',
-      inUse: false
-    },
-    {
-      producerId: '04',
-      producerName: 'Yummmm',
-      producerAddress: 'Somewhere in the USA',
-      producerCountry: 'USA',
-      producerContact: 'www.cocacola.com',
-      logo: 'logo',
-      inUse: false
-    },
-    {
-      producerId: '05',
-      producerName: 'Fazer',
-      producerAddress: 'Somewhere in the USA',
-      producerCountry: 'USA',
-      producerContact: 'www.cocacola.com',
-      logo: 'logo',
-      inUse: false
-    },
-    {
-      producerId: '06',
-      producerName: 'Nestle',
-      producerAddress: 'Somewhere in the USA',
-      producerCountry: 'USA',
-      producerContact: 'www.cocacola.com',
-      logo: 'logo',
-      inUse: false
-    }
-  ],
+  producersList: [],
   producersVisible: false
 };
 
@@ -226,6 +172,33 @@ const reducer = (state = initialState, action) => {
       producer = action.payload.producer;
       event.preventDefault();
       return { ...state, producer };
+
+    case actionTypes.ADD_PRODUCER:
+      action.payload.preventDefault();
+      if (
+        state.producer.producerName &&
+        state.producer.producerAddress &&
+        state.producer.producerCountry
+      ) {
+        return {
+          ...state,
+          producersVisible: true,
+          producersList: [...state.producersList, { ...state.producer }],
+          validationErrors: {
+            ...state.validationErrors,
+            producer: ''
+          }
+        };
+      } else {
+        return {
+          ...state,
+          validationErrors: {
+            ...state.validationErrors,
+            producer:
+              'You need to specify name, address and country to be able to save'
+          }
+        };
+      }
 
     default:
       return state;
