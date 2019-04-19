@@ -165,7 +165,12 @@ const reducer = (state = initialState, action) => {
             producerContact: ''
           }
         : state.producer;
-      return { ...state, producersVisible: !state.producersVisible, producer };
+      return {
+        ...state,
+        producersVisible: !state.producersVisible,
+        producer,
+        validationErrors: { ...state.validationErrors, producer: '' }
+      };
 
     case actionTypes.ADD_EXISTING_PRODUCER:
       let { event } = action.payload;
