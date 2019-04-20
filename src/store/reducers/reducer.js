@@ -193,7 +193,10 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           producersVisible: true,
-          producersList: [...state.producersList, { ...state.producer }],
+          producersList: [
+            ...state.producersList,
+            { ...state.producer, id: uuid() }
+          ],
           validationErrors: {
             ...state.validationErrors,
             producer: ''
@@ -221,6 +224,29 @@ const reducer = (state = initialState, action) => {
               'You need to specify name, address and country to be able to save'
           }
         };
+      }
+    case actionTypes.REMOVE_PRODUCER:
+      id = action.payload.id;
+      event = action.payload.event;
+      event.preventDefault();
+      event.stopPropagation();
+
+      const filteredProducersList = state.producersList.filter(
+        producer => producer.id !== id
+      );
+      if (window.confirm('Are you sure you want to delete this producer?')) {
+        return {
+          ...state,
+          producersList: filteredProducersList,
+          producer: {
+            producerName: '',
+            producerAddress: '',
+            producerCountry: '',
+            producerContact: ''
+          }
+        };
+      } else {
+        return state;
       }
 
     default:
