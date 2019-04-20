@@ -15,6 +15,7 @@ const LabelPreview = ({
   unit,
   date,
   producer,
+  distributor,
   pickProducer
 }) => {
   return (
@@ -61,6 +62,19 @@ const LabelPreview = ({
           `${producer.producerCountry}${producer.producerContact ? ', ' : '.'}`}
         {producer.producerContact && ` ${producer.producerContact}.`}
       </p>
+
+      <p className="label-preview__distributor">
+        <span>Imported by: </span>
+        {distributor.distributorName && `${distributor.distributorName}, `}
+        {distributor.distributorAddress &&
+          `${distributor.distributorAddress}, `}
+        {distributor.distributorCountry &&
+          `${distributor.distributorCountry}${
+            distributor.distributorContact ? ', ' : '.'
+          }`}
+        {distributor.distributorContact &&
+          ` ${distributor.distributorContact}.`}
+      </p>
     </div>
   );
 };
@@ -76,6 +90,7 @@ const mapStateToProps = state => {
     unit: state.unit,
     date: state.date,
     producer: state.producer,
+    distributor: state.company,
     pickProducer: state.pickProducer
   };
 };

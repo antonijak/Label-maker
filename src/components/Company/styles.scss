@@ -1,6 +1,6 @@
 @import '../../index.scss';
 
-.producer {
+.company {
   position: relative;
 
   &__title {
@@ -71,7 +71,7 @@
         background: $active;
         font-weight: bold;
 
-        .producer__list__item__delete {
+        .company__list__item__delete {
           background-image: url('../../assets/x-white.svg');
           &:hover {
             background-image: url('../../assets/x-hover.svg');

@@ -17,11 +17,6 @@ const initialState = {
   weight: '',
   date: '',
   unit: 'g',
-  validationErrors: {
-    weight: '',
-    date: '',
-    producer: ''
-  },
   producer: {
     producerName: '',
     producerAddress: '',
@@ -29,7 +24,21 @@ const initialState = {
     producerContact: ''
   },
   producersList: [],
-  producersVisible: false
+  producersVisible: false,
+  company: {
+    distributorName: '',
+    distributorAddress: '',
+    distributorCountry: '',
+    distributorContact: ''
+  },
+  companyList: [],
+  companyVisible: false,
+  validationErrors: {
+    weight: '',
+    date: '',
+    producer: '',
+    company: ''
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -44,8 +53,16 @@ const reducer = (state = initialState, action) => {
         name === 'producerContact'
       ) {
         return { ...state, producer: { ...state.producer, [name]: value } };
+      } else if (
+        name === 'distributorName' ||
+        name === 'distributorAddress' ||
+        name === 'distributorCountry' ||
+        name === 'distributorContact'
+      ) {
+        return { ...state, company: { ...state.company, [name]: value } };
+      } else {
+        return { ...state, [name]: value };
       }
-      return { ...state, [name]: value };
 
     case actionTypes.HANDLE_PARTS:
       let { e, id } = action.payload;
@@ -155,99 +172,170 @@ const reducer = (state = initialState, action) => {
       value = action.payload.target.value;
       return { ...state, unit: value };
 
-    case actionTypes.TOGGLE_PRODUCERS:
-      action.payload.preventDefault();
-      let producer = state.producersVisible
-        ? {
-            producerName: '',
-            producerAddress: '',
-            producerCountry: '',
-            producerContact: ''
-          }
-        : state.producer;
-      return {
-        ...state,
-        producersVisible: !state.producersVisible,
-        producer,
-        validationErrors: { ...state.validationErrors, producer: '' }
-      };
+    case actionTypes.TOGGLE_COMPANY:
+      action.payload.event.preventDefault();
+      let use = action.payload.use;
 
-    case actionTypes.ADD_EXISTING_PRODUCER:
+      if (use === 'producer') {
+        let producer = state.producersVisible
+          ? {
+              producerName: '',
+              producerAddress: '',
+              producerCountry: '',
+              producerContact: ''
+            }
+          : state.producer;
+        return {
+          ...state,
+          producersVisible: !state.producersVisible,
+          producer,
+          validationErrors: { ...state.validationErrors, producer: '' }
+        };
+      } else if (use === 'distributor') {
+        let company = state.companyVisible
+          ? {
+              distributorName: '',
+              distributorAddress: '',
+              distributorCountry: '',
+              distributorContact: ''
+            }
+          : state.producer;
+        return {
+          ...state,
+          companyVisible: !state.companyVisible,
+          company,
+          validationErrors: { ...state.validationErrors, company: '' }
+        };
+      }
+      return state;
+
+    case actionTypes.USE_COMPANY:
       let { event } = action.payload;
-      producer = action.payload.producer;
+      let company = action.payload.company;
+      use = action.payload.use;
       event.preventDefault();
-      return { ...state, producer };
+      return use === 'producer'
+        ? { ...state, producer: company }
+        : { ...state, company };
 
-    case actionTypes.ADD_PRODUCER:
-      action.payload.preventDefault();
+    case actionTypes.ADD_COMPANY:
+      action.payload.event.preventDefault();
+      use = action.payload.use;
 
-      const duplicate = state.producersList.some(
-        producer => producer.producerName === state.producer.producerName
-      );
       if (
+        use === 'producer' &&
         state.producer.producerName &&
         state.producer.producerAddress &&
-        state.producer.producerCountry &&
-        !duplicate
+        state.producer.producerCountry
       ) {
-        return {
-          ...state,
-          producersVisible: true,
-          producersList: [
-            ...state.producersList,
-            { ...state.producer, id: uuid() }
-          ],
-          validationErrors: {
-            ...state.validationErrors,
-            producer: ''
-          }
-        };
+        let duplicate = state.producersList.some(
+          producer => producer.producerName === state.producer.producerName
+        );
+        return !duplicate
+          ? {
+              ...state,
+              producersVisible: true,
+              producersList: [
+                ...state.producersList,
+                { ...state.producer, id: uuid() }
+              ],
+              validationErrors: {
+                ...state.validationErrors,
+                producer: ''
+              }
+            }
+          : {
+              ...state,
+              validationErrors: {
+                ...state.validationErrors,
+                producer: 'Company already exist in the database'
+              }
+            };
       } else if (
-        state.producer.producerName &&
-        state.producer.producerAddress &&
-        state.producer.producerCountry &&
-        duplicate
+        use === 'distributor' &&
+        state.company.distributorName &&
+        state.company.distributorAddress &&
+        state.company.distributorCountry
       ) {
-        return {
-          ...state,
-          validationErrors: {
-            ...state.validationErrors,
-            producer: 'Producer already exist in the database'
-          }
-        };
+        let duplicate = state.companyList.some(
+          company => company.distributorName === state.company.distributorName
+        );
+
+        return !duplicate
+          ? {
+              ...state,
+              companyVisible: true,
+              companyList: [
+                ...state.companyList,
+                { ...state.company, id: uuid() }
+              ],
+              validationErrors: {
+                ...state.validationErrors,
+                company: ''
+              }
+            }
+          : {
+              ...state,
+              validationErrors: {
+                ...state.validationErrors,
+                company: 'Company already exist in the database'
+              }
+            };
       } else {
         return {
           ...state,
           validationErrors: {
             ...state.validationErrors,
+            company:
+              'You need to specify name, address and country to be able to save',
             producer:
               'You need to specify name, address and country to be able to save'
           }
         };
       }
-    case actionTypes.REMOVE_PRODUCER:
+
+    case actionTypes.REMOVE_COMPANY:
       id = action.payload.id;
       event = action.payload.event;
+      use = action.payload.use;
       event.preventDefault();
       event.stopPropagation();
 
-      const filteredProducersList = state.producersList.filter(
-        producer => producer.id !== id
-      );
-      if (window.confirm('Are you sure you want to delete this producer?')) {
-        return {
-          ...state,
-          producersList: filteredProducersList,
-          producer: {
-            producerName: '',
-            producerAddress: '',
-            producerCountry: '',
-            producerContact: ''
-          }
-        };
-      } else {
-        return state;
+      if (use === 'producer') {
+        const filteredProducersList = state.producersList.filter(
+          producer => producer.id !== id
+        );
+        if (window.confirm('Are you sure you want to delete this company?')) {
+          return {
+            ...state,
+            producersList: filteredProducersList,
+            producer: {
+              producerName: '',
+              producerAddress: '',
+              producerCountry: '',
+              producerContact: ''
+            }
+          };
+        }
+      } else if (use === 'distributor') {
+        const filteredCompanyList = state.companyList.filter(
+          producer => producer.id !== id
+        );
+        if (window.confirm('Are you sure you want to delete this company?')) {
+          return {
+            ...state,
+            companyList: filteredCompanyList,
+            company: {
+              distributorName: '',
+              distributorAddress: '',
+              distributorCountry: '',
+              distributorContact: ''
+            }
+          };
+        }
       }
+
+      return state;
 
     default:
       return state;
