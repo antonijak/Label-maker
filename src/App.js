@@ -26,7 +26,6 @@ class App extends Component {
       validate
     } = this.props;
 
-    console.log(window.innerWidth);
     return (
       <div className="App">
         {window.innerWidth < 1200 ? (
