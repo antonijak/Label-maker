@@ -69,3 +69,10 @@ export function addProducer(event) {
     payload: event
   };
 }
+
+export function removeProducer(event, id) {
+  return {
+    type: actionTypes.REMOVE_PRODUCER,
+    payload: { event, id }
+  };
+}

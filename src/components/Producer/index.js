@@ -21,7 +21,8 @@ class Producer extends Component {
       producersVisible,
       addExistingProducer,
       addProducer,
-      errorMessage
+      errorMessage,
+      removeProducer
     } = this.props;
     return (
       <div className="producer container">
@@ -30,7 +31,7 @@ class Producer extends Component {
           {producersList.length && producersVisible > 0 ? (
             <div className="producer__list">
               {producersList.map((item, i) => (
-                <button
+                <div
                   key={i + 1}
                   onClick={e => {
                     addExistingProducer(e, item);
@@ -41,8 +42,12 @@ class Producer extends Component {
                       : 'producer__list__item'
                   }
                 >
-                  {item.producerName}
-                </button>
+                  <span>{item.producerName}</span>
+                  <button
+                    className="producer__list__item__delete"
+                    onClick={e => removeProducer(e, item.id)}
+                  />
+                </div>
               ))}
               <button
                 onClick={toggleProducers}
@@ -122,7 +127,8 @@ const mapDispatchToProps = dispatch => {
     toggleProducers: e => dispatch(actions.toggleProducers(e)),
     addExistingProducer: (e, producer) =>
       dispatch(actions.addExistingProducer(e, producer)),
-    addProducer: e => dispatch(actions.addProducer(e))
+    addProducer: e => dispatch(actions.addProducer(e)),
+    removeProducer: (e, id) => dispatch(actions.removeProducer(e, id))
   };
 };
 
