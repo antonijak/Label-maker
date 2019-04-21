@@ -31,8 +31,6 @@ const Company = props => {
       ? 'Producer information'
       : 'Distributor information (your company)';
 
-  console.log(producersList);
-
   return (
     <div className="company  container">
       <h3 className="company__title">{title}</h3>
@@ -43,11 +41,14 @@ const Company = props => {
               <div
                 key={i + 1}
                 onClick={e => {
-                  useCompany(e, item);
+                  useCompany(e, item, use);
                 }}
                 className={
-                  item.producerName === company.producerName ||
-                  item.distributorName === company.distributorName
+                  use === 'producer'
+                    ? item.producerName === company.producerName
+                      ? 'company__list__item active'
+                      : 'company__list__item'
+                    : item.distributorName === company.distributorName
                     ? 'company__list__item active'
                     : 'company__list__item'
                 }
@@ -142,21 +143,22 @@ const Company = props => {
 
 const mapStateToProps = state => {
   return {
-    validationErrors: state.validationErrors,
-    company: state.company,
-    producer: state.producer,
-    producersList: state.producersList,
-    resellerList: state.companyList,
-    producersVisible: state.producersVisible,
-    resellerVisible: state.companyVisible
+    validationErrors: state.companiesReducer.validationErrors,
+    company: state.companiesReducer.company,
+    producer: state.companiesReducer.producer,
+    producersList: state.companiesReducer.producersList,
+    resellerList: state.companiesReducer.companyList,
+    producersVisible: state.companiesReducer.producersVisible,
+    resellerVisible: state.companiesReducer.companyVisible
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleChange: e => dispatch(actions.handleChange(e)),
+    handleChange: e => dispatch(actions.handleChangeCompany(e)),
     toggleCompany: (e, use) => dispatch(actions.toggleCompany(e, use)),
-    useCompany: (e, producer) => dispatch(actions.useCompany(e, producer)),
+    useCompany: (e, producer, use) =>
+      dispatch(actions.useCompany(e, producer, use)),
     addCompany: (e, use) => dispatch(actions.addCompany(e, use)),
     removeCompany: (e, id, use) => dispatch(actions.removeCompany(e, id, use))
   };

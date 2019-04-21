@@ -81,17 +81,17 @@ const LabelPreview = ({
 
 const mapStateToProps = state => {
   return {
-    title: state.title,
-    description: state.description,
-    ingredients: state.ingredients,
-    mostUsedIngredients: state.mostUsedIngredients,
-    traces: state.traces,
-    weight: state.weight,
-    unit: state.unit,
-    date: state.date,
-    producer: state.producer,
-    distributor: state.company,
-    pickProducer: state.pickProducer
+    title: state.ingredientsReducer.title,
+    description: state.ingredientsReducer.description,
+    ingredients: state.ingredientsReducer.ingredients,
+    mostUsedIngredients: state.ingredientsReducer.mostUsedIngredients,
+    traces: state.ingredientsReducer.traces,
+    weight: state.ingredientsReducer.weight,
+    unit: state.ingredientsReducer.unit,
+    date: state.ingredientsReducer.date,
+    producer: state.companiesReducer.producer,
+    distributor: state.companiesReducer.company,
+    pickProducer: state.companiesReducer.pickProducer
   };
 };
 

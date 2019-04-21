@@ -7,6 +7,13 @@ export function handleChange(event) {
   };
 }
 
+export function handleChangeCompany(event) {
+  return {
+    type: actionTypes.HANDLE_CHANGE_COMPANY,
+    payload: event
+  };
+}
+
 export function handleParts(e, id, value) {
   return {
     type: actionTypes.HANDLE_PARTS,

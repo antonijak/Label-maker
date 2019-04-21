@@ -23,9 +23,10 @@ class App extends Component {
       date,
       validationErrors,
       handleChange,
-      validate
+      validate,
+      state
     } = this.props;
-
+    console.log(state);
     return (
       <div className="App">
         {window.innerWidth < 1200 ? (
@@ -119,12 +120,13 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    title: state.title,
-    description: state.description,
-    ingredients: state.ingredients,
-    weight: state.weight,
-    date: state.date,
-    validationErrors: state.validationErrors
+    state: state,
+    title: state.ingredientsReducer.title,
+    description: state.ingredientsReducer.description,
+    ingredients: state.ingredientsReducer.ingredients,
+    weight: state.ingredientsReducer.weight,
+    date: state.ingredientsReducer.date,
+    validationErrors: state.ingredientsReducer.validationErrors
   };
 };
 
