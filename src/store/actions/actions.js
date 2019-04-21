@@ -7,13 +7,6 @@ export function handleChange(event) {
   };
 }
 
-export function handleChangeCompany(event) {
-  return {
-    type: actionTypes.HANDLE_CHANGE_COMPANY,
-    payload: event
-  };
-}
-
 export function handleParts(e, id, value) {
   return {
     type: actionTypes.HANDLE_PARTS,
@@ -53,6 +46,15 @@ export function getUnit(event) {
   return {
     type: actionTypes.GET_UNIT,
     payload: event
+  };
+}
+
+// company action creators:
+
+export function handleChangeCompany(event, use) {
+  return {
+    type: actionTypes.HANDLE_CHANGE_COMPANY,
+    payload: { event, use }
   };
 }
 

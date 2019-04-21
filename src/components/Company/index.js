@@ -7,29 +7,17 @@ import './styles.scss';
 const Company = props => {
   const {
     use,
-    producersList,
-    resellerList,
-    producersVisible,
-    resellerVisible,
-    validationErrors,
-    handleChange,
-    useCompany,
+    company,
+    companyList,
+    companyVisible,
+    errorMessage,
+    title,
     addCompany,
+    useCompany,
     removeCompany,
-    toggleCompany
+    toggleCompany,
+    handleChange
   } = props;
-
-  const company = use === 'producer' ? props.producer : props.company;
-  const companyList = use === 'producer' ? producersList : resellerList;
-  const companyVisible =
-    use === 'producer' ? producersVisible : resellerVisible;
-  const errorMessage =
-    use === 'producer' ? validationErrors.producer : validationErrors.company;
-
-  const title =
-    use === 'producer'
-      ? 'Producer information'
-      : 'Distributor information (your company)';
 
   return (
     <div className="company  container">
@@ -44,20 +32,12 @@ const Company = props => {
                   useCompany(e, item, use);
                 }}
                 className={
-                  use === 'producer'
-                    ? item.producerName === company.producerName
-                      ? 'company__list__item active'
-                      : 'company__list__item'
-                    : item.distributorName === company.distributorName
+                  item.name === company.name
                     ? 'company__list__item active'
                     : 'company__list__item'
                 }
               >
-                <span>
-                  {use === 'producer'
-                    ? item.producerName
-                    : item.distributorName}
-                </span>
+                <span>{item.name}</span>
                 <button
                   className="company__list__item__delete"
                   onClick={e => removeCompany(e, item.id, use)}
@@ -75,47 +55,31 @@ const Company = props => {
           <div>
             <small>{errorMessage}</small>
             <input
-              name={`${use}Name`}
+              name="name"
               type="text"
-              onChange={handleChange}
-              value={
-                use === 'producer'
-                  ? company.producerName
-                  : company.distributorName
-              }
+              onChange={e => handleChange(e, use)}
+              value={company.name}
               placeholder="Company name"
             />
             <input
-              name={`${use}Address`}
+              name="address"
               type="text"
-              onChange={handleChange}
-              value={
-                use === 'producer'
-                  ? company.producerAddress
-                  : company.distributorAddress
-              }
+              onChange={e => handleChange(e, use)}
+              value={company.address}
               placeholder="Company address"
             />
             <input
-              name={`${use}Country`}
+              name="country"
               type="text"
-              onChange={handleChange}
-              value={
-                use === 'producer'
-                  ? company.producerCountry
-                  : company.distributorCountry
-              }
+              onChange={e => handleChange(e, use)}
+              value={company.country}
               placeholder="Country"
             />
             <input
-              name={`${use}Contact`}
+              name="contact"
               type="text"
-              onChange={handleChange}
-              value={
-                use === 'producer'
-                  ? company.producerContact
-                  : company.distributorContact
-              }
+              onChange={e => handleChange(e, use)}
+              value={company.contact}
               placeholder="Contact*"
             />
             <div className="company__buttons">
@@ -141,21 +105,9 @@ const Company = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    validationErrors: state.companiesReducer.validationErrors,
-    company: state.companiesReducer.company,
-    producer: state.companiesReducer.producer,
-    producersList: state.companiesReducer.producersList,
-    resellerList: state.companiesReducer.companyList,
-    producersVisible: state.companiesReducer.producersVisible,
-    resellerVisible: state.companiesReducer.companyVisible
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
-    handleChange: e => dispatch(actions.handleChangeCompany(e)),
+    handleChange: (e, use) => dispatch(actions.handleChangeCompany(e, use)),
     toggleCompany: (e, use) => dispatch(actions.toggleCompany(e, use)),
     useCompany: (e, producer, use) =>
       dispatch(actions.useCompany(e, producer, use)),
@@ -165,6 +117,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  undefined,
   mapDispatchToProps
 )(Company);

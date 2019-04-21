@@ -3,63 +3,50 @@ import uuid from 'uuid/v4';
 
 const companiesState = {
   producer: {
-    producerName: '',
-    producerAddress: '',
-    producerCountry: '',
-    producerContact: ''
+    name: '',
+    address: '',
+    country: '',
+    contact: ''
   },
   producersList: [],
   producersVisible: false,
-  company: {
-    distributorName: '',
-    distributorAddress: '',
-    distributorCountry: '',
-    distributorContact: ''
+  distributor: {
+    name: '',
+    address: '',
+    country: '',
+    contact: ''
   },
-  companyList: [],
-  companyVisible: false,
+  distributorsList: [],
+  distributorsVisible: false,
   validationErrors: {
     producer: '',
-    company: ''
+    distributor: ''
   }
 };
 
 const reducer = (state = companiesState, action) => {
   switch (action.type) {
     case actionTypes.HANDLE_CHANGE_COMPANY:
-      let name = action.payload.target.name;
-      let value = action.payload.target.value;
-      if (
-        name === 'producerName' ||
-        name === 'producerAddress' ||
-        name === 'producerCountry' ||
-        name === 'producerContact'
-      ) {
-        return { ...state, producer: { ...state.producer, [name]: value } };
-      } else if (
-        name === 'distributorName' ||
-        name === 'distributorAddress' ||
-        name === 'distributorCountry' ||
-        name === 'distributorContact'
-      ) {
-        return { ...state, company: { ...state.company, [name]: value } };
-      } else {
-        return { ...state, [name]: value };
-      }
+      let { event, use } = action.payload;
+      let { name, value } = event.target;
+      return use === 'producer'
+        ? { ...state, producer: { ...state.producer, [name]: value } }
+        : { ...state, distributor: { ...state.distributor, [name]: value } };
 
     case actionTypes.TOGGLE_COMPANY:
       action.payload.event.preventDefault();
-      let use = action.payload.use;
+      use = action.payload.use;
 
       if (use === 'producer') {
         let producer = state.producersVisible
           ? {
-              producerName: '',
-              producerAddress: '',
-              producerCountry: '',
-              producerContact: ''
+              name: '',
+              address: '',
+              country: '',
+              contact: ''
             }
           : state.producer;
+
         return {
           ...state,
           producersVisible: !state.producersVisible,
@@ -67,31 +54,31 @@ const reducer = (state = companiesState, action) => {
           validationErrors: { ...state.validationErrors, producer: '' }
         };
       } else if (use === 'distributor') {
-        let company = state.companyVisible
+        let distributor = state.distributorsVisible
           ? {
-              distributorName: '',
-              distributorAddress: '',
-              distributorCountry: '',
-              distributorContact: ''
+              name: '',
+              address: '',
+              country: '',
+              contact: ''
             }
           : state.producer;
         return {
           ...state,
-          companyVisible: !state.companyVisible,
-          company,
-          validationErrors: { ...state.validationErrors, company: '' }
+          distributorsVisible: !state.distributorsVisible,
+          distributor,
+          validationErrors: { ...state.validationErrors, distributor: '' }
         };
       }
       return state;
 
     case actionTypes.USE_COMPANY:
-      let { event } = action.payload;
+      event = action.payload.event;
       let company = action.payload.company;
       use = action.payload.use;
       event.preventDefault();
       return use === 'producer'
         ? { ...state, producer: company }
-        : { ...state, company };
+        : { ...state, distributor: company };
 
     case actionTypes.ADD_COMPANY:
       action.payload.event.preventDefault();
@@ -99,12 +86,12 @@ const reducer = (state = companiesState, action) => {
 
       if (
         use === 'producer' &&
-        state.producer.producerName &&
-        state.producer.producerAddress &&
-        state.producer.producerCountry
+        state.producer.name &&
+        state.producer.address &&
+        state.producer.country
       ) {
         let duplicate = state.producersList.some(
-          producer => producer.producerName === state.producer.producerName
+          producer => producer.name === state.producer.name
         );
         return !duplicate
           ? {
@@ -128,32 +115,32 @@ const reducer = (state = companiesState, action) => {
             };
       } else if (
         use === 'distributor' &&
-        state.company.distributorName &&
-        state.company.distributorAddress &&
-        state.company.distributorCountry
+        state.distributor.name &&
+        state.distributor.address &&
+        state.distributor.country
       ) {
-        let duplicate = state.companyList.some(
-          company => company.distributorName === state.company.distributorName
+        let duplicate = state.distributorsList.some(
+          distributor => distributor.name === state.distributor.name
         );
 
         return !duplicate
           ? {
               ...state,
-              companyVisible: true,
-              companyList: [
-                ...state.companyList,
-                { ...state.company, id: uuid() }
+              distributorsVisible: true,
+              distributorsList: [
+                ...state.distributorsList,
+                { ...state.distributor, id: uuid() }
               ],
               validationErrors: {
                 ...state.validationErrors,
-                company: ''
+                distributor: ''
               }
             }
           : {
               ...state,
               validationErrors: {
                 ...state.validationErrors,
-                company: 'Company already exist in the database'
+                distributor: 'Company already exist in the database'
               }
             };
       } else {
@@ -170,7 +157,7 @@ const reducer = (state = companiesState, action) => {
               ...state,
               validationErrors: {
                 ...state.validationErrors,
-                company:
+                distributor:
                   'You need to specify name, address and country to be able to save'
               }
             };
@@ -192,26 +179,26 @@ const reducer = (state = companiesState, action) => {
             ...state,
             producersList: filteredProducersList,
             producer: {
-              producerName: '',
-              producerAddress: '',
-              producerCountry: '',
-              producerContact: ''
+              name: '',
+              address: '',
+              country: '',
+              contact: ''
             }
           };
         }
       } else if (use === 'distributor') {
-        const filteredCompanyList = state.companyList.filter(
+        const distributorsList = state.distributorsList.filter(
           producer => producer.id !== id
         );
         if (window.confirm('Are you sure you want to delete this company?')) {
           return {
             ...state,
-            companyList: filteredCompanyList,
-            company: {
-              distributorName: '',
-              distributorAddress: '',
-              distributorCountry: '',
-              distributorContact: ''
+            distributorsList,
+            distributor: {
+              name: '',
+              address: '',
+              country: '',
+              contact: ''
             }
           };
         }

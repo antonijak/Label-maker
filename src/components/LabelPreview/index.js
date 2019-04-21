@@ -15,8 +15,7 @@ const LabelPreview = ({
   unit,
   date,
   producer,
-  distributor,
-  pickProducer
+  distributor
 }) => {
   return (
     <div className="label-preview">
@@ -56,24 +55,20 @@ const LabelPreview = ({
 
       <p className="label-preview__producer">
         <span>Produced by: </span>
-        {producer.producerName && `${producer.producerName}, `}
-        {producer.producerAddress && `${producer.producerAddress}, `}
-        {producer.producerCountry &&
-          `${producer.producerCountry}${producer.producerContact ? ', ' : '.'}`}
-        {producer.producerContact && ` ${producer.producerContact}.`}
+        {producer.name && `${producer.name}, `}
+        {producer.address && `${producer.address}, `}
+        {producer.country &&
+          `${producer.country}${producer.contact ? ', ' : '.'}`}
+        {producer.contact && ` ${producer.contact}.`}
       </p>
 
       <p className="label-preview__distributor">
-        <span>Imported by: </span>
-        {distributor.distributorName && `${distributor.distributorName}, `}
-        {distributor.distributorAddress &&
-          `${distributor.distributorAddress}, `}
-        {distributor.distributorCountry &&
-          `${distributor.distributorCountry}${
-            distributor.distributorContact ? ', ' : '.'
-          }`}
-        {distributor.distributorContact &&
-          ` ${distributor.distributorContact}.`}
+        <span>Distributed by: </span>
+        {distributor.name && `${distributor.name}, `}
+        {distributor.address && `${distributor.address}, `}
+        {distributor.country &&
+          `${distributor.country}${distributor.contact ? ', ' : '.'}`}
+        {distributor.contact && ` ${distributor.contact}.`}
       </p>
     </div>
   );
@@ -90,8 +85,7 @@ const mapStateToProps = state => {
     unit: state.ingredientsReducer.unit,
     date: state.ingredientsReducer.date,
     producer: state.companiesReducer.producer,
-    distributor: state.companiesReducer.company,
-    pickProducer: state.companiesReducer.pickProducer
+    distributor: state.companiesReducer.distributor
   };
 };
 
