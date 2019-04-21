@@ -33,53 +33,6 @@ const reducer = (state = companiesState, action) => {
         ? { ...state, producer: { ...state.producer, [name]: value } }
         : { ...state, distributor: { ...state.distributor, [name]: value } };
 
-    case actionTypes.TOGGLE_COMPANY:
-      action.payload.event.preventDefault();
-      use = action.payload.use;
-
-      if (use === 'producer') {
-        let producer = state.producersVisible
-          ? {
-              name: '',
-              address: '',
-              country: '',
-              contact: ''
-            }
-          : state.producer;
-
-        return {
-          ...state,
-          producersVisible: !state.producersVisible,
-          producer,
-          validationErrors: { ...state.validationErrors, producer: '' }
-        };
-      } else if (use === 'distributor') {
-        let distributor = state.distributorsVisible
-          ? {
-              name: '',
-              address: '',
-              country: '',
-              contact: ''
-            }
-          : state.producer;
-        return {
-          ...state,
-          distributorsVisible: !state.distributorsVisible,
-          distributor,
-          validationErrors: { ...state.validationErrors, distributor: '' }
-        };
-      }
-      return state;
-
-    case actionTypes.USE_COMPANY:
-      event = action.payload.event;
-      let company = action.payload.company;
-      use = action.payload.use;
-      event.preventDefault();
-      return use === 'producer'
-        ? { ...state, producer: company }
-        : { ...state, distributor: company };
-
     case actionTypes.ADD_COMPANY:
       action.payload.event.preventDefault();
       use = action.payload.use;
@@ -90,9 +43,10 @@ const reducer = (state = companiesState, action) => {
         state.producer.address &&
         state.producer.country
       ) {
-        let duplicate = state.producersList.some(
+        const duplicate = state.producersList.some(
           producer => producer.name === state.producer.name
         );
+
         return !duplicate
           ? {
               ...state,
@@ -119,7 +73,7 @@ const reducer = (state = companiesState, action) => {
         state.distributor.address &&
         state.distributor.country
       ) {
-        let duplicate = state.distributorsList.some(
+        const duplicate = state.distributorsList.some(
           distributor => distributor.name === state.distributor.name
         );
 
@@ -163,6 +117,16 @@ const reducer = (state = companiesState, action) => {
             };
       }
 
+    case actionTypes.USE_COMPANY:
+      let company = action.payload.company;
+      event = action.payload.event;
+      use = action.payload.use;
+      event.preventDefault();
+
+      return use === 'producer'
+        ? { ...state, producer: company }
+        : { ...state, distributor: company };
+
     case actionTypes.REMOVE_COMPANY:
       let id = action.payload.id;
       event = action.payload.event;
@@ -204,6 +168,44 @@ const reducer = (state = companiesState, action) => {
         }
       }
 
+      return state;
+
+    case actionTypes.TOGGLE_COMPANIES:
+      action.payload.event.preventDefault();
+      use = action.payload.use;
+
+      if (use === 'producer') {
+        let producer = state.producersVisible
+          ? {
+              name: '',
+              address: '',
+              country: '',
+              contact: ''
+            }
+          : state.producer;
+
+        return {
+          ...state,
+          producersVisible: !state.producersVisible,
+          producer,
+          validationErrors: { ...state.validationErrors, producer: '' }
+        };
+      } else if (use === 'distributor') {
+        let distributor = state.distributorsVisible
+          ? {
+              name: '',
+              address: '',
+              country: '',
+              contact: ''
+            }
+          : state.producer;
+        return {
+          ...state,
+          distributorsVisible: !state.distributorsVisible,
+          distributor,
+          validationErrors: { ...state.validationErrors, distributor: '' }
+        };
+      }
       return state;
 
     default:

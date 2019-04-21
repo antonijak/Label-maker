@@ -58,9 +58,9 @@ export function handleChangeCompany(event, use) {
   };
 }
 
-export function toggleCompany(event, use) {
+export function toggleCompanies(event, use) {
   return {
-    type: actionTypes.TOGGLE_COMPANY,
+    type: actionTypes.TOGGLE_COMPANIES,
     payload: { event, use }
   };
 }

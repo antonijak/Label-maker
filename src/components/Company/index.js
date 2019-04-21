@@ -15,7 +15,7 @@ const Company = props => {
     addCompany,
     useCompany,
     removeCompany,
-    toggleCompany,
+    toggleCompanies,
     handleChange
   } = props;
 
@@ -45,7 +45,7 @@ const Company = props => {
               </div>
             ))}
             <button
-              onClick={e => toggleCompany(e, use)}
+              onClick={e => toggleCompanies(e, use)}
               className="company__list__item add"
             >
               + Add new
@@ -92,7 +92,7 @@ const Company = props => {
               {companyList.length > 0 && (
                 <button
                   className="company__buttons__button use"
-                  onClick={e => toggleCompany(e, use)}
+                  onClick={e => toggleCompanies(e, use)}
                 >
                   Use from database
                 </button>
@@ -108,7 +108,7 @@ const Company = props => {
 const mapDispatchToProps = dispatch => {
   return {
     handleChange: (e, use) => dispatch(actions.handleChangeCompany(e, use)),
-    toggleCompany: (e, use) => dispatch(actions.toggleCompany(e, use)),
+    toggleCompanies: (e, use) => dispatch(actions.toggleCompanies(e, use)),
     useCompany: (e, producer, use) =>
       dispatch(actions.useCompany(e, producer, use)),
     addCompany: (e, use) => dispatch(actions.addCompany(e, use)),
