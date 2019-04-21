@@ -3,7 +3,7 @@ import uuid from 'uuid/v4';
 import moment from 'moment';
 import validate from 'validate.js';
 
-const initialState = {
+const ingredientsState = {
   title: '',
   description: '',
   ingredients: [
@@ -19,32 +19,16 @@ const initialState = {
   unit: 'g',
   validationErrors: {
     weight: '',
-    date: '',
-    producer: ''
-  },
-  producer: {
-    producerName: '',
-    producerAddress: '',
-    producerCountry: '',
-    producerContact: ''
-  },
-  producersList: [],
-  producersVisible: false
+    date: ''
+  }
 };
 
-const reducer = (state = initialState, action) => {
+const ingredientsReducer = (state = ingredientsState, action) => {
   switch (action.type) {
     case actionTypes.HANDLE_CHANGE:
       let name = action.payload.target.name;
       let value = action.payload.target.value;
-      if (
-        name === 'producerName' ||
-        name === 'producerAddress' ||
-        name === 'producerCountry' ||
-        name === 'producerContact'
-      ) {
-        return { ...state, producer: { ...state.producer, [name]: value } };
-      }
+
       return { ...state, [name]: value };
 
     case actionTypes.HANDLE_PARTS:
@@ -155,103 +139,9 @@ const reducer = (state = initialState, action) => {
       value = action.payload.target.value;
       return { ...state, unit: value };
 
-    case actionTypes.TOGGLE_PRODUCERS:
-      action.payload.preventDefault();
-      let producer = state.producersVisible
-        ? {
-            producerName: '',
-            producerAddress: '',
-            producerCountry: '',
-            producerContact: ''
-          }
-        : state.producer;
-      return {
-        ...state,
-        producersVisible: !state.producersVisible,
-        producer,
-        validationErrors: { ...state.validationErrors, producer: '' }
-      };
-
-    case actionTypes.ADD_EXISTING_PRODUCER:
-      let { event } = action.payload;
-      producer = action.payload.producer;
-      event.preventDefault();
-      return { ...state, producer };
-
-    case actionTypes.ADD_PRODUCER:
-      action.payload.preventDefault();
-
-      const duplicate = state.producersList.some(
-        producer => producer.producerName === state.producer.producerName
-      );
-      if (
-        state.producer.producerName &&
-        state.producer.producerAddress &&
-        state.producer.producerCountry &&
-        !duplicate
-      ) {
-        return {
-          ...state,
-          producersVisible: true,
-          producersList: [
-            ...state.producersList,
-            { ...state.producer, id: uuid() }
-          ],
-          validationErrors: {
-            ...state.validationErrors,
-            producer: ''
-          }
-        };
-      } else if (
-        state.producer.producerName &&
-        state.producer.producerAddress &&
-        state.producer.producerCountry &&
-        duplicate
-      ) {
-        return {
-          ...state,
-          validationErrors: {
-            ...state.validationErrors,
-            producer: 'Producer already exist in the database'
-          }
-        };
-      } else {
-        return {
-          ...state,
-          validationErrors: {
-            ...state.validationErrors,
-            producer:
-              'You need to specify name, address and country to be able to save'
-          }
-        };
-      }
-    case actionTypes.REMOVE_PRODUCER:
-      id = action.payload.id;
-      event = action.payload.event;
-      event.preventDefault();
-      event.stopPropagation();
-
-      const filteredProducersList = state.producersList.filter(
-        producer => producer.id !== id
-      );
-      if (window.confirm('Are you sure you want to delete this producer?')) {
-        return {
-          ...state,
-          producersList: filteredProducersList,
-          producer: {
-            producerName: '',
-            producerAddress: '',
-            producerCountry: '',
-            producerContact: ''
-          }
-        };
-      } else {
-        return state;
-      }
-
     default:
       return state;
   }
 };
 
-export default reducer;
+export default ingredientsReducer;

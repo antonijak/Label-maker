@@ -121,7 +121,7 @@ class AllergensContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    traces: state.traces
+    traces: state.ingredientsReducer.traces
   };
 };
 

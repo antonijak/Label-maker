@@ -15,7 +15,7 @@ const LabelPreview = ({
   unit,
   date,
   producer,
-  pickProducer
+  distributor
 }) => {
   return (
     <div className="label-preview">
@@ -55,11 +55,20 @@ const LabelPreview = ({
 
       <p className="label-preview__producer">
         <span>Produced by: </span>
-        {producer.producerName && `${producer.producerName}, `}
-        {producer.producerAddress && `${producer.producerAddress}, `}
-        {producer.producerCountry &&
-          `${producer.producerCountry}${producer.producerContact ? ', ' : '.'}`}
-        {producer.producerContact && ` ${producer.producerContact}.`}
+        {producer.name && `${producer.name}, `}
+        {producer.address && `${producer.address}, `}
+        {producer.country &&
+          `${producer.country}${producer.contact ? ', ' : '.'}`}
+        {producer.contact && ` ${producer.contact}.`}
+      </p>
+
+      <p className="label-preview__distributor">
+        <span>Distributed by: </span>
+        {distributor.name && `${distributor.name}, `}
+        {distributor.address && `${distributor.address}, `}
+        {distributor.country &&
+          `${distributor.country}${distributor.contact ? ', ' : '.'}`}
+        {distributor.contact && ` ${distributor.contact}.`}
       </p>
     </div>
   );
@@ -67,16 +76,16 @@ const LabelPreview = ({
 
 const mapStateToProps = state => {
   return {
-    title: state.title,
-    description: state.description,
-    ingredients: state.ingredients,
-    mostUsedIngredients: state.mostUsedIngredients,
-    traces: state.traces,
-    weight: state.weight,
-    unit: state.unit,
-    date: state.date,
-    producer: state.producer,
-    pickProducer: state.pickProducer
+    title: state.ingredientsReducer.title,
+    description: state.ingredientsReducer.description,
+    ingredients: state.ingredientsReducer.ingredients,
+    mostUsedIngredients: state.ingredientsReducer.mostUsedIngredients,
+    traces: state.ingredientsReducer.traces,
+    weight: state.ingredientsReducer.weight,
+    unit: state.ingredientsReducer.unit,
+    date: state.ingredientsReducer.date,
+    producer: state.companiesReducer.producer,
+    distributor: state.companiesReducer.distributor
   };
 };
 

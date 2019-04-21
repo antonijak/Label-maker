@@ -1,6 +1,6 @@
 @import '../../index.scss';
 
-.producer {
+.company {
   position: relative;
 
   &__title {
@@ -37,7 +37,6 @@
     width: 100%;
     grid-template-columns: repeat(auto-fit, minmax(9rem, 23.4%));
     grid-gap: 1rem;
-    padding-bottom: 2rem;
 
     .add {
       background: $ingredient;
@@ -71,7 +70,7 @@
         background: $active;
         font-weight: bold;
 
-        .producer__list__item__delete {
+        .company__list__item__delete {
           background-image: url('../../assets/x-white.svg');
           &:hover {
             background-image: url('../../assets/x-hover.svg');
@@ -91,6 +90,7 @@
         border: none;
         background-color: transparent;
         border-radius: 50%;
+        outline: none;
 
         &:hover {
           background-image: url('../../assets/x-hover.svg');

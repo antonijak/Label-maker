@@ -49,30 +49,39 @@ export function getUnit(event) {
   };
 }
 
-export function toggleProducers(event) {
+// company action creators:
+
+export function handleChangeCompany(event, use) {
   return {
-    type: actionTypes.TOGGLE_PRODUCERS,
-    payload: event
+    type: actionTypes.HANDLE_CHANGE_COMPANY,
+    payload: { event, use }
   };
 }
 
-export function addExistingProducer(event, producer) {
+export function toggleCompanies(event, use) {
   return {
-    type: actionTypes.ADD_EXISTING_PRODUCER,
-    payload: { event, producer }
+    type: actionTypes.TOGGLE_COMPANIES,
+    payload: { event, use }
   };
 }
 
-export function addProducer(event) {
+export function useCompany(event, company, use) {
   return {
-    type: actionTypes.ADD_PRODUCER,
-    payload: event
+    type: actionTypes.USE_COMPANY,
+    payload: { event, company, use }
   };
 }
 
-export function removeProducer(event, id) {
+export function addCompany(event, use) {
   return {
-    type: actionTypes.REMOVE_PRODUCER,
-    payload: { event, id }
+    type: actionTypes.ADD_COMPANY,
+    payload: { event, use }
+  };
+}
+
+export function removeCompany(event, id, use) {
+  return {
+    type: actionTypes.REMOVE_COMPANY,
+    payload: { event, id, use }
   };
 }

@@ -7,7 +7,7 @@ import IngredientsSelector from './components/IngredientSelector/index.js';
 import AllergensContainer from './components/AllergensContainer/index.js';
 import LabelPreview from './components/LabelPreview/index.js';
 import CustomDropdown from './components/CustomDropdown';
-import Producer from './components/Producer/index';
+import Company from './components/Company/index';
 
 import './App.scss';
 
@@ -21,11 +21,17 @@ class App extends Component {
       ingredients,
       weight,
       date,
-      validationErrors,
+      ingredientsValidationErrors,
       handleChange,
-      validate
+      validate,
+      companiesValidationErrors,
+      producer,
+      distributor,
+      producersList,
+      distributorsList,
+      producersVisible,
+      distributorsVisible
     } = this.props;
-
     return (
       <div className="App">
         {window.innerWidth < 1200 ? (
@@ -69,7 +75,7 @@ class App extends Component {
               <div className="form__package">
                 <div className="form__package__weight">
                   <small className="form__package__weight__message">
-                    {validationErrors.weight}
+                    {ingredientsValidationErrors.weight}
                   </small>
 
                   <label className="form__package__weight__label">
@@ -90,7 +96,7 @@ class App extends Component {
 
                 <div className="form__package__date">
                   <small className="form__package__date__message">
-                    {validationErrors.date}
+                    {ingredientsValidationErrors.date}
                   </small>
                   <label className="form__package__date__label">
                     <span>Best before:</span>
@@ -106,7 +112,22 @@ class App extends Component {
                   </label>
                 </div>
               </div>
-              <Producer />
+              <Company
+                use="producer"
+                company={producer}
+                companyList={producersList}
+                companyVisible={producersVisible}
+                errorMessage={companiesValidationErrors.producer}
+                title="Producer"
+              />
+              <Company
+                use="distributor"
+                company={distributor}
+                companyList={distributorsList}
+                companyVisible={distributorsVisible}
+                errorMessage={companiesValidationErrors.distributor}
+                title="Importer"
+              />
             </form>
             <LabelPreview />
           </>
@@ -116,14 +137,21 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ ingredientsReducer, companiesReducer }) => {
   return {
-    title: state.title,
-    description: state.description,
-    ingredients: state.ingredients,
-    weight: state.weight,
-    date: state.date,
-    validationErrors: state.validationErrors
+    title: ingredientsReducer.title,
+    description: ingredientsReducer.description,
+    ingredients: ingredientsReducer.ingredients,
+    weight: ingredientsReducer.weight,
+    date: ingredientsReducer.date,
+    ingredientsValidationErrors: ingredientsReducer.validationErrors,
+    companiesValidationErrors: companiesReducer.validationErrors,
+    producer: companiesReducer.producer,
+    distributor: companiesReducer.distributor,
+    producersList: companiesReducer.producersList,
+    distributorsList: companiesReducer.distributorsList,
+    producersVisible: companiesReducer.producersVisible,
+    distributorsVisible: companiesReducer.distributorsVisible
   };
 };
 

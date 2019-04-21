@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './store/reducers/reducer.js';
+import ingredientsReducer from './store/reducers/ingredientsReducer';
+import companiesReducer from './store/reducers/companiesReducer';
+
+const reducer = combineReducers({ ingredientsReducer, companiesReducer });
 
 const store = createStore(reducer);
 

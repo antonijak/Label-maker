@@ -21,7 +21,7 @@ CustomDropdown.propTypes = {
 };
 const mapStateToProps = state => {
   return {
-    unit: state.unit
+    unit: state.ingredientsReducer.unit
   };
 };
 
