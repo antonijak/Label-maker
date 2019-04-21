@@ -1,22 +1,22 @@
 import * as actionTypes from '../actions/actionTypes';
 import uuid from 'uuid/v4';
 
-const companiesState = {
+const initialState = {
   producer: {
     name: '',
     address: '',
     country: '',
     contact: ''
   },
-  producersList: [],
-  producersVisible: false,
   distributor: {
     name: '',
     address: '',
     country: '',
     contact: ''
   },
+  producersList: [],
   distributorsList: [],
+  producersVisible: false,
   distributorsVisible: false,
   validationErrors: {
     producer: '',
@@ -24,7 +24,7 @@ const companiesState = {
   }
 };
 
-const reducer = (state = companiesState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.HANDLE_CHANGE_COMPANY:
       let { event, use } = action.payload;
@@ -37,76 +37,70 @@ const reducer = (state = companiesState, action) => {
       action.payload.event.preventDefault();
       use = action.payload.use;
 
-      if (
-        use === 'producer' &&
-        state.producer.name &&
-        state.producer.address &&
-        state.producer.country
-      ) {
+      if (use === 'producer') {
         const duplicate = state.producersList.some(
           producer => producer.name === state.producer.name
         );
 
-        return !duplicate
-          ? {
-              ...state,
-              producersVisible: true,
-              producersList: [
-                ...state.producersList,
-                { ...state.producer, id: uuid() }
-              ],
-              validationErrors: {
-                ...state.validationErrors,
-                producer: ''
+        return state.producer.name &&
+          state.producer.address &&
+          state.producer.country
+          ? !duplicate
+            ? {
+                ...state,
+                producersVisible: true,
+                producersList: [
+                  ...state.producersList,
+                  { ...state.producer, id: uuid() }
+                ],
+                validationErrors: {
+                  ...state.validationErrors,
+                  producer: ''
+                }
               }
-            }
+            : {
+                ...state,
+                validationErrors: {
+                  ...state.validationErrors,
+                  producer: 'Company already exist in the database'
+                }
+              }
           : {
-              ...state,
-              validationErrors: {
-                ...state.validationErrors,
-                producer: 'Company already exist in the database'
-              }
-            };
-      } else if (
-        use === 'distributor' &&
-        state.distributor.name &&
-        state.distributor.address &&
-        state.distributor.country
-      ) {
-        const duplicate = state.distributorsList.some(
-          distributor => distributor.name === state.distributor.name
-        );
-
-        return !duplicate
-          ? {
-              ...state,
-              distributorsVisible: true,
-              distributorsList: [
-                ...state.distributorsList,
-                { ...state.distributor, id: uuid() }
-              ],
-              validationErrors: {
-                ...state.validationErrors,
-                distributor: ''
-              }
-            }
-          : {
-              ...state,
-              validationErrors: {
-                ...state.validationErrors,
-                distributor: 'Company already exist in the database'
-              }
-            };
-      } else {
-        return use === 'producer'
-          ? {
               ...state,
               validationErrors: {
                 ...state.validationErrors,
                 producer:
                   'You need to specify name, address and country to be able to save'
               }
-            }
+            };
+      } else {
+        const duplicate = state.distributorsList.some(
+          distributor => distributor.name === state.distributor.name
+        );
+
+        return state.distributor.name &&
+          state.distributor.address &&
+          state.distributor.country
+          ? !duplicate
+            ? {
+                ...state,
+                distributorsVisible: true,
+                distributorsList: [
+                  ...state.distributorsList,
+                  { ...state.distributor, id: uuid() }
+                ],
+                validationErrors: {
+                  ...state.validationErrors,
+                  distributor: ''
+                }
+              }
+            : {
+                ...state,
+                validationErrors: {
+                  ...state.validationErrors,
+                  distributor: 'Company already exist in the database'
+                }
+              }
           : {
               ...state,
               validationErrors: {
