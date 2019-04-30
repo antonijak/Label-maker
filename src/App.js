@@ -14,6 +14,9 @@ import './App.scss';
 const today = moment(new Date()).format('YYYY-MM-DD');
 
 class App extends Component {
+  componentDidMount = () => {
+    this.props.getCountries();
+  };
   render() {
     const {
       title,
@@ -30,7 +33,8 @@ class App extends Component {
       producersList,
       distributorsList,
       producersVisible,
-      distributorsVisible
+      distributorsVisible,
+      countries
     } = this.props;
     return (
       <div className="App">
@@ -126,8 +130,19 @@ class App extends Component {
                 companyList={distributorsList}
                 companyVisible={distributorsVisible}
                 errorMessage={companiesValidationErrors.distributor}
-                title="Importer"
+                title="Importer/Distributer"
               />
+              <div className="container">
+                <select
+                  placeholder="County of origin"
+                  className="form__country"
+                >
+                  {countries.length > 0 &&
+                    countries.map((country, i) => (
+                      <option key={i + 1}>{country.countryName}</option>
+                    ))}
+                </select>
+              </div>
             </form>
             <LabelPreview />
           </>
@@ -151,14 +166,16 @@ const mapStateToProps = ({ ingredientsReducer, companiesReducer }) => {
     producersList: companiesReducer.producersList,
     distributorsList: companiesReducer.distributorsList,
     producersVisible: companiesReducer.producersVisible,
-    distributorsVisible: companiesReducer.distributorsVisible
+    distributorsVisible: companiesReducer.distributorsVisible,
+    countries: ingredientsReducer.countries
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     handleChange: e => dispatch(actions.handleChange(e)),
-    validate: e => dispatch(actions.validate(e))
+    validate: e => dispatch(actions.validate(e)),
+    getCountries: () => dispatch(actions.getCountries())
   };
 };
 

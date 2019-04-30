@@ -20,7 +20,8 @@ const ingredientsState = {
   validationErrors: {
     weight: '',
     date: ''
-  }
+  },
+  countries: []
 };
 
 const ingredientsReducer = (state = ingredientsState, action) => {
@@ -138,6 +139,9 @@ const ingredientsReducer = (state = ingredientsState, action) => {
     case actionTypes.GET_UNIT:
       value = action.payload.target.value;
       return { ...state, unit: value };
+
+    case actionTypes.GET_COUNTRIES:
+      return { ...state, countries: action.payload };
 
     default:
       return state;
