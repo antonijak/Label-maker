@@ -16,16 +16,19 @@
     width: 800px;
   }
   .notification {
+    visibility: hidden;
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
-    text-align: center;
     padding: 1rem;
     background: $remove;
     color: white;
     opacity: 0.6;
     z-index: 1;
+    @media (max-width: 799px) {
+      visibility: visible;
+    }
   }
 
   .form {

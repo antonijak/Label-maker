@@ -41,9 +41,8 @@ class App extends Component {
     } = this.props;
     return (
       <div className="App">
-        {window.innerWidth < 800 && (
-          <p className="notification">For better experience, open on desktop</p>
-        )}
+        <p className="notification">For better experience, open on desktop</p>
+
         <form className="form">
           <div className="form__heading">
             <h1 className="form__heading__h1">Label Maker</h1>
