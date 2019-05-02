@@ -176,7 +176,7 @@ class IngredientsSelector extends Component {
     const { id, title } = this.state.part;
 
     return (
-      <div className="ingredients-selector">
+      <div className="container ingredients-selector">
         <input
           type="text"
           value={title}

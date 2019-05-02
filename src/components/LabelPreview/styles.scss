@@ -1,3 +1,9 @@
+@import '../../index.scss';
+
+.small * {
+  font-size: 0.9rem;
+}
+
 .label-preview {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.226);
   border-radius: 4px;
@@ -8,6 +14,7 @@
   min-height: fit-content;
   height: 95vh;
   margin: 2.5vh 0;
+  overflow: hidden;
 
   &__description {
     font-weight: normal;
@@ -34,7 +41,33 @@
     }
   }
 
-  &__producer {
+  &__producer,
+  &__distributor,
+  &__country {
     margin-top: 1rem;
+  }
+
+  &__nutrients {
+    margin-top: 1rem;
+
+    &__title {
+      padding-bottom: 3px;
+      border-bottom: 1px solid $placeholder-text;
+    }
+
+    &__subnutrient {
+      padding-left: 3%;
+
+      // border-top: 1px solid $background;
+
+      .nutrient-preview h5 {
+        font-size: 0.9rem;
+        width: 31%;
+      }
+
+      .nutrient-preview span {
+        width: 31.5%;
+      }
+    }
   }
 }

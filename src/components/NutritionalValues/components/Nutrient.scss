@@ -1,0 +1,42 @@
+@import '../../../index.scss';
+
+.nutrient {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%;
+
+  &__title {
+    margin-right: 1rem;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+
+  &__inputs {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    &__label {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: 1rem;
+      width: 25%;
+
+      &__unit {
+        margin-left: 1rem;
+        width: 3rem;
+      }
+
+      input {
+        margin: 0;
+      }
+    }
+
+    &:last-child {
+      margin-right: -1rem;
+    }
+  }
+}

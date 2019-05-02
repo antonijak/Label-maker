@@ -6,9 +6,14 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ingredientsReducer from './store/reducers/ingredientsReducer';
 import companiesReducer from './store/reducers/companiesReducer';
+import nutritionalReducer from './store/reducers/nutritionalReducer';
 import thunk from 'redux-thunk';
 
-const reducer = combineReducers({ ingredientsReducer, companiesReducer });
+const reducer = combineReducers({
+  ingredientsReducer,
+  companiesReducer,
+  nutritionalReducer
+});
 
 const store = createStore(reducer, applyMiddleware(thunk));
 

@@ -30,7 +30,7 @@
       box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
       border-radius: 4px;
       background: $background;
-      margin: 1rem 0;
+      margin: 1rem 0 0;
       padding: 2rem 10%;
     }
 
@@ -67,12 +67,7 @@
     }
 
     &__package {
-      width: 100%;
       display: flex;
-      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
-      border-radius: 4px;
-      background: $background;
-      padding: 2rem 10%;
       justify-content: space-between;
 
       input {
@@ -121,6 +116,67 @@
     &__country {
       margin-bottom: 0;
       width: 100%;
+    }
+
+    .country-select {
+      position: relative;
+      vertical-align: middle;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0;
+
+      &__label {
+        margin-right: 1rem;
+      }
+
+      select {
+        width: 80%;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
+        background-color: white;
+        color: $primary;
+        font-size: 1rem;
+        height: 3rem;
+        padding-left: 1rem;
+        padding-right: 2rem;
+        outline: none;
+        border: none;
+        border-radius: 2px;
+        /*Hiding the select arrow for firefox*/
+        -moz-appearance: none;
+        /*Hiding the select arrow for chrome*/
+        -webkit-appearance: none;
+        /*Hiding the select arrow default implementation*/
+        appearance: none;
+
+        &::-ms-expand {
+          display: none;
+        }
+
+        &:hover {
+          box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.384);
+          color: rgba(0, 0, 0, 0.616);
+        }
+      }
+
+      &::after,
+      .country-select::before {
+        content: '';
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &::after {
+        content: '';
+        border: 5px solid $primary;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        height: 0.3rem;
+        right: 6.9rem;
+        top: 56%;
+        margin-top: -0.5em;
+      }
     }
   }
 }

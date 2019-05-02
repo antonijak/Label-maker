@@ -20,7 +20,7 @@ const Company = props => {
   } = props;
 
   return (
-    <div className="company  container">
+    <div className="container company">
       <h3 className="company__title">{title}</h3>
       <div>
         {companyList.length > 0 && companyVisible ? (

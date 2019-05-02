@@ -1,0 +1,11 @@
+@import '../../index.scss';
+
+.nutritional-values {
+  &__subsection {
+    padding-left: 1rem;
+
+    h5 {
+      opacity: 0.6;
+    }
+  }
+}

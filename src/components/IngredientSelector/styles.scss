@@ -1,24 +1,12 @@
 @import '../../index.scss';
 
 .ingredients-selector {
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  border-radius: 25px;
-  width: 100%;
-  margin: 1rem 0;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
-  border-radius: 4px;
-  background: $background;
-  padding: 2rem 0;
-
   &__title {
     margin-bottom: 1rem;
+    width: 100%;
   }
 
   &__search {
-    width: 80%;
     display: flex;
     justify-content: space-between;
   }
@@ -40,7 +28,7 @@
       width: 100%;
       &__search {
         padding-left: 2.3rem;
-        width: 80%;
+        width: 100%;
         background-image: url('../../assets/search.svg');
         background-repeat: no-repeat;
         background-position: 1rem 49%;
@@ -54,7 +42,7 @@
   &__button {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 100%;
 
     &__add,
     &__remove {
@@ -73,7 +61,7 @@
         width: 100%;
         border-radius: 50%;
         height: 100%;
-        margin-bottom: 4px;
+        padding-bottom: 3px;
         outline: none;
         border: none;
         cursor: pointer;

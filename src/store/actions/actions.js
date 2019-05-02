@@ -90,6 +90,8 @@ export function removeCompany(event, id, use) {
 //first get data before going to reducer - (using redux thunk)
 
 export function getCountries() {
+  //using temporary source for list of countries
+  //geting asynchronous data with thunk
   return dispatch => {
     axios
       .get(
@@ -104,5 +106,20 @@ export function getCountries() {
       .catch(error => {
         console.log(error);
       });
+  };
+}
+
+export function selectCountry(event) {
+  return {
+    type: actionTypes.SELECT_COUNTRY,
+    payload: event
+  };
+}
+
+//handle change for nutrient inputs
+export function handleNutrient(event) {
+  return {
+    type: actionTypes.HANDLE_NUTRIENT,
+    payload: event
   };
 }

@@ -8,6 +8,7 @@ import AllergensContainer from './components/AllergensContainer/index.js';
 import LabelPreview from './components/LabelPreview/index.js';
 import CustomDropdown from './components/CustomDropdown';
 import Company from './components/Company/index';
+import NutritionalValues from './components/NutritionalValues';
 
 import './App.scss';
 
@@ -34,7 +35,9 @@ class App extends Component {
       distributorsList,
       producersVisible,
       distributorsVisible,
-      countries
+      countries,
+      country,
+      selectCountry
     } = this.props;
     return (
       <div className="App">
@@ -76,7 +79,7 @@ class App extends Component {
                 ))}
               </div>
               <AllergensContainer />
-              <div className="form__package">
+              <div className="container form__package">
                 <div className="form__package__weight">
                   <small className="form__package__weight__message">
                     {ingredientsValidationErrors.weight}
@@ -132,17 +135,21 @@ class App extends Component {
                 errorMessage={companiesValidationErrors.distributor}
                 title="Importer/Distributer"
               />
-              <div className="container">
-                <select
-                  placeholder="County of origin"
-                  className="form__country"
-                >
+              <div className="container country-select">
+                <span className="country-select__label">
+                  Country of origin:
+                </span>
+                <select value={country} onChange={selectCountry}>
+                  <option>EU</option>
                   {countries.length > 0 &&
                     countries.map((country, i) => (
-                      <option key={i + 1}>{country.countryName}</option>
+                      <option key={i + 1} value={country.countryName}>
+                        {country.countryName}
+                      </option>
                     ))}
                 </select>
               </div>
+              <NutritionalValues />
             </form>
             <LabelPreview />
           </>
@@ -167,7 +174,8 @@ const mapStateToProps = ({ ingredientsReducer, companiesReducer }) => {
     distributorsList: companiesReducer.distributorsList,
     producersVisible: companiesReducer.producersVisible,
     distributorsVisible: companiesReducer.distributorsVisible,
-    countries: ingredientsReducer.countries
+    countries: ingredientsReducer.countries,
+    country: ingredientsReducer.country
   };
 };
 
@@ -175,7 +183,8 @@ const mapDispatchToProps = dispatch => {
   return {
     handleChange: e => dispatch(actions.handleChange(e)),
     validate: e => dispatch(actions.validate(e)),
-    getCountries: () => dispatch(actions.getCountries())
+    getCountries: () => dispatch(actions.getCountries()),
+    selectCountry: e => dispatch(actions.selectCountry(e))
   };
 };
 
