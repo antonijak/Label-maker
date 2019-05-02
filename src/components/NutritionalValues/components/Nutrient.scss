@@ -11,12 +11,14 @@
     margin-right: 1rem;
     font-size: 1rem;
     font-weight: normal;
+    width: 25%;
   }
 
   &__inputs {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    width: 70%;
 
     &__label {
       display: flex;
