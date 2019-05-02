@@ -123,3 +123,9 @@ export function handleNutrient(event) {
     payload: event
   };
 }
+
+export function changeLabelPreviewSize() {
+  return {
+    type: actionTypes.CHANGE_LABEL_PREVIEW_SIZE
+  };
+}

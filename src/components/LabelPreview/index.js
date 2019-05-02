@@ -2,14 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import * as DATA from '../../data/data';
+import * as actions from '../../store/actions/actions';
 
 import './styles.scss';
 import IngredientsList from './components/IngredientsList/index';
 import NutrientPreview from './components/NutrientPreview/index';
 
 class LabelPreview extends Component {
-  state = {
-    clname: 'label-preview'
+  componentDidUpdate = () => {
+    if (
+      window.innerHeight <
+      document.querySelector('.label-preview').getBoundingClientRect().height
+    ) {
+      if (this.props.className === 'label-preview') {
+        this.props.changeLabelPreviewSize();
+      } else if (this.props.className === 'label-preview small') {
+        this.props.changeLabelPreviewSize();
+      }
+    }
   };
 
   render() {
@@ -41,10 +51,11 @@ class LabelPreview extends Component {
       proteinGram,
       proteinPercent,
       sodiumGram,
-      sodiumPercent
+      sodiumPercent,
+      className
     } = this.props;
     return (
-      <div className={this.state.clname}>
+      <div className={className}>
         <h2>{title.toUpperCase()}</h2>
 
         <h3 className="label-preview__description">{description}</h3>
@@ -192,41 +203,44 @@ const mapStateToProps = ({
   ingredientsReducer,
   companiesReducer,
   nutritionalReducer
-}) => {
-  return {
-    title: ingredientsReducer.title,
-    description: ingredientsReducer.description,
-    ingredients: ingredientsReducer.ingredients,
-    mostUsedIngredients: ingredientsReducer.mostUsedIngredients,
-    traces: ingredientsReducer.traces,
-    weight: ingredientsReducer.weight,
-    unit: ingredientsReducer.unit,
-    date: ingredientsReducer.date,
-    producer: companiesReducer.producer,
-    distributor: companiesReducer.distributor,
-    country: ingredientsReducer.country,
-    energyKcal: nutritionalReducer.energyKcal,
-    energyKJ: nutritionalReducer.energyKJ,
-    fatGram: nutritionalReducer.fatGram,
-    fatPercent: nutritionalReducer.fatPercent,
-    saturatedFatGram: nutritionalReducer.saturatedFatGram,
-    saturatedFatPercent: nutritionalReducer.saturatedFatPercent,
-    transFatGram: nutritionalReducer.transFatGram,
-    transFatPercent: nutritionalReducer.transFatPercent,
-    carbohydratesGram: nutritionalReducer.carbohydratesGram,
-    carbohydratesPercent: nutritionalReducer.carbohydratesPercent,
-    sugarGram: nutritionalReducer.sugarGram,
-    sugarPercent: nutritionalReducer.sugarPercent,
-    fiberGram: nutritionalReducer.fiberGram,
-    fiberPercent: nutritionalReducer.fiberPercent,
-    proteinGram: nutritionalReducer.proteinGram,
-    proteinPercent: nutritionalReducer.proteinPercent,
-    sodiumGram: nutritionalReducer.sodiumGram,
-    sodiumPercent: nutritionalReducer.sodiumPercent
-  };
-};
+}) => ({
+  title: ingredientsReducer.title,
+  description: ingredientsReducer.description,
+  ingredients: ingredientsReducer.ingredients,
+  mostUsedIngredients: ingredientsReducer.mostUsedIngredients,
+  traces: ingredientsReducer.traces,
+  weight: ingredientsReducer.weight,
+  unit: ingredientsReducer.unit,
+  date: ingredientsReducer.date,
+  producer: companiesReducer.producer,
+  distributor: companiesReducer.distributor,
+  country: ingredientsReducer.country,
+  energyKcal: nutritionalReducer.energyKcal,
+  energyKJ: nutritionalReducer.energyKJ,
+  fatGram: nutritionalReducer.fatGram,
+  fatPercent: nutritionalReducer.fatPercent,
+  saturatedFatGram: nutritionalReducer.saturatedFatGram,
+  saturatedFatPercent: nutritionalReducer.saturatedFatPercent,
+  transFatGram: nutritionalReducer.transFatGram,
+  transFatPercent: nutritionalReducer.transFatPercent,
+  carbohydratesGram: nutritionalReducer.carbohydratesGram,
+  carbohydratesPercent: nutritionalReducer.carbohydratesPercent,
+  sugarGram: nutritionalReducer.sugarGram,
+  sugarPercent: nutritionalReducer.sugarPercent,
+  fiberGram: nutritionalReducer.fiberGram,
+  fiberPercent: nutritionalReducer.fiberPercent,
+  proteinGram: nutritionalReducer.proteinGram,
+  proteinPercent: nutritionalReducer.proteinPercent,
+  sodiumGram: nutritionalReducer.sodiumGram,
+  sodiumPercent: nutritionalReducer.sodiumPercent,
+  className: ingredientsReducer.className
+});
+
+const mapDispatchToProps = dispatch => ({
+  changeLabelPreviewSize: () => dispatch(actions.changeLabelPreviewSize())
+});
 
 export default connect(
   mapStateToProps,
-  undefined
+  mapDispatchToProps
 )(LabelPreview);

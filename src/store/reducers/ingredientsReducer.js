@@ -22,7 +22,8 @@ const ingredientsState = {
     date: ''
   },
   countries: [],
-  country: 'EU'
+  country: 'EU',
+  className: 'label-preview'
 };
 
 const ingredientsReducer = (state = ingredientsState, action) => {
@@ -37,6 +38,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       let { e, id } = action.payload;
       value = action.payload.value;
       e.preventDefault();
+
       return value === 'add'
         ? {
             ...state,
@@ -152,6 +154,13 @@ const ingredientsReducer = (state = ingredientsState, action) => {
     case actionTypes.SELECT_COUNTRY:
       value = action.payload.target.value;
       return { ...state, country: value };
+
+    case actionTypes.CHANGE_LABEL_PREVIEW_SIZE:
+      //changes the class name which makes a lot of text fit to screen
+
+      return state.className === 'label-preview'
+        ? { ...state, className: 'label-preview small' }
+        : { ...state, className: 'label-preview tiny' };
 
     default:
       return state;

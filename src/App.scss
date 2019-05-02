@@ -7,6 +7,10 @@
   width: 90%;
   margin-bottom: 2rem;
 
+  @media (max-width: 1600px) {
+    width: 98%;
+  }
+
   .desktop {
     background: $background;
     margin: 50% auto;
@@ -24,6 +28,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media (max-width: 1600px) {
+      width: 59%;
+    }
 
     .container {
       width: 100%;
@@ -69,6 +77,10 @@
     &__package {
       display: flex;
       justify-content: space-between;
+      @media (max-width: 1200px) {
+        display: flex;
+        flex-wrap: wrap;
+      }
 
       input {
         margin-bottom: 0;
@@ -76,6 +88,7 @@
 
       &__weight {
         position: relative;
+
         &__message {
           width: 9.5rem;
           position: absolute;
