@@ -12,25 +12,6 @@
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
-
-    &__button {
-      height: 2.5rem;
-      padding: 0 1rem;
-      border-radius: 3px;
-      background: $ingredient;
-      border: none;
-      font-size: 0.9rem;
-      outline: none;
-
-      &:hover {
-        color: rgba(0, 0, 0, 0.616);
-        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.37);
-      }
-
-      &:active {
-        background: rgba(99, 99, 99, 0.616);
-      }
-    }
   }
 
   &__list {

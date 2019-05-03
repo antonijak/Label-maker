@@ -52,25 +52,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      button {
-        color: white;
-        background: transparent;
-        font-size: 1.7rem;
-        line-height: 1.1rem;
-        width: 100%;
-        border-radius: 50%;
-        height: 100%;
-        padding-bottom: 3px;
-        outline: none;
-        border: none;
-        cursor: pointer;
-
-        &:hover {
-          box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.733);
-          opacity: 0.6;
-        }
-      }
     }
 
     &__add {
@@ -79,6 +60,28 @@
 
     &__remove {
       background: $remove;
+    }
+
+    &__add__button,
+    &__remove__button {
+      color: white;
+      background: transparent;
+      font-size: 1.7rem;
+      line-height: 1.1rem;
+      width: 100%;
+      border-radius: 50%;
+      height: 100%;
+      padding: 0;
+      padding-bottom: 3px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.733);
+        opacity: 0.6;
+        color: white;
+      }
     }
   }
 }

@@ -43,7 +43,7 @@ class App extends Component {
       <div className="App">
         <p className="notification">For better experience, open on desktop</p>
 
-        <form className="form">
+        <form className="form" onSubmit={() => {}}>
           <div className="form__heading">
             <h1 className="form__heading__h1">Label Maker</h1>
 
@@ -105,7 +105,7 @@ class App extends Component {
                 <input
                   name="date"
                   type="date"
-                  className="form__package__date__input"
+                  className="form__package__date__label__input"
                   value={date}
                   onChange={handleChange}
                   onBlur={validate}
@@ -132,7 +132,11 @@ class App extends Component {
           />
           <div className="container country-select">
             <span className="country-select__label">Country of origin:</span>
-            <select value={country} onChange={selectCountry}>
+            <select
+              value={country}
+              onChange={selectCountry}
+              className="country-select__select"
+            >
               <option>EU</option>
               {countries.length > 0 &&
                 countries.map((country, i) => (
@@ -143,6 +147,9 @@ class App extends Component {
             </select>
           </div>
           <NutritionalValues />
+          <div className="container">
+            <button className="form__submit btn">Save Label</button>
+          </div>
         </form>
         <LabelPreview />
       </div>

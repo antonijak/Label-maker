@@ -13,6 +13,10 @@
   background: $ingredient;
   animation: fade 1.3s linear both;
   cursor: pointer;
+  @media (max-width: 1400px) {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
 
   p {
     margin-right: 0.6rem;
@@ -26,7 +30,6 @@
     font-size: 1rem;
     line-height: 0.5rem;
     background: transparent;
-    height: fit-content;
     outline: none;
     background: url('../../../../assets/x.svg');
     background-repeat: no-repeat;
@@ -34,6 +37,10 @@
     width: 0.9rem;
     height: 0.9rem;
     cursor: pointer;
+    @media (max-width: 1400px) {
+      height: 0.6rem;
+      width: 0.6rem;
+    }
 
     &:hover {
       background: url('../../../../assets/x-hover.svg');

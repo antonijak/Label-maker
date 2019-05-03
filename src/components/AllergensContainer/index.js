@@ -95,9 +95,9 @@ class AllergensContainer extends Component {
               return (
                 (allergen.name === 'nuts' || allergen.name === 'gluten') && (
                   <div key={i + 1} className="allergens__content__specific">
-                    <span className="allergens__content__specific__title">{`*Which ${
-                      allergen.name
-                    }? `}</span>
+                    <span className="allergens__content__specific__title">
+                      {allergen.name.toUpperCase()}
+                    </span>
                     <div>
                       {this.state[allergen.name].map((item, i) => (
                         <Allergen
