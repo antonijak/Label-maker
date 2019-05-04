@@ -6,7 +6,7 @@ import moment from 'moment';
 import IngredientsSelector from './components/IngredientSelector/index.js';
 import AllergensContainer from './components/AllergensContainer/index.js';
 import LabelPreview from './components/LabelPreview/index.js';
-import CustomDropdown from './components/CustomDropdown';
+import CustomDropdown from './components/CustomDropdown/index';
 import Company from './components/Company/index';
 import NutritionalValues from './components/NutritionalValues';
 
@@ -81,12 +81,14 @@ class App extends Component {
               </small>
 
               <label className="form__package__weight__label">
-                <span>Net.weight:</span>
+                <span className="form__package__weight__label__text">
+                  Net.weight:
+                </span>
                 <input
                   name="weight"
                   type="text"
                   placeholder="100"
-                  className="form__package__weight__input"
+                  className="form__package__weight__label__input"
                   value={weight}
                   onChange={handleChange}
                   onBlur={validate}
@@ -101,7 +103,9 @@ class App extends Component {
                 {ingredientsValidationErrors.date}
               </small>
               <label className="form__package__date__label">
-                <span>Best before:</span>
+                <span className="form__package__date__label__text">
+                  Best before:
+                </span>
                 <input
                   name="date"
                   type="date"

@@ -26,14 +26,17 @@
       align-items: center;
       margin-left: 1rem;
       width: 25%;
+      @media (max-width: 1450px) {
+        width: 30%;
+      }
+
+      &__input {
+        margin-bottom: 0;
+      }
 
       &__unit {
         margin-left: 1rem;
         width: 3rem;
-      }
-
-      input {
-        margin: 0;
       }
     }
 

@@ -23,6 +23,7 @@ const Nutrient = ({
             value={value1}
             name={name1}
             onChange={handleNutrient}
+            className="nutrient__inputs__label__input"
           />
           <p className="nutrient__inputs__label__unit">{unit1}</p>
         </label>
@@ -33,6 +34,7 @@ const Nutrient = ({
             name={name2}
             value={value2}
             onChange={handleNutrient}
+            className="nutrient__inputs__label__input"
           />
           <p className="nutrient__inputs__label__unit">{unit2}</p>
         </label>

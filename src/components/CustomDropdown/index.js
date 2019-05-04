@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from '../store/actions/actions';
+import * as actions from '../../store/actions/actions';
 
-import './CustomDropdown.scss';
+import './styles.scss';
 
 const CustomDropdown = ({ getUnit }) => {
   return (
