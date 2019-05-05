@@ -1,42 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/actions';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
 
-import IngredientsSelector from '../IngredientSelector/index';
-import AllergensContainer from '../AllergensContainer/index.js';
-import CustomDropdown from '../CustomDropdown/index';
-import Company from '../Company/index';
-import NutritionalValues from '../NutritionalValues';
 import LabelPreview from '../LabelPreview/index';
 
-import printJS from 'print-js';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
+function getPDF() {
+  let element = document.getElementById('stickers');
+  html2canvas(element, { scale: 1 }).then(function(canvas) {
+    var img = canvas.toDataURL('image/png');
+    var doc = new jsPDF('l', 'mm', 'a4');
+    doc.addImage(img, 'JPEG', 3, 3);
+    doc.save('test.pdf');
+  });
+}
 
 const Label = () => {
   return (
-    <div className="form-container">
-      {/* <div
-        id="label-preview"
-        className="label-preview"
-      >
-        Hello
-        <h1>This is test</h1>
-      </div> */}
-      <LabelPreview />
-      <button
-        type="button"
-        onClick={() =>
-          printJS({
-            printable: 'label-preview',
-            type: 'html',
-            style:
-              '.label-preview { font-family: Roboto; font-size: .5rem; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.226); border-radius: 4px; width: 30%; padding: 2rem; height: 600px; margin: 2.5vh 1rem;} .label-preview__description {font-weight: normal;}.label-ingredient__allergen { font-weight: bold;} .label-preview__allergens {font-style: italic;font-weight: bold;} .label-preview * {margin: 0; padding: 0; height: 1rem; display: inline; width: fit-content;} .label-preview__nutrients {display: block;} .nutrient-preview {margin: 0; padding: 0; height: 1rem; display: inline; width: fit-content;} .nutrient-preview * {margin: 0; padding: 0; height: 1rem; display: inline; width: fit-content; }'
-          })
-        }
-      >
-        Print Label
-      </button>
+    <div className="form-container" style={{ width: '100%' }}>
+      <div id="stickers" style={{ width: '1100px', display: 'flex' }}>
+        <LabelPreview />
+        <LabelPreview />
+        <LabelPreview />
+        <LabelPreview />
+      </div>
+      <button onClick={() => getPDF()}>Print Label</button>
     </div>
   );
 };
