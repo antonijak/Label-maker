@@ -30,13 +30,15 @@ const ingredientsReducer = (state = ingredientsState, action) => {
   switch (action.type) {
     case actionTypes.HANDLE_CHANGE:
       let name = action.payload.target.name;
-      let value = action.payload.target.value;
+      //prevent user from entering javascript
+      let value = action.payload.target.value.toString();
 
       return { ...state, [name]: value };
 
     case actionTypes.HANDLE_PARTS:
       let { e, id } = action.payload;
-      value = action.payload.value;
+      //prevent user from entering javascript
+      value = action.payload.value.toString();
       e.preventDefault();
 
       return value === 'add'
@@ -132,7 +134,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
                 weight: '',
                 validationErrors: {
                   ...state.validationErrors,
-                  weight: 'Must be a number greater than 0!'
+                  weight: 'Must be a number greater than 0'
                 }
               };
 
@@ -141,7 +143,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       }
 
     case actionTypes.GET_UNIT:
-      value = action.payload.target.value;
+      value = action.payload.target.value.toString();
       return { ...state, unit: value };
 
     case actionTypes.GET_COUNTRIES:
@@ -153,7 +155,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       return { ...state, countries };
 
     case actionTypes.SELECT_COUNTRY:
-      value = action.payload.target.value;
+      value = action.payload.target.value.toString();
       return { ...state, country: value };
 
     case actionTypes.CHANGE_LABEL_PREVIEW_SIZE:

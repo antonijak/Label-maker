@@ -242,7 +242,6 @@ class IngredientsSelector extends Component {
               <button
                 onClick={e => handleParts(e, id, 'remove')}
                 title="Remove ingredient group"
-                span
                 className="ingredients-selector__button__remove__button"
               >
                 -

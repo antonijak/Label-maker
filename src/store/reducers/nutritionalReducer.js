@@ -50,7 +50,6 @@ const nutritionalReducer = (state = nutrientsState, action) => {
       //check if input value is a number
       //The numericality validator will only allow numbers. If it returns undefined it IS a number
       //number also needs to be bigger than 0
-      console.log(value);
       return validate(
         { nutrient: value },
         { nutrient: { numericality: true } }
