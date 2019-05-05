@@ -36,6 +36,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       return { ...state, [name]: value };
 
     case actionTypes.HANDLE_PARTS:
+      //adds or removes ingredient group "part"
       let { e, id } = action.payload;
       //prevent user from entering javascript
       value = action.payload.value.toString();
@@ -143,6 +144,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       }
 
     case actionTypes.GET_UNIT:
+      //changes weight unit to grams or kilograms
       value = action.payload.target.value.toString();
       return { ...state, unit: value };
 
@@ -159,7 +161,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       return { ...state, country: value };
 
     case actionTypes.CHANGE_LABEL_PREVIEW_SIZE:
-      //changes the class name which makes a lot of text fit to screen
+      //changes the class name which makes more text fit to screen
 
       return state.className === 'label-preview'
         ? { ...state, className: 'label-preview small' }
