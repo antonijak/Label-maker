@@ -9,10 +9,10 @@ import jsPDF from 'jspdf';
 
 function getPDF() {
   let element = document.getElementById('stickers');
-  html2canvas(element, { scale: 1 }).then(function(canvas) {
+  html2canvas(element, { scale: 3 }).then(function(canvas) {
     var img = canvas.toDataURL('image/png');
     var doc = new jsPDF('l', 'mm', 'a4');
-    doc.addImage(img, 'JPEG', 3, 3);
+    doc.addImage(img, 'JPEG', 1, 1, 290, 250);
     doc.save('test.pdf');
   });
 }
@@ -21,6 +21,7 @@ const Label = () => {
   return (
     <div className="form-container" style={{ width: '100%' }}>
       <div id="stickers" style={{ width: '1100px', display: 'flex' }}>
+        <LabelPreview />
         <LabelPreview />
         <LabelPreview />
         <LabelPreview />
