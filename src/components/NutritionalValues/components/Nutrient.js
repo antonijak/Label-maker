@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/actions';
 
 import './Nutrient.scss';
 
@@ -10,7 +12,9 @@ const Nutrient = ({
   title,
   unit1,
   unit2,
-  handleNutrient
+  validationErrors,
+  handleNutrient,
+  validateNutrient
 }) => {
   return (
     <div className="nutrient">
@@ -18,6 +22,9 @@ const Nutrient = ({
 
       <div className="nutrient__inputs">
         <label className="nutrient__inputs__label">
+          <small className="nutrient__inputs__label__message name1">
+            {validationErrors[name1]}
+          </small>
           <input
             type="number"
             value={value1}
@@ -29,6 +36,9 @@ const Nutrient = ({
         </label>
 
         <label className="nutrient__inputs__label">
+          <small className="nutrient__inputs__label__message name2">
+            {validationErrors[name2]}
+          </small>
           <input
             type="number"
             name={name2}
@@ -43,4 +53,20 @@ const Nutrient = ({
   );
 };
 
-export default Nutrient;
+const mapStateToProps = ({ nutritionalReducer }) => {
+  return {
+    validationErrors: nutritionalReducer.validationErrors
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleNutrient: e => dispatch(actions.handleNutrient(e)),
+    validateNutrient: e => dispatch(actions.validateNutrient(e))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Nutrient);

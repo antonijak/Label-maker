@@ -115,12 +115,13 @@ const ingredientsReducer = (state = ingredientsState, action) => {
           }
 
         case 'weight':
-          const pattern = /[0-9]*/;
-          //check if input is number
+          //check if input value is a number
+          //The "numericality" validator will only allow numbers. If it returns undefined it IS a number
+          //number also needs to be bigger than 0
           return validate(
             { weight: value },
-            { weight: { format: pattern } }
-          ) === undefined
+            { weight: { numericality: true } }
+          ) === undefined && parseFloat(value) > 0
             ? {
                 ...state,
                 weight: value,
@@ -128,10 +129,10 @@ const ingredientsReducer = (state = ingredientsState, action) => {
               }
             : {
                 ...state,
-                weight: value,
+                weight: '',
                 validationErrors: {
                   ...state.validationErrors,
-                  weight: 'Value must be a number!'
+                  weight: 'Must be a number greater than 0!'
                 }
               };
 

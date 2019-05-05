@@ -86,12 +86,11 @@ class App extends Component {
                 </span>
                 <input
                   name="weight"
-                  type="text"
+                  type="number"
                   placeholder="100"
                   className="form__package__weight__label__input"
                   value={weight}
-                  onChange={handleChange}
-                  onBlur={validate}
+                  onChange={validate}
                   min="0"
                 />
               </label>

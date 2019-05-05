@@ -25,9 +25,33 @@
       justify-content: flex-end;
       align-items: center;
       margin-left: 1rem;
-      width: 25%;
+      width: 30%;
+      position: relative;
       @media (max-width: 1450px) {
-        width: 30%;
+        width: 35%;
+      }
+
+      &__message {
+        position: absolute;
+        top: -1rem;
+        width: 15rem;
+
+        color: red;
+        font-size: 0.7rem;
+      }
+
+      .name1 {
+        left: 0;
+        @media (max-width: 1300px) {
+          left: -1rem;
+        }
+        @media (max-width: 1200px) {
+          left: 0;
+        }
+      }
+
+      .name2 {
+        left: 0;
       }
 
       &__input {

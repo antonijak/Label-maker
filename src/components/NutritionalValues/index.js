@@ -153,7 +153,8 @@ const mapStateToProps = ({ nutritionalReducer }) => {
     proteinGram: nutritionalReducer.proteinGram,
     proteinPercent: nutritionalReducer.proteinPercent,
     sodiumGram: nutritionalReducer.sodiumGram,
-    sodiumPercent: nutritionalReducer.sodiumPercent
+    sodiumPercent: nutritionalReducer.sodiumPercent,
+    validationErrors: nutritionalReducer.validationErrors
   };
 };
 

@@ -129,3 +129,10 @@ export function changeLabelPreviewSize() {
     type: actionTypes.CHANGE_LABEL_PREVIEW_SIZE
   };
 }
+
+export function validateNutrient(event) {
+  return {
+    type: actionTypes.VALIDATE_NUTRIENT,
+    payload: event
+  };
+}
