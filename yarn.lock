@@ -7922,6 +7922,11 @@ pretty-format@^23.6.0:
     ansi-regex "^3.0.0"
     ansi-styles "^3.2.0"
 
+print-js@^1.0.55:
+  version "1.0.55"
+  resolved "https://registry.yarnpkg.com/print-js/-/print-js-1.0.55.tgz#750556d8c15fd5af89007670a48bf6a1aece67b7"
+  integrity sha512-bCYb9ubPmOYSoHtv626P82hf+MM6TOrm5s44FNM2D2yfxe0QA5w1Wz3gckKacNW4C3er8k64yHHAL/3xnjOSoQ==
+
 private@^0.1.6, private@^0.1.8:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"

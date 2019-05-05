@@ -55,7 +55,7 @@ class LabelPreview extends Component {
       className
     } = this.props;
     return (
-      <div className={className}>
+      <div className={className} id="label-preview">
         <h2>{title.toUpperCase()}</h2>
 
         <h3 className="label-preview__description">{description}</h3>
