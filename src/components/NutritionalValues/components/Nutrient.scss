@@ -1,0 +1,71 @@
+@import '../../../index.scss';
+
+.nutrient {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%;
+
+  &__title {
+    margin-right: 1rem;
+    font-size: 1rem;
+    font-weight: normal;
+    width: 25%;
+  }
+
+  &__inputs {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 70%;
+
+    &__label {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: 1rem;
+      width: 30%;
+      position: relative;
+      @media (max-width: 1450px) {
+        width: 35%;
+      }
+
+      &__message {
+        position: absolute;
+        top: -1rem;
+        width: 15rem;
+
+        color: red;
+        font-size: 0.7rem;
+      }
+
+      .name1 {
+        left: 0;
+        @media (max-width: 1300px) {
+          left: -1rem;
+        }
+        @media (max-width: 1200px) {
+          left: 0;
+        }
+      }
+
+      .name2 {
+        left: 0;
+      }
+
+      &__input {
+        margin-bottom: 0;
+      }
+
+      &__unit {
+        margin-left: 1rem;
+        width: 3rem;
+      }
+    }
+
+    &:last-child {
+      margin-right: -1rem;
+    }
+  }
+}

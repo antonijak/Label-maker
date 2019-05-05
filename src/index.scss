@@ -27,6 +27,8 @@ $checkbox: rgb(98, 98, 98);
 $font-family-secondary: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
   'Helvetica Neue', sans-serif;
 
+$font-family-digits: 'Roboto Mono', monospace;
+
 input {
   height: 3rem;
   width: 80%;
@@ -75,7 +77,7 @@ input {
     visibility: hidden;
 
     &:hover::before {
-      background-color: #e2e2e2;
+      background-color: $lightgray;
     }
 
     &::before {
@@ -86,7 +88,7 @@ input {
       width: 0.7rem;
       content: '';
       visibility: visible;
-      border: 2px solid $checkbox;
+      border: 2px solid $lightgray;
     }
 
     &::after {
@@ -113,5 +115,25 @@ input {
         visibility: visible;
       }
     }
+  }
+}
+
+.btn {
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 3px;
+  background: $ingredient;
+  border: none;
+  font-size: 0.9rem;
+  outline: none;
+  letter-spacing: 1px;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.616);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.37);
+  }
+
+  &:active {
+    background: rgba(99, 99, 99, 0.616);
   }
 }

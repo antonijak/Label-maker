@@ -176,7 +176,7 @@ class IngredientsSelector extends Component {
     const { id, title } = this.state.part;
 
     return (
-      <div className="ingredients-selector">
+      <div className="container ingredients-selector">
         <input
           type="text"
           value={title}
@@ -232,6 +232,7 @@ class IngredientsSelector extends Component {
             <button
               onClick={e => handleParts(e, id, 'add')}
               title="Add ingredient group"
+              className="ingredients-selector__button__add__button"
             >
               +
             </button>
@@ -241,6 +242,7 @@ class IngredientsSelector extends Component {
               <button
                 onClick={e => handleParts(e, id, 'remove')}
                 title="Remove ingredient group"
+                className="ingredients-selector__button__remove__button"
               >
                 -
               </button>

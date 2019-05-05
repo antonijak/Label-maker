@@ -28,7 +28,9 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.HANDLE_CHANGE_COMPANY:
       let { event, use } = action.payload;
-      let { name, value } = event.target;
+      let name = event.target.name;
+      //prevent user from entering javascript
+      let value = event.target.value.toString();
       return use === 'producer'
         ? { ...state, producer: { ...state.producer, [name]: value } }
         : { ...state, distributor: { ...state.distributor, [name]: value } };

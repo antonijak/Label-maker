@@ -20,21 +20,28 @@ const ingredientsState = {
   validationErrors: {
     weight: '',
     date: ''
-  }
+  },
+  countries: [],
+  country: 'EU',
+  className: 'label-preview'
 };
 
 const ingredientsReducer = (state = ingredientsState, action) => {
   switch (action.type) {
     case actionTypes.HANDLE_CHANGE:
       let name = action.payload.target.name;
-      let value = action.payload.target.value;
+      //prevent user from entering javascript
+      let value = action.payload.target.value.toString();
 
       return { ...state, [name]: value };
 
     case actionTypes.HANDLE_PARTS:
+      //adds or removes ingredient group "part"
       let { e, id } = action.payload;
-      value = action.payload.value;
+      //prevent user from entering javascript
+      value = action.payload.value.toString();
       e.preventDefault();
+
       return value === 'add'
         ? {
             ...state,
@@ -111,12 +118,13 @@ const ingredientsReducer = (state = ingredientsState, action) => {
           }
 
         case 'weight':
-          const pattern = /[0-9]*/;
-          //check if input is number
+          //check if input value is a number
+          //The "numericality" validator will only allow numbers. If it returns undefined it IS a number
+          //number also needs to be bigger than 0
           return validate(
             { weight: value },
-            { weight: { format: pattern } }
-          ) === undefined
+            { weight: { numericality: true } }
+          ) === undefined && parseFloat(value) > 0
             ? {
                 ...state,
                 weight: value,
@@ -124,10 +132,10 @@ const ingredientsReducer = (state = ingredientsState, action) => {
               }
             : {
                 ...state,
-                weight: value,
+                weight: '',
                 validationErrors: {
                   ...state.validationErrors,
-                  weight: 'Value must be a number!'
+                  weight: 'Must be a number greater than 0'
                 }
               };
 
@@ -136,8 +144,28 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       }
 
     case actionTypes.GET_UNIT:
-      value = action.payload.target.value;
+      //changes weight unit to grams or kilograms
+      value = action.payload.target.value.toString();
       return { ...state, unit: value };
+
+    case actionTypes.GET_COUNTRIES:
+      //sort countries by alphabet and save them in the state
+      const countries =
+        action.payload.sort((a, b) =>
+          a.countryName.localeCompare(b.countryName)
+        ) || [];
+      return { ...state, countries };
+
+    case actionTypes.SELECT_COUNTRY:
+      value = action.payload.target.value.toString();
+      return { ...state, country: value };
+
+    case actionTypes.CHANGE_LABEL_PREVIEW_SIZE:
+      //changes the class name which makes more text fit to screen
+
+      return state.className === 'label-preview'
+        ? { ...state, className: 'label-preview small' }
+        : { ...state, className: 'label-preview tiny' };
 
     default:
       return state;

@@ -7,115 +7,19 @@
   width: 90%;
   margin-bottom: 2rem;
 
-  .desktop {
-    background: $background;
-    margin: 50% auto;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
+  .notification {
+    visibility: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
     padding: 1rem;
-  }
-
-  .form {
-    width: 65%;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .container {
-      width: 100%;
-      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
-      border-radius: 4px;
-      background: $background;
-      margin: 1rem 0;
-      padding: 2rem 10%;
-    }
-
-    &__heading {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
-      border-radius: 4px;
-      background: $background;
-      padding: 2rem 0;
-
-      &__h1 {
-        padding: 1rem 0 2rem;
-      }
-
-      &__title {
-      }
-
-      &__description {
-        margin-bottom: 0;
-      }
-
-      &__select {
-        select {
-          width: fit-content;
-        }
-      }
-    }
-
-    &__parts {
-      width: 100%;
-    }
-
-    &__package {
-      width: 100%;
-      display: flex;
-      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
-      border-radius: 4px;
-      background: $background;
-      padding: 2rem 10%;
-      justify-content: space-between;
-
-      input {
-        margin-bottom: 0;
-      }
-
-      &__weight {
-        position: relative;
-        &__message {
-          width: 9.5rem;
-          position: absolute;
-          top: -1.4rem;
-          color: red;
-        }
-
-        &__label {
-          span {
-            margin-right: 1rem;
-          }
-        }
-
-        &__input {
-          width: 8rem;
-        }
-      }
-
-      &__date {
-        position: relative;
-        &__message {
-          width: 15rem;
-          position: absolute;
-          top: -1.2rem;
-          color: red;
-        }
-        &__label {
-          span {
-            margin-right: 1rem;
-          }
-        }
-        &__input {
-          width: 12rem;
-        }
-      }
+    background: rgb(219, 157, 157);
+    color: rgb(119, 2, 2);
+    opacity: 0.6;
+    z-index: 1;
+    @media (max-width: 799px) {
+      visibility: visible;
     }
   }
 }

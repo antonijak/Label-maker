@@ -20,7 +20,7 @@ const Company = props => {
   } = props;
 
   return (
-    <div className="company  container">
+    <div className="container company">
       <h3 className="company__title">{title}</h3>
       <div>
         {companyList.length > 0 && companyVisible ? (
@@ -84,14 +84,14 @@ const Company = props => {
             />
             <div className="company__buttons">
               <button
-                className="company__buttons__button save"
+                className="company__buttons__button save btn"
                 onClick={e => addCompany(e, use)}
               >
                 Save
               </button>
               {companyList.length > 0 && (
                 <button
-                  className="company__buttons__button use"
+                  className="company__buttons__button use btn"
                   onClick={e => toggleCompanies(e, use)}
                 >
                   Use from database

@@ -27,6 +27,9 @@
 
     &__specific {
       padding: 0 2rem;
+      @media (max-width: 1260px) {
+        padding: 1.2rem 1rem;
+      }
 
       &:before {
         height: 100%;
@@ -37,6 +40,13 @@
       &__title {
         margin-bottom: 1rem;
         display: block;
+        height: 2rem;
+        line-height: 2.2rem;
+        font-family: $font-family-secondary;
+        letter-spacing: 0.7px;
+        color: $secondary-title;
+        font-weight: 500;
+        font-size: 0.7rem;
       }
     }
   }
