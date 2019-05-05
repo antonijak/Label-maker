@@ -4,6 +4,7 @@ import * as actions from './store/actions/actions';
 
 import LabelPreview from './components/LabelPreview/index.js';
 import Form from './components/Form/index';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 import './App.scss';
 
@@ -15,9 +16,10 @@ class App extends Component {
     return (
       <div className="App">
         <p className="notification">For better experience, open on desktop</p>
-
-        <Form />
-        <LabelPreview />
+        <Switch>
+          <Route exact path="/" component={Form} />
+          <Route path="/label" component={LabelPreview} />
+        </Switch>
       </div>
     );
   }
@@ -29,7 +31,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(App);
+export default withRouter(
+  connect(
+    undefined,
+    mapDispatchToProps
+  )(App)
+);
