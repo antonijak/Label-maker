@@ -22,8 +22,8 @@ const PrintLabel = ({ title }) => {
   };
   const columns = 7;
   const rows = 3;
-  const width = 'auto';
-  const height = '13rem';
+  const width = '1fr';
+  const height = '1fr';
   return (
     <div className="print-label">
       <Link to="/" className="print-label__back btn">
