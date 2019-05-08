@@ -146,7 +146,7 @@ const Form = ({
         <NutritionalValues />
         <div className="container form__submit">
           <Link to="/label" className="form__submit__button">
-            Save and continue
+            Continue
           </Link>
         </div>
       </form>

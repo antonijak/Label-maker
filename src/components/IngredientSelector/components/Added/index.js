@@ -5,6 +5,7 @@ const Added = ({ value, removeIngredient, axis }) => (
   <li className="ingredient" axis={axis} title="Click to drag">
     <p>{value}</p>
     <button
+      type="button"
       onClick={e => {
         removeIngredient(e, value);
       }}
