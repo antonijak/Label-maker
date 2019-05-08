@@ -2,16 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/actions';
 import { Link } from 'react-router-dom';
-
-import LabelPreview from '../LabelPreview/index';
-
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+
+import LabelPreview from '../LabelPreview/index';
 
 import './styles.scss';
 
 const PrintLabel = ({ title }) => {
-  const getPDF = () => {
+  const generatePDF = () => {
     let element = document.getElementById('stickers');
     html2canvas(element, { scale: 3 }).then(function(canvas) {
       var img = canvas.toDataURL('image/png');
@@ -26,19 +25,18 @@ const PrintLabel = ({ title }) => {
   const height = '1fr';
   return (
     <div className="print-label">
-      <Link to="/" className="print-label__back btn">
-        Back
-      </Link>
-      <div
-        className="print-label__stickers"
-        id="stickers"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${columns}, ${width})`,
-          gridTemplateRows: `repeat(${rows}, ${height})`
-        }}
-      >
-        {/* <div style={{ padding: '1rem' }}>
+      <div>
+        <h3 className="print-label__title">DOCUMENT PREVIEW</h3>
+        <div
+          className="print-label__stickers"
+          id="stickers"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${columns}, ${width})`,
+            gridTemplateRows: `repeat(${rows}, ${height})`
+          }}
+        >
+          {/* <div style={{ padding: '1rem' }}>
           <h4>{title}</h4>
           <p>Lorem ipsum dolor sit</p>
           <p>Lorem ipsum dolor sit amet this is dummy text</p>
@@ -51,32 +49,41 @@ const PrintLabel = ({ title }) => {
             }}
           />
         </div> */}
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
-        <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+          <LabelPreview print />
+        </div>
       </div>
-
-      <button className="btn print-label__generate" onClick={() => getPDF()}>
-        Generate PDF
-      </button>
+      <div className="print-label__button">
+        <Link to="/" className="print-label__button__back btn">
+          Back
+        </Link>
+        <button
+          type="button"
+          className="btn print-label__button__generate"
+          onClick={() => generatePDF()}
+        >
+          Generate PDF
+        </button>
+      </div>
     </div>
   );
 };
