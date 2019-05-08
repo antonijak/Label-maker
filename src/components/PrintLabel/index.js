@@ -20,12 +20,24 @@ const PrintLabel = ({ title }) => {
       doc.save(`${title}.pdf`);
     });
   };
+  const columns = 7;
+  const rows = 3;
+  const width = 'auto';
+  const height = '13rem';
   return (
     <div className="print-label">
       <Link to="/" className="print-label__back btn">
         Back
       </Link>
-      <div className="print-label__stickers" id="stickers">
+      <div
+        className="print-label__stickers"
+        id="stickers"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${columns}, ${width})`,
+          gridTemplateRows: `repeat(${rows}, ${height})`
+        }}
+      >
         {/* <div style={{ padding: '1rem' }}>
           <h4>{title}</h4>
           <p>Lorem ipsum dolor sit</p>
