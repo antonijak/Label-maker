@@ -52,11 +52,12 @@ class LabelPreview extends Component {
       proteinPercent,
       sodiumGram,
       sodiumPercent,
-      className
+      className,
+      print
     } = this.props;
     return (
-      <div className={className} id="label-preview">
-        <h2>{title.toUpperCase()}</h2>
+      <div className={print ? 'print' : className} id="label-preview">
+        <h2 className="label-preview__title">{title.toUpperCase()}</h2>
 
         <h3 className="label-preview__description">{description}</h3>
 
@@ -86,7 +87,7 @@ class LabelPreview extends Component {
         </p>
 
         <p className="label-preview__date">
-          Best before:{' '}
+          Best before:
           <span className="label-preview__date__text">
             {date && moment(date).format('DD.MM.YYYY')}
           </span>

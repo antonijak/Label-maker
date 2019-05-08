@@ -4,7 +4,7 @@
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.226);
   border-radius: 4px;
   width: 30%;
-  // position: fixed;
+  position: fixed;
   right: 5%;
   padding: 2rem;
   min-height: fit-content;
@@ -109,4 +109,127 @@
 
 .tiny.label-preview {
   position: static;
+}
+
+// ============== PRINT STICKER ==============
+
+.print {
+  padding: 0.5rem;
+  overflow: hidden;
+
+  & * {
+    font-size: 0.3rem;
+    margin: 0;
+  }
+
+  .ingredients-list__part {
+    margin: 0;
+
+    &__title {
+      margin: 0;
+    }
+
+    &__text {
+      margin: 0;
+    }
+  }
+
+  .label-ingredient__allergen {
+    text-decoration: underline;
+  }
+
+  .label-preview {
+    &__title {
+      font-size: 0.4rem;
+    }
+
+    &__description {
+    }
+
+    &__allergens {
+      margin: 0;
+      float: left;
+    }
+
+    &__weight {
+      float: left;
+      margin: 0;
+      &__text {
+        margin: 0 2px;
+      }
+    }
+
+    &__date {
+      float: left;
+      margin: 0;
+      &__text {
+      }
+    }
+
+    &__producer,
+    &__distributor,
+    &__country {
+      margin: 0;
+      float: left;
+    }
+
+    &__nutrients {
+      float: left;
+      margin-top: 0;
+
+      &__title {
+        padding-bottom: 0;
+        border-bottom: none;
+        float: left;
+
+        &::after {
+          content: ':';
+          margin-right: 1px;
+        }
+      }
+
+      &__subnutrient {
+        padding-left: 0;
+        display: inline;
+        &::before {
+          content: '(';
+        }
+        &::after {
+          content: ').';
+        }
+      }
+    }
+  }
+
+  .nutrient-preview {
+    font-size: 0.3rem;
+    padding: 0;
+    display: inline;
+    & h5 {
+      font-size: 0.3rem;
+      margin-right: 1px;
+      display: inline;
+    }
+    &__weight {
+      display: inline;
+
+      &__unit {
+        font-weight: normal;
+      }
+
+      &::after {
+        content: '/ ';
+      }
+    }
+    &__percentage {
+      display: inline;
+
+      &__unit {
+        font-weight: normal;
+      }
+      &::after {
+        content: '. ';
+      }
+    }
+  }
 }
