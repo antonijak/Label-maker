@@ -84,6 +84,7 @@ const Company = props => {
             />
             <div className="company__buttons">
               <button
+                type="button"
                 className="company__buttons__button save btn"
                 onClick={e => addCompany(e, use)}
               >
@@ -91,6 +92,7 @@ const Company = props => {
               </button>
               {companyList.length > 0 && (
                 <button
+                  type="button"
                   className="company__buttons__button use btn"
                   onClick={e => toggleCompanies(e, use)}
                 >

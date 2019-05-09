@@ -230,6 +230,7 @@ class IngredientsSelector extends Component {
         <div className="ingredients-selector__button">
           <span className="ingredients-selector__button__add">
             <button
+              type="button"
               onClick={e => handleParts(e, id, 'add')}
               title="Add ingredient group"
               className="ingredients-selector__button__add__button"
@@ -240,6 +241,7 @@ class IngredientsSelector extends Component {
           {ingredients.length > 1 && (
             <span className="ingredients-selector__button__remove">
               <button
+                type="button"
                 onClick={e => handleParts(e, id, 'remove')}
                 title="Remove ingredient group"
                 className="ingredients-selector__button__remove__button"
