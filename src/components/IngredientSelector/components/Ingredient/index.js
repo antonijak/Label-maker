@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Ingredient = ({ text, addIngredient }) => (
+const Ingredient = ({ text, addIngredient, selected }) => (
   <li
     onMouseDown={() => addIngredient(text)}
     value={text}
-    className="label__ingredients__picker__filtered__item"
+    className={
+      selected && selected === text
+        ? 'label__ingredients__picker__filtered__item selected'
+        : 'label__ingredients__picker__filtered__item'
+    }
   >
     {text}
   </li>

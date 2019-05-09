@@ -9,7 +9,8 @@ const AddDropdown = ({
   search,
   handleChange,
   closeDropdown,
-  addedIngredients
+  addedIngredients,
+  selected
 }) => {
   const clsName =
     search || filteredIngredients.length > 0
@@ -25,6 +26,7 @@ const AddDropdown = ({
               text={item}
               addIngredient={addIngredient}
               name="ingredient"
+              selected={selected}
             />
           ))}
           {search && (

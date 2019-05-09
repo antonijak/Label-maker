@@ -20,6 +20,10 @@
     display: none;
   }
 
+  .selected {
+    background: rgba(247, 247, 247, 0.568);
+  }
+
   /* width */
   &::-webkit-scrollbar {
     width: 6px;

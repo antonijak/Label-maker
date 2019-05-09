@@ -20,7 +20,8 @@ class IngredientsSelector extends Component {
     allIngredients: [],
     filteredIngredients: [],
     mostUsedIngredients: [],
-    add: false
+    add: false,
+    selected: { index: -1, value: '' }
   };
 
   componentDidMount = () => {
@@ -44,6 +45,9 @@ class IngredientsSelector extends Component {
   };
 
   search = e => {
+    //when user types
+    //set search to input
+    //set filteredIngredients to filtered by input value
     e.preventDefault();
     const { value } = e.target;
 
@@ -82,19 +86,24 @@ class IngredientsSelector extends Component {
   };
 
   addIngredient = ingredient => {
+    //return array without selected ingredient
     const reducedFilteredIngredients = this.state.filteredIngredients.filter(
       item => item !== ingredient
     );
 
+    //add ingredient to label
+    //check if there are any ingredients left after removing selected
+    //if yes show them
+    //if no show the rest of the most used ingredients
     this.setState({
       part: {
         ...this.state.part,
         addedIngredients: [...this.state.part.addedIngredients, ingredient]
       },
       filteredIngredients:
-        reducedFilteredIngredients > 0
-          ? reducedFilteredIngredients
-          : this.state.mostUsedIngredients,
+        reducedFilteredIngredients.length > 0
+          ? this.state.filteredIngredients.filter(item => item !== ingredient)
+          : this.state.mostUsedIngredients.filter(item => ingredient !== item),
       add: false,
       search: '',
       mostUsedIngredients: this.state.mostUsedIngredients.filter(
@@ -171,6 +180,48 @@ class IngredientsSelector extends Component {
     this.setState({ add: true, search: value });
   };
 
+  handleKeyDown = e => {
+    //handles keys when ingredient selector dropdown is focused
+
+    //console.log(e.which);
+    let selectedIndex = this.state.selected.index;
+    let nextSelectedIndex =
+      selectedIndex + 1 < this.state.filteredIngredients.length
+        ? selectedIndex + 1
+        : 0;
+
+    let prevSelectedIndex =
+      selectedIndex - 1 > -1
+        ? selectedIndex - 1
+        : this.state.filteredIngredients.length - 1;
+
+    if (e.which === 40) {
+      //on arrow down select tha first ingredient
+      //on further arrow down select subsequest ingredinet
+      this.setState({
+        selected: {
+          index: nextSelectedIndex,
+          value: this.state.filteredIngredients[nextSelectedIndex]
+        }
+      });
+    } else if (e.which === 38) {
+      //on arrow up select previous ingredient
+      this.setState({
+        selected: {
+          index: prevSelectedIndex,
+          value: this.state.filteredIngredients[prevSelectedIndex]
+        }
+      });
+    } else if (e.which === 13) {
+      //on enter add ingredient
+      console.log(this.state.selected.value);
+      this.state.selected.value &&
+        this.addIngredient(this.state.selected.value);
+      e.target.blur();
+      this.setState({ selected: { index: -1, value: '' } });
+    }
+  };
+
   render() {
     const { handleParts, ingredients } = this.props;
     const { id, title } = this.state.part;
@@ -196,12 +247,7 @@ class IngredientsSelector extends Component {
               onFocus={() => {
                 this.setState({ add: true });
               }}
-              onKeyDown={e => {
-                if (e.which === 13) {
-                  e.preventDefault();
-                  this.setState({ add: false, search: '' });
-                }
-              }}
+              onKeyDown={this.handleKeyDown}
               placeholder="Search"
               className="ingredients-selector__picker__cont__search"
               value={this.state.search}
@@ -217,6 +263,7 @@ class IngredientsSelector extends Component {
                 handleChange={this.handleChange}
                 closeDropdown={this.closeDropdown}
                 addedIngredients={this.state.part.addedIngredients}
+                selected={this.state.selected.value}
               />
             )}
           </div>
