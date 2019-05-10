@@ -7,7 +7,6 @@ const AddDropdown = ({
   filteredIngredients,
   addIngredient,
   search,
-  handleChange,
   closeDropdown,
   addedIngredients,
   selected
@@ -42,10 +41,8 @@ const AddDropdown = ({
       ) : (
         <li
           className="label__ingredients__picker__filtered__item"
-          placeholder="Add search"
           name="search"
           value={search}
-          onChange={handleChange}
         >
           <AddCustom
             addIngredient={addIngredient}

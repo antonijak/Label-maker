@@ -44,7 +44,7 @@ class IngredientsSelector extends Component {
     return arrayToFilter.filter(item => !arrayWithDuplictes.includes(item));
   };
 
-  showSearchResults = e => {
+  searchForIngredient = e => {
     //when user types
     //set 'search' to input value
     //set 'filteredIngredients' to filtered by input value
@@ -64,7 +64,7 @@ class IngredientsSelector extends Component {
     });
   };
 
-  handleChange = e => {
+  handleTitle = e => {
     e.preventDefault();
     const { value } = e.target;
 
@@ -223,7 +223,7 @@ class IngredientsSelector extends Component {
         <input
           type="text"
           value={title}
-          onChange={this.handleChange}
+          onChange={this.handleTitle}
           className="ingredients-selector__title"
           placeholder="Ingredient title*"
         />
@@ -235,7 +235,7 @@ class IngredientsSelector extends Component {
           >
             <input
               type="text"
-              onChange={this.showSearchResults}
+              onChange={this.searchForIngredient}
               onFocus={() => {
                 this.setState({ add: true });
               }}
@@ -251,7 +251,6 @@ class IngredientsSelector extends Component {
                 filteredIngredients={this.state.filteredIngredients}
                 addIngredient={this.addIngredient}
                 search={this.state.search}
-                handleChange={this.handleChange}
                 closeDropdown={this.closeDropdown}
                 addedIngredients={this.state.part.addedIngredients}
                 selected={this.state.selected.value}
@@ -302,7 +301,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleChange: e => dispatch(actions.handleChange(e)),
     handleParts: (e, id, value) => dispatch(actions.handleParts(e, id, value)),
     showIngredients: part => dispatch(actions.showIngredients(part))
   };
