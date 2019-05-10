@@ -10,7 +10,7 @@ import './App.scss';
 
 class App extends Component {
   componentDidMount = () => {
-    // this.props.getCountries();
+    this.props.getCountries();
   };
   render() {
     return (
