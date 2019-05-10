@@ -21,7 +21,7 @@ const ingredientsState = {
     weight: '',
     date: ''
   },
-  countries: [],
+  countries: ['Finland', 'Sweden'],
   country: 'EU',
   className: 'label-preview'
 };
