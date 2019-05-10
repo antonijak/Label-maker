@@ -21,7 +21,7 @@ const ingredientsState = {
     weight: '',
     date: ''
   },
-  countries: ['Finland', 'Sweden'],
+  countries: [],
   country: 'EU',
   className: 'label-preview'
 };
@@ -151,10 +151,9 @@ const ingredientsReducer = (state = ingredientsState, action) => {
 
     case actionTypes.GET_COUNTRIES:
       //sort countries by alphabet and save them in the state
-      const countries =
-        action.payload.sort((a, b) =>
-          a.countryName.localeCompare(b.countryName)
-        ) || [];
+      const countries = action.payload.sort((a, b) =>
+        a.countryName.localeCompare(b.countryName)
+      ) || ['Finland', 'Sweden'];
       return { ...state, countries };
 
     case actionTypes.SELECT_COUNTRY:
