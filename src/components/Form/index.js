@@ -35,7 +35,6 @@ const Form = ({
   country,
   selectCountry
 }) => {
-  console.log(countries);
   return (
     <div className="form-container">
       <form className="form" onSubmit={() => {}}>
@@ -136,12 +135,17 @@ const Form = ({
             className="country-select__select"
           >
             <option>EU</option>
-            {countries.length > 0 &&
-              countries.map((country, i) => (
-                <option key={i + 1} value={country.countryName}>
-                  {country.countryName}
-                </option>
-              ))}
+            {countries.length > 0
+              ? countries.map((country, i) => (
+                  <option key={i + 1} value={country.countryName}>
+                    {country.countryName}
+                  </option>
+                ))
+              : ['Finland', 'Sweden'].map((country, i) => (
+                  <option key={i + 1} value={country}>
+                    {country}
+                  </option>
+                ))}
           </select>
         </div>
         <NutritionalValues />

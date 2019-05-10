@@ -156,7 +156,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       );
       return {
         ...state,
-        countries: countries ? countries : ['Finland', 'Sweden']
+        countries
       };
 
     case actionTypes.SELECT_COUNTRY:
