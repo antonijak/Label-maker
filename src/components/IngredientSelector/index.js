@@ -72,20 +72,8 @@ class IngredientsSelector extends Component {
     this.setState({ part: { ...this.state.part, title: value } });
   };
 
-  handleBlur = () => {
-    if (
-      this.state.filteredIngredients.length > 0 ||
-      this.state.part.addedIngredients.some(item => item === this.state.search)
-    ) {
-      this.setState({
-        add: false,
-        search: '',
-        filteredIngredients: [...this.state.mostUsedIngredients]
-      });
-    }
-  };
-
-  addIngredient = ingredient => {
+  addIngredient = (ingredient, e) => {
+    console.log('add');
     //return array without selected ingredient
     const reducedFilteredIngredients = this.state.filteredIngredients.filter(
       item => item !== ingredient
@@ -115,6 +103,7 @@ class IngredientsSelector extends Component {
       ...this.state.part,
       addedIngredients: [...this.state.part.addedIngredients, ingredient]
     });
+    e && e.stopPropagation();
   };
 
   removeIngredient = (e, ingredient) => {
@@ -174,6 +163,16 @@ class IngredientsSelector extends Component {
     });
   };
 
+  handleBlur = () => {
+    console.log('handle blur');
+    if (
+      this.state.filteredIngredients.length > 0 ||
+      this.state.part.addedIngredients.some(item => item === this.state.search)
+    ) {
+      this.closeDropdown();
+    }
+  };
+
   searchIngredients = e => {
     const value = e.target.value;
     e.stopPropagation();
@@ -216,7 +215,7 @@ class IngredientsSelector extends Component {
       //on enter add ingredient
       console.log(this.state.selected.value);
       this.state.selected.value &&
-        this.addIngredient(this.state.selected.value);
+        this.addIngredient(this.state.selected.value, e);
       e.target.blur();
       this.setState({ selected: { index: -1, value: '' } });
     }
@@ -252,6 +251,7 @@ class IngredientsSelector extends Component {
               className="ingredients-selector__picker__cont__search"
               value={this.state.search}
               autoComplete="off"
+              onBlur={e => this.state.selected.value && e.stopPropagation()}
             />
 
             {this.state.add && (

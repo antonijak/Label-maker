@@ -2,7 +2,7 @@ import React from 'react';
 
 const Ingredient = ({ text, addIngredient, selected }) => (
   <li
-    onMouseDown={() => addIngredient(text)}
+    onMouseDown={() => addIngredient(text, null)}
     value={text}
     className={
       selected && selected === text
