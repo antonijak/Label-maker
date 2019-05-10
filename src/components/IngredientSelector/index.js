@@ -25,29 +25,29 @@ class IngredientsSelector extends Component {
   };
 
   componentDidMount = () => {
+    //will get data from the server (right now coming from DATA)
+    //check if default ingredients are among most used ingredients on the server *will be important later
+    const mostUsedIngredients = this.avoidDuplicates(
+      DATA.mostUsedIngredients,
+      this.props.part.addedIngredients
+    );
+
     this.setState({
       part: this.props.part,
-      mostUsedIngredients: this.avoidDuplicates(
-        DATA.mostUsedIngredients,
-        this.props.part.addedIngredients
-      ),
+      mostUsedIngredients,
       allIngredients: DATA.ingredients,
-      filteredIngredients: this.avoidDuplicates(
-        DATA.mostUsedIngredients,
-        this.props.part.addedIngredients
-      )
+      filteredIngredients: mostUsedIngredients
     });
-    this.props.showIngredients(this.props.part);
   };
 
   avoidDuplicates = (arrayToFilter, arrayWithDuplictes) => {
     return arrayToFilter.filter(item => !arrayWithDuplictes.includes(item));
   };
 
-  search = e => {
+  showSearchResults = e => {
     //when user types
-    //set search to input
-    //set filteredIngredients to filtered by input value
+    //set 'search' to input value
+    //set 'filteredIngredients' to filtered by input value
     e.preventDefault();
     const { value } = e.target;
 
@@ -73,7 +73,6 @@ class IngredientsSelector extends Component {
   };
 
   addIngredient = (ingredient, e) => {
-    console.log('add');
     //return array without selected ingredient
     const reducedFilteredIngredients = this.state.filteredIngredients.filter(
       item => item !== ingredient
@@ -166,19 +165,12 @@ class IngredientsSelector extends Component {
   };
 
   handleBlur = () => {
-    console.log('handle blur');
     if (
       this.state.filteredIngredients.length > 0 ||
       this.state.part.addedIngredients.some(item => item === this.state.search)
     ) {
       this.closeDropdown();
     }
-  };
-
-  searchIngredients = e => {
-    const value = e.target.value;
-    e.stopPropagation();
-    this.setState({ add: true, search: value });
   };
 
   handleKeyDown = e => {
@@ -215,7 +207,6 @@ class IngredientsSelector extends Component {
       });
     } else if (e.which === 13) {
       //on enter add ingredient
-      console.log(this.state.selected.value);
       this.state.selected.value &&
         this.addIngredient(this.state.selected.value, e);
       e.target.blur();
@@ -244,7 +235,7 @@ class IngredientsSelector extends Component {
           >
             <input
               type="text"
-              onChange={this.search}
+              onChange={this.showSearchResults}
               onFocus={() => {
                 this.setState({ add: true });
               }}
@@ -259,7 +250,6 @@ class IngredientsSelector extends Component {
               <AddDropdown
                 filteredIngredients={this.state.filteredIngredients}
                 addIngredient={this.addIngredient}
-                searchIngredients={this.searchIngredients}
                 search={this.state.search}
                 handleChange={this.handleChange}
                 closeDropdown={this.closeDropdown}

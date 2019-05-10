@@ -65,6 +65,7 @@ const ingredientsReducer = (state = ingredientsState, action) => {
           };
 
     case actionTypes.SHOW_INGREDIENTS:
+      //updates ingredients in the global state
       return {
         ...state,
         ingredients: state.ingredients.map(item =>
