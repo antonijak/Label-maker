@@ -35,6 +35,7 @@ const Form = ({
   country,
   selectCountry
 }) => {
+  console.log(countries);
   return (
     <div className="form-container">
       <form className="form" onSubmit={() => {}}>

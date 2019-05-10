@@ -152,8 +152,11 @@ const ingredientsReducer = (state = ingredientsState, action) => {
       //sort countries by alphabet and save them in the state
       const countries = action.payload.sort((a, b) =>
         a.countryName.localeCompare(b.countryName)
-      ) || ['Finland', 'Sweden'];
-      return { ...state, countries };
+      );
+      return {
+        ...state,
+        countries: countries ? countries : ['Finland', 'Sweden']
+      };
 
     case actionTypes.SELECT_COUNTRY:
       value = action.payload.target.value.toString();
