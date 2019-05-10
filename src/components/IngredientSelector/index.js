@@ -251,7 +251,11 @@ class IngredientsSelector extends Component {
               className="ingredients-selector__picker__cont__search"
               value={this.state.search}
               autoComplete="off"
-              onBlur={e => this.state.selected.value && e.stopPropagation()}
+              onBlur={e => {
+                if (this.state.selected.value && this.state.search === '') {
+                  e.stopPropagation();
+                }
+              }}
             />
 
             {this.state.add && (
