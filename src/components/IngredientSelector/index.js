@@ -44,6 +44,14 @@ class IngredientsSelector extends Component {
     return arrayToFilter.filter(item => !arrayWithDuplictes.includes(item));
   };
 
+  handleTitle = e => {
+    e.preventDefault();
+    const { value } = e.target;
+
+    this.props.showIngredients({ ...this.state.part, title: value });
+    this.setState({ part: { ...this.state.part, title: value } });
+  };
+
   searchForIngredient = e => {
     //when user types
     //set 'search' to input value
@@ -62,14 +70,6 @@ class IngredientsSelector extends Component {
           )
         : this.state.mostUsedIngredients
     });
-  };
-
-  handleTitle = e => {
-    e.preventDefault();
-    const { value } = e.target;
-
-    this.props.showIngredients({ ...this.state.part, title: value });
-    this.setState({ part: { ...this.state.part, title: value } });
   };
 
   addIngredient = (ingredient, e) => {
@@ -134,6 +134,7 @@ class IngredientsSelector extends Component {
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
+    //drag and drop ingredients
     this.props.showIngredients({
       ...this.state.part,
       addedIngredients: arrayMove(
@@ -155,6 +156,7 @@ class IngredientsSelector extends Component {
   };
 
   closeDropdown = () => {
+    //close dropdown and fill filteredIngredients with most used ingredients
     this.setState({
       add: false,
       search: '',
@@ -176,7 +178,6 @@ class IngredientsSelector extends Component {
   handleKeyDown = e => {
     //handles keys when ingredient selector dropdown is focused
 
-    //console.log(e.which);
     let selectedIndex = this.state.selected.index;
     let nextSelectedIndex =
       selectedIndex + 1 < this.state.filteredIngredients.length
