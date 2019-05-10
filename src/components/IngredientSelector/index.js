@@ -159,7 +159,9 @@ class IngredientsSelector extends Component {
     this.setState({
       add: false,
       search: '',
-      filteredIngredients: this.state.mostUsedIngredients
+      filteredIngredients: this.state.mostUsedIngredients.filter(
+        item => item !== this.state.selected.value
+      )
     });
   };
 
@@ -251,11 +253,6 @@ class IngredientsSelector extends Component {
               className="ingredients-selector__picker__cont__search"
               value={this.state.search}
               autoComplete="off"
-              onBlur={e => {
-                if (this.state.selected.value && this.state.search === '') {
-                  e.stopPropagation();
-                }
-              }}
             />
 
             {this.state.add && (
