@@ -8,6 +8,13 @@ export function handleChange(event) {
   };
 }
 
+export function handleDate(event) {
+  return {
+    type: actionTypes.HANDLE_DATE,
+    payload: event
+  };
+}
+
 export function handleParts(e, id, value) {
   return {
     type: actionTypes.HANDLE_PARTS,

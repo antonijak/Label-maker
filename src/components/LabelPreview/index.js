@@ -203,19 +203,16 @@ class LabelPreview extends Component {
 const mapStateToProps = ({
   ingredientsReducer,
   companiesReducer,
-  nutritionalReducer
+  nutritionalReducer,
+  generalReducer
 }) => ({
   title: ingredientsReducer.title,
   description: ingredientsReducer.description,
   ingredients: ingredientsReducer.ingredients,
   mostUsedIngredients: ingredientsReducer.mostUsedIngredients,
   traces: ingredientsReducer.traces,
-  weight: ingredientsReducer.weight,
-  unit: ingredientsReducer.unit,
-  date: ingredientsReducer.date,
   producer: companiesReducer.producer,
   distributor: companiesReducer.distributor,
-  country: ingredientsReducer.country,
   energyKcal: nutritionalReducer.energyKcal,
   energyKJ: nutritionalReducer.energyKJ,
   fatGram: nutritionalReducer.fatGram,
@@ -234,7 +231,11 @@ const mapStateToProps = ({
   proteinPercent: nutritionalReducer.proteinPercent,
   sodiumGram: nutritionalReducer.sodiumGram,
   sodiumPercent: nutritionalReducer.sodiumPercent,
-  className: ingredientsReducer.className
+  className: generalReducer.className,
+  weight: generalReducer.weight,
+  unit: generalReducer.unit,
+  date: generalReducer.date,
+  country: generalReducer.country
 });
 
 const mapDispatchToProps = dispatch => ({

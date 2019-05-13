@@ -21,9 +21,7 @@ const Form = ({
   ingredients,
   weight,
   date,
-  ingredientsValidationErrors,
-  handleChange,
-  validate,
+  generalValidationErrors,
   companiesValidationErrors,
   producer,
   distributor,
@@ -33,7 +31,10 @@ const Form = ({
   distributorsVisible,
   countries,
   country,
-  selectCountry
+  selectCountry,
+  handleChange,
+  handleDate,
+  validate
 }) => {
   return (
     <div className="form-container">
@@ -71,7 +72,7 @@ const Form = ({
         <div className="container form__package">
           <div className="form__package__weight">
             <small className="form__package__weight__message">
-              {ingredientsValidationErrors.weight}
+              {generalValidationErrors.weight}
             </small>
 
             <label className="form__package__weight__label">
@@ -93,7 +94,7 @@ const Form = ({
 
           <div className="form__package__date">
             <small className="form__package__date__message">
-              {ingredientsValidationErrors.date}
+              {generalValidationErrors.date}
             </small>
             <label className="form__package__date__label">
               <span className="form__package__date__label__text">
@@ -104,7 +105,7 @@ const Form = ({
                 type="date"
                 className="form__package__date__label__input"
                 value={date}
-                onChange={handleChange}
+                onChange={handleDate}
                 onBlur={validate}
                 min={today}
               />
@@ -160,14 +161,15 @@ const Form = ({
   );
 };
 
-const mapStateToProps = ({ ingredientsReducer, companiesReducer }) => {
+const mapStateToProps = ({
+  ingredientsReducer,
+  companiesReducer,
+  generalReducer
+}) => {
   return {
     title: ingredientsReducer.title,
     description: ingredientsReducer.description,
     ingredients: ingredientsReducer.ingredients,
-    weight: ingredientsReducer.weight,
-    date: ingredientsReducer.date,
-    ingredientsValidationErrors: ingredientsReducer.validationErrors,
     companiesValidationErrors: companiesReducer.validationErrors,
     producer: companiesReducer.producer,
     distributor: companiesReducer.distributor,
@@ -175,8 +177,11 @@ const mapStateToProps = ({ ingredientsReducer, companiesReducer }) => {
     distributorsList: companiesReducer.distributorsList,
     producersVisible: companiesReducer.producersVisible,
     distributorsVisible: companiesReducer.distributorsVisible,
-    countries: ingredientsReducer.countries,
-    country: ingredientsReducer.country
+    weight: generalReducer.weight,
+    date: generalReducer.date,
+    countries: generalReducer.countries,
+    country: generalReducer.country,
+    generalValidationErrors: generalReducer.validationErrors
   };
 };
 
@@ -184,7 +189,8 @@ const mapDispatchToProps = dispatch => {
   return {
     handleChange: e => dispatch(actions.handleChange(e)),
     validate: e => dispatch(actions.validate(e)),
-    selectCountry: e => dispatch(actions.selectCountry(e))
+    selectCountry: e => dispatch(actions.selectCountry(e)),
+    handleDate: e => dispatch(actions.handleDate(e))
   };
 };
 

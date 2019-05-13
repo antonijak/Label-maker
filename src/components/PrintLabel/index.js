@@ -11,16 +11,21 @@ import './styles.scss';
 
 const PrintLabel = ({ title, handleAlert, alert }) => {
   const generatePDF = () => {
+    //show alert that document is being generated
     handleAlert();
     let element = document.getElementById('stickers');
+    //scale determines quality of the image starting at 1
     html2canvas(element, { scale: 3 }).then(function(canvas) {
       var img = canvas.toDataURL('image/png');
+      //landscape, measurements in mm, a4 format
       var doc = new jsPDF('l', 'mm', 'a4');
       doc.addImage(img, 'JPEG', 0, 0, 297, 210);
       doc.save(`${title}.pdf`);
+      //hide alert
       handleAlert();
     });
   };
+  //will be controled by the user
   const columns = 7;
   const rows = 3;
   const width = '1fr';

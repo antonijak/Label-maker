@@ -216,7 +216,7 @@ class IngredientsSelector extends Component {
   };
 
   render() {
-    const { handleParts, ingredients } = this.props;
+    const { ingredients, handleParts } = this.props;
     const { id, title } = this.state.part;
 
     return (
