@@ -9,11 +9,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 
   &__button {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    position: relative;
 
     &__back {
       text-decoration: none;
@@ -23,6 +25,19 @@
       text-align: center;
       background: $ingredient;
     }
+
+    &__alert {
+      position: absolute;
+      top: -5rem;
+      background: $add-hover;
+      width: 100%;
+      color: $add-dark;
+      text-align: center;
+      padding: 0.5rem;
+      line-height: 1.5rem;
+      border-radius: 3px;
+    }
+
     &__generate {
       background: $add;
       color: white;

@@ -9,14 +9,16 @@ import LabelPreview from '../LabelPreview/index';
 
 import './styles.scss';
 
-const PrintLabel = ({ title }) => {
+const PrintLabel = ({ title, handleAlert, alert }) => {
   const generatePDF = () => {
+    handleAlert();
     let element = document.getElementById('stickers');
     html2canvas(element, { scale: 3 }).then(function(canvas) {
       var img = canvas.toDataURL('image/png');
       var doc = new jsPDF('l', 'mm', 'a4');
       doc.addImage(img, 'JPEG', 0, 0, 297, 210);
       doc.save(`${title}.pdf`);
+      handleAlert();
     });
   };
   const columns = 7;
@@ -76,10 +78,19 @@ const PrintLabel = ({ title }) => {
         <Link to="/" className="print-label__button__back btn">
           Back
         </Link>
+
+        {alert && (
+          <span className="print-label__button__alert" role="alert">
+            Generating PDF document...
+          </span>
+        )}
+
         <button
           type="button"
           className="btn print-label__button__generate"
-          onClick={() => generatePDF()}
+          onClick={() => {
+            generatePDF();
+          }}
         >
           Generate PDF
         </button>
@@ -88,7 +99,11 @@ const PrintLabel = ({ title }) => {
   );
 };
 
-const mapStateToProps = ({ ingredientsReducer, companiesReducer }) => {
+const mapStateToProps = ({
+  ingredientsReducer,
+  companiesReducer,
+  generalReducer
+}) => {
   return {
     title: ingredientsReducer.title,
     description: ingredientsReducer.description,
@@ -104,7 +119,8 @@ const mapStateToProps = ({ ingredientsReducer, companiesReducer }) => {
     producersVisible: companiesReducer.producersVisible,
     distributorsVisible: companiesReducer.distributorsVisible,
     countries: ingredientsReducer.countries,
-    country: ingredientsReducer.country
+    country: ingredientsReducer.country,
+    alert: generalReducer.alert
   };
 };
 
@@ -112,7 +128,8 @@ const mapDispatchToProps = dispatch => {
   return {
     handleChange: e => dispatch(actions.handleChange(e)),
     validate: e => dispatch(actions.validate(e)),
-    selectCountry: e => dispatch(actions.selectCountry(e))
+    selectCountry: e => dispatch(actions.selectCountry(e)),
+    handleAlert: () => dispatch(actions.handleAlert())
   };
 };
 

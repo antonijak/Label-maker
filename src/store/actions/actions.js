@@ -136,3 +136,9 @@ export function validateNutrient(event) {
     payload: event
   };
 }
+
+export function handleAlert() {
+  return {
+    type: actionTypes.HANDLE_ALERT
+  };
+}
