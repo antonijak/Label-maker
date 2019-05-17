@@ -1,6 +1,6 @@
 # Label maker \*Pre-alpha
 
-### Tool for making cany labels for small reselers.
+### Tool for making candy labels for small reselers.
 
 See [live](https://hopeful-rosalind-652722.netlify.com/)
 
