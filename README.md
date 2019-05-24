@@ -23,7 +23,7 @@ Tool for making low risk foor labels for small reselers.
 
 ## Future Features
 
-- option of multiple languages tranlsation
+- option of multiple language translation
 - custom sticker size in PDF document
 
 ## Getting started
