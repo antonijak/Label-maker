@@ -1,11 +1,39 @@
-# Label maker \*Pre-alpha
+# Label maker
 
-### Tool for making candy labels for small reselers.
+Tool for making low risk foor labels for small reselers.
 
-See [live](https://hopeful-rosalind-652722.netlify.com/)
+## See [demo](https://hopeful-rosalind-652722.netlify.com/)
 
-Description:
+## Technologies
 
-- The tool is going to minimize the errors in creating food product labels such as typos, unmarked allergens, accidentally ommiting required information and other common mistakes in creating labels.
+- React
+- React-Router
+- Redux
 
-- The final version will return .pdf version for printable stickers.
+## Features
+
+- minimizes the errors in creating food product labels such as:
+
+  - typos
+  - unmarked allergens
+  - accidentally ommiting required information
+  - and other common mistakes in creating labels.
+
+- generates PDF document for printable stickers
+
+## Future Features
+
+- option of multiple languages tranlsation
+- custom sticker size in PDF document
+
+## Getting started
+
+`> git clone https://github.com/antonijak/Label-maker.git`
+
+`> cd 1.6.-Blog-App-Redux-and-Router`
+
+`> yarn install`
+
+`> yarn start`
+
+![](label.gif)
