@@ -30,7 +30,7 @@ Tool for making low risk foor labels for small reselers.
 
 `> git clone https://github.com/antonijak/Label-maker.git`
 
-`> cd 1.6.-Blog-App-Redux-and-Router`
+`> cd Label-maker`
 
 `> yarn install`
 
